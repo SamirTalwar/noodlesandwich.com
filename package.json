@@ -1,0 +1,19 @@
+{
+  "name": "noodlesandwich.com",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/main.js",
+  "homepage": "https://noodlesandwich.com/",
+  "author": "Samir Talwar",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SamirTalwar/noodlesandwich.com.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SamirTalwar/noodlesandwich.com/issues"
+  },
+  "scripts": {
+    "start": "./src/main.js"
+  }
+}
