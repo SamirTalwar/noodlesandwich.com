@@ -18,6 +18,11 @@
     "test": "npm run --silent lint",
     "lint": "standard"
   },
+  "dependencies": {
+    "koa": "^1.2.2",
+    "koa-route": "^2.4.2",
+    "pug": "^2.0.0-beta6"
+  },
   "devDependencies": {
     "standard": "^8.0.0"
   }
