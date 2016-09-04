@@ -55,9 +55,8 @@ html
           each talk in upcomingTalks
             article
               p
-                a(href=talk.link)
-                  | #{talk.title}
-                  br
-                  small #{talk.event} @ #{talk.location}
-                  br
-                  small #{talk.formattedDate}
+                a(href=talk.link) #{talk.title}
+                br
+                small #{talk.event} @ #{talk.location}
+                br
+                small #{talk.formattedDate}
