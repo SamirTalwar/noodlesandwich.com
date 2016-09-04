@@ -56,6 +56,9 @@ html
             article
               p
                 a(href=talk.link) #{talk.title}
+                if talk.partner
+                  br
+                  small with #[a(href=talk.partner.link) #{talk.partner.name}]
                 br
                 small #{talk.event} @ #{talk.location}
                 br
