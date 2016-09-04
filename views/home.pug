@@ -1,77 +1,42 @@
-doctype html
-html
-  head
-    meta(charset='utf-8')
-    title [≈]
-    link(rel='stylesheet' href='/site.css')
-    script(src='https://use.fontawesome.com/c941d87d5e.js' defer)
+extend layout.pug
 
-  body
+block main
+  section.narrow.about-me
     header
-      h1
-        a(href='/') [≈]
+      h2 About me
 
-      nav.navigation
-        ul
-          li
-            a(href='/') Home
-          li
-            a(href='http://monospacedmonologues.com/') Blog
-          li
-            a(href='http://talks.samirtalwar.com/') Previous Talks
+    p Hi there. My name is Samir Talwar.
 
-      nav.external
-        ul
-          li
-            a(href='https://twitter.com/SamirTalwar')
-              i(class='fa fa-twitter' aria-hidden='true')
-          li
-            a(href='https://github.com/SamirTalwar')
-              i(class='fa fa-github' aria-hidden='true')
-          li
-            a(href='https://stackoverflow.com/cv/SamirTalwar')
-              i(class='fa fa-stack-overflow' aria-hidden='true')
-          li
-            a(href='https://www.linkedin.com/in/samirtalwar')
-              i(class='fa fa-linkedin' aria-hidden='true')
+    p I'm an automation engineer and software crafter, living in London. My main foci are functional programming, cloud systems and containers.
 
-    main
-      section.about-me
-        header
-          h2 About me
+    p I also teach others how to do what I do.
 
-        p Hi there. My name is Samir Talwar.
+    p Currently, I'm off on a new venture and not looking for work. Watch this space.
 
-        p I'm an automation engineer and software crafter, living in London. My main foci are functional programming, cloud systems and containers.
+  section.narrow.upcoming-events
+    mixin events(title, events)
+      header
+        h2 Upcoming #{title}
 
-        p I also teach others how to do what I do.
+        if events.length === 0
+          p No upcoming #{title}.
 
-        p Currently, I'm off on a new venture and not looking for work. Watch this space.
+        else
+          each event in events
+            article
+              p
+                a(href=(event.slug ? `/events/${event.slug}/${event.isoDate}` : event.link)) #{event.title}
+                if event.partner
+                  br
+                  small with #[a(href=event.partner.link) #{event.partner.name}]
+                br
+                if event.event
+                  small #{event.event} @ #{event.location}
+                else
+                  small #{event.location}
+                br
+                small #{event.formattedDate}
 
-      section.upcoming-events
-        mixin events(title, events)
-          header
-            h2 Upcoming #{title}
+    +events('workshops', upcomingWorkshops)
 
-            if events.length === 0
-              p No upcoming #{title}.
-
-            else
-              each event in events
-                article
-                  p
-                    a(href=(event.slug ? `/events/${event.slug}/${event.isoDate}` : event.link)) #{event.title}
-                    if event.partner
-                      br
-                      small with #[a(href=event.partner.link) #{event.partner.name}]
-                    br
-                    if event.event
-                      small #{event.event} @ #{event.location}
-                    else
-                      small #{event.location}
-                    br
-                    small #{event.formattedDate}
-
-        +events('workshops', upcomingWorkshops)
-
-        +events('talks', upcomingTalks)
+    +events('talks', upcomingTalks)

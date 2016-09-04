@@ -83,7 +83,10 @@ main {
 
   > section {
     flex-grow: 1;
-    max-width: 50%;
+
+    &.narrow {
+      flex-basis: 50%;
+    }
 
     &:not(:first-child) {
       padding-left: 1em;

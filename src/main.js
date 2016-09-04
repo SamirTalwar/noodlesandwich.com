@@ -36,14 +36,20 @@ const renderSass = denodeify(sass.render)
 
 const loadDatabase = function*() {
   const data = yaml.safeLoad(yield readFile('database.yaml'))
-  data.upcomingTalks = formatEvents(data.talks)
-  data.upcomingWorkshops = formatEvents(data.workshops)
+  data.talks = parseDates(data.talks)
+  data.workshops = parseDates(data.workshops)
+
+  const today = moment().startOf('day')
+  data.upcomingTalks = data.talks
+    .filter(event => event.date.isAfter(today))
+  data.upcomingWorkshops = data.workshops
+    .filter(event => event.date.isAfter(today))
+
   return data
 }
 
-const formatEvents = events => {
-  const today = moment().startOf('day')
-  return (events || [])
+const parseDates = events =>
+  (events || [])
     .map(event =>
       Object.assign({}, event, {date: moment(event.date)}))
     .map(event =>
@@ -51,21 +57,16 @@ const formatEvents = events => {
         isoDate: event.date.format('YYYY-MM-DD'),
         formattedDate: event.date.format('dddd Do MMMM, YYYY')
       }))
-    .filter(event => event.date.isAfter(today))
-}
 
-const pages = {
-  home: function*(data) {
-    const template = yield readFile('views/home.pug')
-    return pug.compile(template, {filename: 'views/home.pug', pretty: true})(data)
-  }
+const page = viewFile => function*(data) {
+  return pug.compileFile(`views/${viewFile}`, {pretty: true})(data)
 }
 
 const app = koa.app()
 app.use(koa.route.get('/', function*() {
   const data = yield loadDatabase()
   this.type = 'text/html'
-  this.body = yield pages.home(data)
+  this.body = yield page('home.pug')(data)
 }))
 app.use(koa.route.get('/site.css', function*() {
   this.type = 'text/css'
