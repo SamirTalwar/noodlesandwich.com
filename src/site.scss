@@ -20,13 +20,22 @@ header {
   nav {
     > ul {
       display: flex;
+      padding: 0;
       justify-content: center;
       list-style: none;
+
+      > li > a {
+        display: block;
+      }
+    }
+  }
+
+  .navigation {
+    > ul {
       background-color: $link-color;
       color: white;
 
       > li > a {
-        display: block;
         padding: 5px 1em;
         color: white;
 
@@ -42,6 +51,19 @@ header {
     }
   }
 
+  .external {
+    font-size: 2em;
+
+    > ul {
+      margin: 0.5em;
+    }
+
+    .fa {
+      display: block;
+      padding: 5px 1em;
+    }
+  }
+
   a {
     text-decoration: none;
   }
@@ -50,7 +72,7 @@ header {
 a {
   color: $link-color;
 
-  &:hover {
+  &:hover, .fa:hover {
     color: $link-hover-color;
   }
 
