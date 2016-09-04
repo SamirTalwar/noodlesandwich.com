@@ -4,3 +4,21 @@ talks:
     location: Sopot, Poland
     date: 2016-09-09
     link: http://2016.reactive.geecon.org/
+
+  - title: Staying lean with application logs
+    event: DevOps Linz
+    location: Linz, Austria
+    date: 2016-09-22
+    link: http://topconf.com/devops-linz-2016/
+
+  - title: I've got 99 problems and asynchronous programming is 127 of them
+    event: Codemotion Berlin
+    location: Berlin, Germany
+    date: 2016-10-24
+    link: http://berlin2016.codemotionworld.com/
+
+  - title: Staying lean with application logs
+    event: TopConf Tallinn
+    location: Tallinn, Estonia
+    date: 2016-11-17
+    link: http://topconf.com/tallinn-2016/
