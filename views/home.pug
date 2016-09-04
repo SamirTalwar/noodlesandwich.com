@@ -51,3 +51,13 @@ html
       section.talks
         header
           h2 Upcoming talks and workshops
+
+          each talk in talks
+            article
+              p
+                a(href=talk.link)
+                  | #{talk.title}
+                  br
+                  small #{talk.event} @ #{talk.location}
+                  br
+                  small #{talk.formattedDate}

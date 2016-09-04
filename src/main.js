@@ -5,8 +5,10 @@ const koa = {
   app: require('koa'),
   route: require('koa-route')
 }
+const moment = require('moment')
 const pug = require('pug')
 const sass = require('node-sass')
+const yaml = require('js-yaml')
 
 const env = name => {
   const value = process.env[name]
@@ -32,17 +34,26 @@ const denodeify = func => (...args) =>
 const readFile = denodeify(fs.readFile)
 const renderSass = denodeify(sass.render)
 
+const loadDatabase = function*() {
+  const data = yaml.safeLoad(yield readFile('database.yaml'))
+  data.talks.forEach(talk => {
+    talk.formattedDate = moment(talk.date).format('Do MMMM, YYYY')
+  })
+  return data
+}
+
 const pages = {
-  home: function*() {
+  home: function*(data) {
     const template = yield readFile('views/home.pug')
-    return pug.compile(template, {filename: 'views/home.pug', pretty: true})()
+    return pug.compile(template, {filename: 'views/home.pug', pretty: true})(data)
   }
 }
 
 const app = koa.app()
 app.use(koa.route.get('/', function*() {
+  const data = yield loadDatabase()
   this.type = 'text/html'
-  this.body = yield pages.home()
+  this.body = yield pages.home(data)
 }))
 app.use(koa.route.get('/site.css', function*() {
   this.type = 'text/css'
