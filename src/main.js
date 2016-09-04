@@ -45,9 +45,11 @@ const formatEvents = events => {
   const today = moment().startOf('day')
   return (events || [])
     .map(event =>
+      Object.assign({}, event, {date: moment(event.date)}))
+    .map(event =>
       Object.assign({}, event, {
-        date: moment(event.date),
-        formattedDate: moment(event.date).format('dddd Do MMMM, YYYY')
+        isoDate: event.date.format('YYYY-MM-DD'),
+        formattedDate: event.date.format('dddd Do MMMM, YYYY')
       }))
     .filter(event => event.date.isAfter(today))
 }

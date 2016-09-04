@@ -60,7 +60,7 @@ html
               each event in events
                 article
                   p
-                    a(href=(event.id ? `/events/${event.id}` : event.link)) #{event.title}
+                    a(href=(event.slug ? `/events/${event.slug}/${event.isoDate}` : event.link)) #{event.title}
                     if event.partner
                       br
                       small with #[a(href=event.partner.link) #{event.partner.name}]

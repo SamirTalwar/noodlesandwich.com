@@ -1,5 +1,5 @@
 workshops:
-  - id: tdd
+  - slug: tdd
     title: Introduction to test-driven development
     partner:
       name: David Tanzer
