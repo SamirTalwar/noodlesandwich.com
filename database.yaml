@@ -1,3 +1,12 @@
+workshops:
+  - id: tdd
+    title: Introduction to test-driven development
+    partner:
+      name: David Tanzer
+      link: http://www.davidtanzer.net/
+    location: London, UK
+    date: 2016-10-20
+
 talks:
   - title: Driving new features quickly and safely with Elm
     event: GeeCon Reactive

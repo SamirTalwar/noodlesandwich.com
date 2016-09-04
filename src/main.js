@@ -36,15 +36,20 @@ const renderSass = denodeify(sass.render)
 
 const loadDatabase = function*() {
   const data = yaml.safeLoad(yield readFile('database.yaml'))
-  const today = moment().startOf('day')
-  data.upcomingTalks = data.talks
-    .map(talk =>
-      Object.assign({}, talk, {
-        date: moment(talk.date),
-        formattedDate: moment(talk.date).format('Do MMMM, YYYY')
-      }))
-    .filter(talk => talk.date.isAfter(today))
+  data.upcomingTalks = formatEvents(data.talks)
+  data.upcomingWorkshops = formatEvents(data.workshops)
   return data
+}
+
+const formatEvents = events => {
+  const today = moment().startOf('day')
+  return events
+    .map(event =>
+      Object.assign({}, event, {
+        date: moment(event.date),
+        formattedDate: moment(event.date).format('dddd Do MMMM, YYYY')
+      }))
+    .filter(event => event.date.isAfter(today))
 }
 
 const pages = {
