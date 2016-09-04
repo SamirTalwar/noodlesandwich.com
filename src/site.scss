@@ -1,3 +1,60 @@
+@import 'normalize.scss';
+
+$link-color: #8e68a3;
+$link-hover-color: #b397c3;
+$link-visited-color: #6f4288;
+
 body {
+  max-width: 800px;
+  margin: 0 auto;
   font-family: 'Source Code Pro', monospace;
+}
+
+header {
+  h1 {
+    text-align: center;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 3em;
+  }
+
+  nav {
+    > ul {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      background-color: $link-color;
+      color: white;
+
+      > li > a {
+        display: block;
+        padding: 5px 1em;
+        color: white;
+
+        &:hover {
+          background-color: $link-hover-color;
+          color: white;
+        }
+
+        &:visited {
+          color: white;
+        }
+      }
+    }
+  }
+
+  a {
+    text-decoration: none;
+  }
+}
+
+a {
+  color: $link-color;
+
+  &:hover {
+    color: $link-hover-color;
+  }
+
+  &:visited {
+    color: $link-visited-color;
+  }
 }
