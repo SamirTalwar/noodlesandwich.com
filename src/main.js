@@ -68,6 +68,16 @@ app.use(koa.route.get('/', function*() {
   this.type = 'text/html'
   this.body = yield page('home.pug')(data)
 }))
+app.use(koa.route.get('/events/:slug/:date', function*(slug, date) {
+  const data = yield loadDatabase()
+  const event = data.workshops.concat(data.talks).find(event => event.slug === slug && event.isoDate === date)
+  if (!event) {
+    this.throw(404)
+  }
+
+  this.type = 'text/html'
+  this.body = yield page(`events/${slug}.pug`)(event)
+}))
 app.use(koa.route.get('/site.css', function*() {
   this.type = 'text/css'
   this.body = (yield renderSass({file: 'src/site.scss'})).css

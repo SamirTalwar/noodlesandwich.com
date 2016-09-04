@@ -18,7 +18,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: normal;
 }
 
-header {
+body > header {
   h1 {
     text-align: center;
     font-family: 'Helvetica Neue', sans-serif;
@@ -71,10 +71,6 @@ header {
       padding: 5px 1em;
     }
   }
-
-  a {
-    text-decoration: none;
-  }
 }
 
 main {
@@ -100,6 +96,7 @@ main {
 }
 
 a {
+  text-decoration: none;
   color: $link-color;
 
   &:hover, .fa:hover {
