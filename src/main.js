@@ -43,7 +43,7 @@ const loadDatabase = function*() {
 
 const formatEvents = events => {
   const today = moment().startOf('day')
-  return events
+  return (events || [])
     .map(event =>
       Object.assign({}, event, {
         date: moment(event.date),

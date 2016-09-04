@@ -51,23 +51,27 @@ html
       section.upcoming-events
         mixin events(title, events)
           header
-            h2 #{title}
+            h2 Upcoming #{title}
 
-            each event in events
-              article
-                p
-                  a(href=(event.id ? `/events/${event.id}` : event.link)) #{event.title}
-                  if event.partner
+            if events.length === 0
+              p No upcoming #{title}.
+
+            else
+              each event in events
+                article
+                  p
+                    a(href=(event.id ? `/events/${event.id}` : event.link)) #{event.title}
+                    if event.partner
+                      br
+                      small with #[a(href=event.partner.link) #{event.partner.name}]
                     br
-                    small with #[a(href=event.partner.link) #{event.partner.name}]
-                  br
-                  if event.event
-                    small #{event.event} @ #{event.location}
-                  else
-                    small #{event.location}
-                  br
-                  small #{event.formattedDate}
+                    if event.event
+                      small #{event.event} @ #{event.location}
+                    else
+                      small #{event.location}
+                    br
+                    small #{event.formattedDate}
 
-        +events('Upcoming workshops', upcomingWorkshops)
+        +events('workshops', upcomingWorkshops)
 
-        +events('Upcoming talks', upcomingTalks)
+        +events('talks', upcomingTalks)
