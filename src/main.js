@@ -36,9 +36,14 @@ const renderSass = denodeify(sass.render)
 
 const loadDatabase = function*() {
   const data = yaml.safeLoad(yield readFile('database.yaml'))
-  data.talks.forEach(talk => {
-    talk.formattedDate = moment(talk.date).format('Do MMMM, YYYY')
-  })
+  const today = moment().startOf('day')
+  data.upcomingTalks = data.talks
+    .map(talk =>
+      Object.assign({}, talk, {
+        date: moment(talk.date),
+        formattedDate: moment(talk.date).format('Do MMMM, YYYY')
+      }))
+    .filter(talk => talk.date.isAfter(today))
   return data
 }
 
