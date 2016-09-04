@@ -4,10 +4,18 @@ $link-color: #8e68a3;
 $link-hover-color: #b397c3;
 $link-visited-color: #6f4288;
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   max-width: 800px;
   margin: 0 auto;
   font-family: 'Source Code Pro', monospace;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
 }
 
 header {
@@ -66,6 +74,25 @@ header {
 
   a {
     text-decoration: none;
+  }
+}
+
+main {
+  display: flex;
+  flex-wrap: wrap;
+
+  > section {
+    flex-grow: 1;
+    max-width: 50%;
+
+    &:not(:first-child) {
+      padding-left: 1em;
+      border-left: 1px solid $link-color;
+    }
+
+    &:not(:last-child) {
+      padding-right: 1em;
+    }
   }
 }
 
