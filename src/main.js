@@ -59,7 +59,7 @@ const parseDates = events =>
       }))
 
 const page = viewFile => function*(data) {
-  return pug.compileFile(`views/${viewFile}`, {pretty: true})(data)
+  return pug.compileFile(`src/views/${viewFile}`, {pretty: true})(data)
 }
 
 const app = koa.app()
