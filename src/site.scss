@@ -79,18 +79,23 @@ main {
 
   > section {
     flex-grow: 1;
+    padding: 0 1em 1em;
 
-    &.narrow {
-      flex-basis: 50%;
+    @media (max-width: 800px) {
+      &:not(:first-child) {
+        border-top: 1px solid $link-color;
+        padding: 1em;
+      }
     }
 
-    &:not(:first-child) {
-      padding-left: 1em;
-      border-left: 1px solid $link-color;
-    }
+    @media (min-width: 801px) {
+      &.narrow {
+        flex-basis: 50%;
+      }
 
-    &:not(:last-child) {
-      padding-right: 1em;
+      &:nth-child(2n) {
+        border-left: 1px solid $link-color;
+      }
     }
   }
 }
