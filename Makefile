@@ -13,6 +13,7 @@ lint:
 
 .PHONY: push
 push: build check
+	git push
 	docker push $(TAG)
 	heroku container:push web
 
