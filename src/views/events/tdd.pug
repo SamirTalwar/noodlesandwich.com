@@ -3,8 +3,11 @@ extend ../layout.pug
 block main
   section
     header
-      h1 #{title}
-      h2 with #[a(href=partner.link) #{partner.name}]
+      h1
+        | #{title}
+        br
+        small with #[a(href=partner.link) #{partner.name}]
+      h2 #{formattedDate}
 
       p Test-driven development can help you write clean code, catch bugs early, and have the confidence to change your code when you need it. In this #[strong hands-on] workshop, you will learn and practice the basics of TDD.
 
