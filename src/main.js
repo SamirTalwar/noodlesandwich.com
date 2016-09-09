@@ -43,9 +43,9 @@ const loadDatabase = function*() {
 
   const today = moment().startOf('day')
   data.upcomingTalks = data.talks
-    .filter(event => event.date.isAfter(today))
+    .filter(event => event.date.isSameOrAfter(today))
   data.upcomingWorkshops = data.workshops
-    .filter(event => event.date.isAfter(today))
+    .filter(event => event.date.isSameOrAfter(today))
 
   return data
 }
