@@ -23,6 +23,7 @@ run: build
 		--rm \
 		--interactive --tty \
 		--publish=8080:8080 \
+		--env=NODE_ENV=$$NODE_ENV \
 		--env=PORT=8080 \
 		--volume=$$PWD/database.yaml:/usr/src/app/database.yaml \
 		--volume=$$PWD/src:/usr/src/app/src \

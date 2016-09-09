@@ -10,8 +10,8 @@ const pug = require('pug')
 const sass = require('node-sass')
 const yaml = require('js-yaml')
 
-const env = name => {
-  const value = process.env[name]
+const env = (name, defaultValue) => {
+  const value = process.env[name] || defaultValue
   if (!value) {
     throw new Error(`Required environment variable: ${name}`)
   }
@@ -19,6 +19,8 @@ const env = name => {
 }
 
 const port = parseInt(env('PORT'), 10)
+const environment = env('NODE_ENV', 'development')
+const inProduction = environment === 'production'
 
 const denodeify = func => (...args) =>
   new Promise((resolve, reject) => {
@@ -59,7 +61,7 @@ const parseDates = events =>
       }))
 
 const page = viewFile => function*(data) {
-  return pug.compileFile(`src/views/${viewFile}`, {pretty: true})(data)
+  return pug.renderFile(`src/views/${viewFile}`, Object.assign({}, data, {pretty: true, cache: inProduction}))
 }
 
 const app = koa.app()
@@ -86,5 +88,6 @@ app.use(koa.route.get('/site.css', function*() {
 app.listen(port)
 console.log(JSON.stringify({
   message: 'Application started.',
-  port: port
+  port: port,
+  environment: environment
 }))
