@@ -9,7 +9,7 @@ check: lint
 
 .PHONY: lint
 lint:
-	npm run lint
+	npm --silent run lint
 
 .PHONY: push
 push: build check
