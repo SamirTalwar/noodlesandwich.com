@@ -65,6 +65,22 @@ const page = viewFile => function*(data) {
 }
 
 const app = koa.app()
+app.use(function *(next) {
+  var start = new Date()
+  yield next
+  var responseTime = new Date() - start
+  console.log(JSON.stringify({
+    request: {
+      method: this.method,
+      url: this.url
+    },
+    response: {
+      status: this.response.status,
+      message: this.response.message,
+      time: responseTime
+    }
+  }))
+})
 app.use(koa.route.get('/', function*() {
   const data = yield loadDatabase()
   this.type = 'text/html'
