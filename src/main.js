@@ -39,23 +39,23 @@ const main = () => {
     yield next
   })
   app.use(koa.route.get('/', function*() {
-    const data = yield loadDatabase(inProduction)
+    const data = yield cached('database', inProduction, loadDatabase)
     this.type = 'text/html'
-    this.body = yield page('home.pug')(data, inProduction)
+    this.body = yield cached('home.pug', inProduction, page('home.pug'))(data)
   }))
   app.use(koa.route.get('/events/:slug/:date', function*(slug, date) {
-    const data = yield loadDatabase(inProduction)
+    const data = yield cached('database', inProduction, loadDatabase)
     const event = data.workshops.concat(data.talks).find(event => event.slug === slug && event.isoDate === date)
     if (!event) {
       this.throw(404)
     }
 
     this.type = 'text/html'
-    this.body = yield page(`events/${slug}.pug`)(event, inProduction)
+    this.body = yield cached(`events/${slug}.pug`, inProduction, page(`events/${slug}.pug`))(event)
   }))
   app.use(koa.route.get('/site.css', function*() {
     this.type = 'text/css'
-    this.body = (yield renderSass({file: 'src/site.scss'})).css
+    this.body = (yield cached('site.scss', inProduction, renderSass)({file: 'src/site.scss'})).css
   }))
 
   app.listen(port)
@@ -88,14 +88,8 @@ const denodeify = func => (...args) =>
 const readFile = denodeify(fs.readFile)
 const renderSass = denodeify(sass.render)
 
-let database
-
-const loadDatabase = function*(inProduction) {
-  if (inProduction && database) {
-    return database
-  }
-
-  database = yaml.safeLoad(yield readFile('database.yaml'))
+const loadDatabase = function*() {
+  const database = yaml.safeLoad(yield readFile('database.yaml'))
   database.talks = parseDates(database.talks)
   database.workshops = parseDates(database.workshops)
 
@@ -118,8 +112,27 @@ const parseDates = events =>
         formattedDate: event.date.format('dddd Do MMMM, YYYY')
       }))
 
-const page = viewFile => function*(data, inProduction) {
-  return pug.renderFile(`src/views/${viewFile}`, Object.assign({}, data, {pretty: true, cache: inProduction}))
+const page = viewFile => function*(data) {
+  return pug.renderFile(`src/views/${viewFile}`, Object.assign({}, data, {pretty: true}))
+}
+
+const cache = new Map()
+const cached = (description, when, behaviour) => function*(...args) {
+  if (!when) {
+    return yield behaviour.apply(this, args)
+  }
+
+  const key = {description: description, arguments: args}
+  const keyString = JSON.stringify(key)
+  let value = cache.get(keyString)
+  if (value == null) {
+    console.log(JSON.stringify({
+      cacheMiss: key
+    }))
+    value = yield behaviour.apply(this, args)
+    cache.set(keyString, value)
+  }
+  return value
 }
 
 main()
