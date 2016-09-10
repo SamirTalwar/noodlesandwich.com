@@ -33,7 +33,7 @@ const main = () => {
     }))
   })
   app.use(function *(next) {
-    this.set('Content-Security-Policy', 'default-src \'self\' https://fonts.googleapis.com https://fonts.gstatic.com https://use.fontawesome.com')
+    this.set('Content-Security-Policy', 'default-src * \'unsafe-inline\'')
     this.set('X-Frame-Options', 'DENY')
     this.set('X-XSS-Protection', '1; mode=block')
     yield next
