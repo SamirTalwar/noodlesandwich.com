@@ -16,33 +16,15 @@ const main = () => {
   const inProduction = environment === 'production'
 
   const app = koa.app()
-  app.use(function *(next) {
-    var start = new Date()
-    yield next
-    var responseTime = new Date() - start
-    console.log(JSON.stringify({
-      request: {
-        method: this.method,
-        url: this.url
-      },
-      response: {
-        status: this.response.status,
-        message: this.response.message,
-        time: responseTime
-      }
-    }))
-  })
-  app.use(function *(next) {
-    this.set('Content-Security-Policy', 'default-src * \'unsafe-inline\'')
-    this.set('X-Frame-Options', 'DENY')
-    this.set('X-XSS-Protection', '1; mode=block')
-    yield next
-  })
+  app.use(timeResponse)
+  app.use(setSecurityHeaders)
+
   app.use(koa.route.get('/', function*() {
     const data = yield cached('database', inProduction, loadDatabase)
     this.type = 'text/html'
     this.body = yield cached('home.pug', inProduction, page('home.pug'))(data)
   }))
+
   app.use(koa.route.get('/events/:slug/:date', function*(slug, date) {
     const data = yield cached('database', inProduction, loadDatabase)
     const event = data.workshops.concat(data.talks).find(event => event.slug === slug && event.isoDate === date)
@@ -53,6 +35,7 @@ const main = () => {
     this.type = 'text/html'
     this.body = yield cached(`events/${slug}.pug`, inProduction, page(`events/${slug}.pug`))(event)
   }))
+
   app.use(koa.route.get('/site.css', function*() {
     this.type = 'text/css'
     this.body = (yield cached('site.scss', inProduction, renderSass)({file: 'src/site.scss'})).css
@@ -66,27 +49,29 @@ const main = () => {
   }))
 }
 
-const env = (name, defaultValue) => {
-  const value = process.env[name] || defaultValue
-  if (!value) {
-    throw new Error(`Required environment variable: ${name}`)
-  }
-  return value
+const timeResponse = function *(next) {
+  var start = new Date()
+  yield next
+  var responseTime = new Date() - start
+  console.log(JSON.stringify({
+    request: {
+      method: this.method,
+      url: this.url
+    },
+    response: {
+      status: this.response.status,
+      message: this.response.message,
+      time: responseTime
+    }
+  }))
 }
 
-const denodeify = func => (...args) =>
-  new Promise((resolve, reject) => {
-    func(...args, (error, value) => {
-      if (error) {
-        reject(error)
-      } else {
-        resolve(value)
-      }
-    })
-  })
-
-const readFile = denodeify(fs.readFile)
-const renderSass = denodeify(sass.render)
+const setSecurityHeaders = function *(next) {
+  this.set('Content-Security-Policy', 'default-src * \'unsafe-inline\'')
+  this.set('X-Frame-Options', 'DENY')
+  this.set('X-XSS-Protection', '1; mode=block')
+  yield next
+}
 
 const loadDatabase = function*() {
   const database = yaml.safeLoad(yield readFile('database.yaml'))
@@ -134,5 +119,27 @@ const cached = (description, when, behaviour) => function*(...args) {
   }
   return value
 }
+
+const env = (name, defaultValue) => {
+  const value = process.env[name] || defaultValue
+  if (!value) {
+    throw new Error(`Required environment variable: ${name}`)
+  }
+  return value
+}
+
+const denodeify = func => (...args) =>
+  new Promise((resolve, reject) => {
+    func(...args, (error, value) => {
+      if (error) {
+        reject(error)
+      } else {
+        resolve(value)
+      }
+    })
+  })
+
+const readFile = denodeify(fs.readFile)
+const renderSass = denodeify(sass.render)
 
 main()
