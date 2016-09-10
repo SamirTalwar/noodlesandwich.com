@@ -36,18 +36,24 @@ const denodeify = func => (...args) =>
 const readFile = denodeify(fs.readFile)
 const renderSass = denodeify(sass.render)
 
+let database
+
 const loadDatabase = function*() {
-  const data = yaml.safeLoad(yield readFile('database.yaml'))
-  data.talks = parseDates(data.talks)
-  data.workshops = parseDates(data.workshops)
+  if (inProduction && database) {
+    return database
+  }
+
+  database = yaml.safeLoad(yield readFile('database.yaml'))
+  database.talks = parseDates(database.talks)
+  database.workshops = parseDates(database.workshops)
 
   const today = moment().startOf('day')
-  data.upcomingTalks = data.talks
+  database.upcomingTalks = database.talks
     .filter(event => event.date.isSameOrAfter(today))
-  data.upcomingWorkshops = data.workshops
+  database.upcomingWorkshops = database.workshops
     .filter(event => event.date.isSameOrAfter(today))
 
-  return data
+  return database
 }
 
 const parseDates = events =>
