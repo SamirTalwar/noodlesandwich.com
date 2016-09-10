@@ -10,6 +10,62 @@ const pug = require('pug')
 const sass = require('node-sass')
 const yaml = require('js-yaml')
 
+const main = () => {
+  const port = parseInt(env('PORT'), 10)
+  const environment = env('NODE_ENV', 'development')
+  const inProduction = environment === 'production'
+
+  const app = koa.app()
+  app.use(function *(next) {
+    var start = new Date()
+    yield next
+    var responseTime = new Date() - start
+    console.log(JSON.stringify({
+      request: {
+        method: this.method,
+        url: this.url
+      },
+      response: {
+        status: this.response.status,
+        message: this.response.message,
+        time: responseTime
+      }
+    }))
+  })
+  app.use(function *(next) {
+    this.set('Content-Security-Policy', 'default-src \'self\' https://fonts.googleapis.com https://fonts.gstatic.com https://use.fontawesome.com')
+    this.set('X-Frame-Options', 'DENY')
+    this.set('X-XSS-Protection', '1; mode=block')
+    yield next
+  })
+  app.use(koa.route.get('/', function*() {
+    const data = yield loadDatabase(inProduction)
+    this.type = 'text/html'
+    this.body = yield page('home.pug')(data, inProduction)
+  }))
+  app.use(koa.route.get('/events/:slug/:date', function*(slug, date) {
+    const data = yield loadDatabase(inProduction)
+    const event = data.workshops.concat(data.talks).find(event => event.slug === slug && event.isoDate === date)
+    if (!event) {
+      this.throw(404)
+    }
+
+    this.type = 'text/html'
+    this.body = yield page(`events/${slug}.pug`)(event, inProduction)
+  }))
+  app.use(koa.route.get('/site.css', function*() {
+    this.type = 'text/css'
+    this.body = (yield renderSass({file: 'src/site.scss'})).css
+  }))
+
+  app.listen(port)
+  console.log(JSON.stringify({
+    message: 'Application started.',
+    port: port,
+    environment: environment
+  }))
+}
+
 const env = (name, defaultValue) => {
   const value = process.env[name] || defaultValue
   if (!value) {
@@ -17,10 +73,6 @@ const env = (name, defaultValue) => {
   }
   return value
 }
-
-const port = parseInt(env('PORT'), 10)
-const environment = env('NODE_ENV', 'development')
-const inProduction = environment === 'production'
 
 const denodeify = func => (...args) =>
   new Promise((resolve, reject) => {
@@ -38,7 +90,7 @@ const renderSass = denodeify(sass.render)
 
 let database
 
-const loadDatabase = function*() {
+const loadDatabase = function*(inProduction) {
   if (inProduction && database) {
     return database
   }
@@ -66,56 +118,8 @@ const parseDates = events =>
         formattedDate: event.date.format('dddd Do MMMM, YYYY')
       }))
 
-const page = viewFile => function*(data) {
+const page = viewFile => function*(data, inProduction) {
   return pug.renderFile(`src/views/${viewFile}`, Object.assign({}, data, {pretty: true, cache: inProduction}))
 }
 
-const app = koa.app()
-app.use(function *(next) {
-  var start = new Date()
-  yield next
-  var responseTime = new Date() - start
-  console.log(JSON.stringify({
-    request: {
-      method: this.method,
-      url: this.url
-    },
-    response: {
-      status: this.response.status,
-      message: this.response.message,
-      time: responseTime
-    }
-  }))
-})
-app.use(function *(next) {
-  this.set('Content-Security-Policy', 'default-src \'self\' https://fonts.googleapis.com https://fonts.gstatic.com https://use.fontawesome.com')
-  this.set('X-Frame-Options', 'DENY')
-  this.set('X-XSS-Protection', '1; mode=block')
-  yield next
-})
-app.use(koa.route.get('/', function*() {
-  const data = yield loadDatabase()
-  this.type = 'text/html'
-  this.body = yield page('home.pug')(data)
-}))
-app.use(koa.route.get('/events/:slug/:date', function*(slug, date) {
-  const data = yield loadDatabase()
-  const event = data.workshops.concat(data.talks).find(event => event.slug === slug && event.isoDate === date)
-  if (!event) {
-    this.throw(404)
-  }
-
-  this.type = 'text/html'
-  this.body = yield page(`events/${slug}.pug`)(event)
-}))
-app.use(koa.route.get('/site.css', function*() {
-  this.type = 'text/css'
-  this.body = (yield renderSass({file: 'src/site.scss'})).css
-}))
-
-app.listen(port)
-console.log(JSON.stringify({
-  message: 'Application started.',
-  port: port,
-  environment: environment
-}))
+main()
