@@ -81,6 +81,12 @@ app.use(function *(next) {
     }
   }))
 })
+app.use(function *(next) {
+  this.set('Content-Security-Policy', 'default-src \'self\' https://fonts.googleapis.com https://fonts.gstatic.com https://use.fontawesome.com')
+  this.set('X-Frame-Options', 'DENY')
+  this.set('X-XSS-Protection', '1; mode=block')
+  yield next
+})
 app.use(koa.route.get('/', function*() {
   const data = yield loadDatabase()
   this.type = 'text/html'
