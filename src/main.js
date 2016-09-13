@@ -10,35 +10,39 @@ const pug = require('pug')
 const sass = require('node-sass')
 const yaml = require('js-yaml')
 
+const Cache = require('./cache')
+
 const main = () => {
   const port = parseInt(env('PORT'), 10)
   const environment = env('NODE_ENV', 'development')
   const inProduction = environment === 'production'
+
+  const cache = Cache(inProduction)
 
   const app = koa.app()
   app.use(timeResponse)
   app.use(setSecurityHeaders)
 
   app.use(koa.route.get('/', function*() {
-    const data = yield cached('database', inProduction, loadDatabase)
+    const data = yield cache.get('database', loadDatabase)
     this.type = 'text/html'
-    this.body = yield cached('home.pug', inProduction, page('home.pug'))(data)
+    this.body = yield cache.get('home.pug', page('home.pug'))(data)
   }))
 
   app.use(koa.route.get('/events/:slug/:date', function*(slug, date) {
-    const data = yield cached('database', inProduction, loadDatabase)
+    const data = yield cache.get('database', loadDatabase)
     const event = data.workshops.concat(data.talks).find(event => event.slug === slug && event.isoDate === date)
     if (!event) {
       this.throw(404)
     }
 
     this.type = 'text/html'
-    this.body = yield cached(`events/${slug}.pug`, inProduction, page(`events/${slug}.pug`))(event)
+    this.body = yield cache.get(`events/${slug}.pug`, page(`events/${slug}.pug`))(event)
   }))
 
   app.use(koa.route.get('/site.css', function*() {
     this.type = 'text/css'
-    this.body = (yield cached('site.scss', inProduction, renderSass)({file: 'src/site.scss'})).css
+    this.body = (yield cache.get('site.scss', renderSass)({file: 'src/site.scss'})).css
   }))
 
   app.listen(port)
@@ -99,25 +103,6 @@ const parseDates = events =>
 
 const page = viewFile => function*(data) {
   return pug.renderFile(`src/views/${viewFile}`, Object.assign({}, data, {pretty: true}))
-}
-
-const cache = new Map()
-const cached = (description, when, behaviour) => function*(...args) {
-  if (!when) {
-    return yield behaviour.apply(this, args)
-  }
-
-  const key = {description: description, arguments: args}
-  const keyString = JSON.stringify(key)
-  let value = cache.get(keyString)
-  if (value == null) {
-    console.log(JSON.stringify({
-      cacheMiss: key
-    }))
-    value = yield behaviour.apply(this, args)
-    cache.set(keyString, value)
-  }
-  return value
 }
 
 const env = (name, defaultValue) => {
