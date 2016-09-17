@@ -15,9 +15,6 @@ talks:
     link: http://2016.reactive.geecon.org/
 
   - title: Staying lean with application logs
-    partner:
-      name: Nigel Runnels-Moss
-      link: https://twitter.com/sleepyfox
     event: DevOps Linz
     location: Linz, Austria
     date: 2016-09-22
