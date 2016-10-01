@@ -45,6 +45,24 @@ const main = () => {
     this.body = (yield cached('site.scss', renderSass)({file: 'src/site.scss'})).css
   }))
 
+  const staticFile = (path, type) => {
+    app.use(koa.route.get(`/${path}`, function*() {
+      this.type = type
+      this.body = yield readFile(`src/assets/${path}`)
+    }))
+  }
+
+  staticFile('android-chrome-192x192.png', 'image/png')
+  staticFile('android-chrome-512x512.png', 'image/png')
+  staticFile('apple-touch-icon.png', 'image/png')
+  staticFile('browserconfig.xml', 'application/xml')
+  staticFile('favicon-16x16.png', 'image/png')
+  staticFile('favicon-32x32.png', 'image/png')
+  staticFile('favicon.ico', 'image/x-icon')
+  staticFile('manifest.json', 'application/json')
+  staticFile('mstile-150x150.png', 'image/png')
+  staticFile('safari-pinned-tab.svg', 'image/svg+xml')
+
   app.listen(port)
   console.log(JSON.stringify({
     message: 'Application started.',
