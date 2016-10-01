@@ -8,7 +8,7 @@ build:
 check: lint
 
 .PHONY: lint
-lint:
+lint: node_modules
 	npm --silent run lint
 
 .PHONY: push
@@ -29,3 +29,6 @@ run: build
 		--volume=$$PWD/src:/usr/src/app/src \
 		samirtalwar/noodlesandwich.com \
 		./node_modules/.bin/nodemon -L
+
+node_modules: package.json
+	npm install
