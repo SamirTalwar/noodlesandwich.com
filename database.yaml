@@ -14,23 +14,23 @@ talks:
       link: https://twitter.com/sleepyfox
     event: TopConf Tallinn
     location: Tallinn, Estonia
-    date: 2016-11-17
+    date: 2016-11-17T10:20:00+0200
     link: http://topconf.com/tallinn-2016/
 
   - title: I've got 99 problems and asynchronous programming is 127 of them
     event: Codemotion Berlin
     location: Berlin, Germany
-    date: 2016-10-24
+    date: 2016-10-24T16:30:00+0200
     link: http://berlin2016.codemotionworld.com/
 
   - title: Staying lean with application logs
     event: DevOps Linz
     location: Linz, Austria
-    date: 2016-09-22
+    date: 2016-09-22T11:10:00+0200
     link: http://topconf.com/devops-linz-2016/
 
   - title: Driving new features quickly and safely with Elm
     event: GeeCon Reactive
     location: Sopot, Poland
-    date: 2016-09-09
+    date: 2016-09-09T16:30:00+0200
     link: http://2016.reactive.geecon.org/
