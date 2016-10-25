@@ -8,6 +8,15 @@ workshops:
     date: 2016-10-20
 
 talks:
+  - title: Driving new features quickly and safely with Elm
+    partner:
+      name: Nigel Runnels-Moss
+      link: https://twitter.com/sleepyfox
+    event: TopConf Tallinn
+    location: Tallinn, Estonia
+    date: 2016-11-17T13:40:00+0200
+    link: http://topconf.com/tallinn-2016/
+
   - title: Staying lean with application logs
     partner:
       name: Nigel Runnels-Moss
