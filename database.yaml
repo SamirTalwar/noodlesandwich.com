@@ -44,6 +44,20 @@ talks:
     timestamp: 2016-09-09T16:30:00+0200
     link: http://2016.reactive.geecon.org/
 
+  - slug: use-your-type-system
+    title: Use Your Type System; Write Less Code
+    event: ProgSCon
+    location: London, UK
+    timestamp: 2015-04-17T15:40:00+0100
+    presentation:
+      type: external
+      link: http://www.slideshare.net/SamirTalwar/use-your-type-system-write-less-code
+    video:
+      type: youtube
+      youtubeId: eut3qeAfD_o
+    code:
+      language: java
+
   - slug: design-patterns-in-the-21st-century
     title: Design Patterns in the 21st Century
     event: JAX London
