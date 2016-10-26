@@ -39,7 +39,7 @@ const main = () => {
     }
 
     this.type = 'text/html'
-    this.body = yield cached(`talks/${talk.date}--${slug}.md`,
+    this.body = yield cached(`essay.pug & talks/${talk.date}--${slug}.md`,
       markdownPage('essay.pug', `talks/${talk.date}--${slug}.md`))(talk.language, talk)
   }))
 
@@ -51,8 +51,19 @@ const main = () => {
     }
 
     this.type = 'text/html'
-    this.body = yield cached(`talks/${talk.date}--${slug}.md`,
+    this.body = yield cached(`presentation.pug & talks/${talk.date}--${slug}.md`,
       markdownPage('presentation.pug', `talks/${talk.date}--${slug}.md`))(talk.language, talk)
+  }))
+
+  app.use(koa.route.get('/events/:slug/video', function*(slug) {
+    const data = yield cached('database', loadDatabase)
+    const talk = data.talks.find(talk => talk.slug === slug && talk.video)
+    if (!talk) {
+      this.throw(404)
+    }
+
+    this.type = 'text/html'
+    this.body = yield cached('video.pug', pugPage('video.pug'))(talk)
   }))
 
   app.use(koa.route.get('/events/:slug', function*(slug) {

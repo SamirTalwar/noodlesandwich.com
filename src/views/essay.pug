@@ -8,7 +8,12 @@ block head
   script(src='//platform.twitter.com/widgets.js' charset='utf-8' async defer)
 
 block main
-  div.talk.essay !{contents}
+  div.talk.essay
+    header
+      h1 #{title}
+      p #{formattedDate}
+
+    | !{contents}
 
   footer
     p This work is published under the #[a(href="http://creativecommons.org/licenses/by-sa/4.0/") Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) License].

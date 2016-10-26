@@ -75,3 +75,6 @@ mixin event(event)
         if event.presentation
           li
             a(href=`/events/${event.slug}/presentation`) Browse the presentation
+        if event.video
+          li
+            a(href=`/events/${event.slug}/video`) Watch the video

@@ -21,6 +21,10 @@ body.full-screen {
     height: 100%;
   }
 
+  &.video {
+    text-align: center;
+  }
+
   .twitter-tweet {
       margin: 1em auto !important;
   }

@@ -52,5 +52,4 @@ talks:
     language: java
     presentation: reveal.js
     video:
-      youtube_id: KMnv-A-ANP4
-      link: http://youtu.be/KMnv-A-ANP4
+      youtubeId: KMnv-A-ANP4

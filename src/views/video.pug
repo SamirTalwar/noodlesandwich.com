@@ -1,0 +1,17 @@
+extend layout.pug
+
+block head
+  link(rel='stylesheet' href='/talks.css')
+
+block main
+  div.talk.video
+    header
+      h1 #{title}
+      p #{formattedDate}
+
+    iframe(width='560' height='315'
+           src=`https://www.youtube.com/embed/${video.youtubeId}`
+           frameborder='0'
+           allowfullscreen)
+
+    p #[a(href=`https://youtu.be/${video.youtubeId}`) Watch the video on YouTube]
