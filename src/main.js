@@ -191,7 +191,11 @@ const pugPage = viewFile => function*(data) {
 const highlightCode = defaultLanguage => (code, language) => {
   const languageToUse = language || defaultLanguage
   if (!prism.languages[languageToUse]) {
-    require(`prismjs/components/prism-${languageToUse}`)
+    try {
+      require(`prismjs/components/prism-${languageToUse}`)
+    } catch (error) {
+      return ''
+    }
   }
   return prism.highlight(code, prism.languages[languageToUse])
 }

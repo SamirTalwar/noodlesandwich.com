@@ -32,11 +32,20 @@ talks:
     timestamp: 2016-10-24T16:30:00+0200
     link: http://berlin2016.codemotionworld.com/
 
-  - title: Staying lean with application logs
+  - slug: staying-lean-with-application-logs
+    title: Staying lean with application logs
     event: DevOps Linz
     location: Linz, Austria
     timestamp: 2016-09-22T11:10:00+0200
     link: http://topconf.com/devops-linz-2016/
+    presentation:
+      type: external
+      link: http://www.slideshare.net/SamirTalwar/staying-lean-with-application-logs
+    video:
+      type: youtube
+      youtubeId: 7hOAgE38iz0
+    code:
+      language: javascript
 
   - title: Driving new features quickly and safely with Elm
     event: GeeCon Reactive
