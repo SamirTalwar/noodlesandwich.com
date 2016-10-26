@@ -23,9 +23,11 @@
     "js-yaml": "^3.6.1",
     "koa": "^1.2.2",
     "koa-route": "^2.4.2",
+    "markdown-it": "^8.0.1",
     "moment": "^2.14.1",
     "node-sass": "^3.8.0",
     "normalize.css": "^4.2.0",
+    "prismjs": "^1.5.1",
     "pug": "^2.0.0-beta6"
   },
   "devDependencies": {

@@ -18,6 +18,10 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: normal;
 }
 
+h4 {
+  font-size: 1.1em;
+}
+
 body > header {
   h1 {
     text-align: center;
@@ -100,6 +104,12 @@ main {
   }
 }
 
+footer {
+  margin-top: 1em;
+  padding-top: 1em;
+  border-top: 1px solid #ccc;
+}
+
 a {
   text-decoration: none;
   color: $link-color;
@@ -118,4 +128,16 @@ hr {
   margin: 2em auto;
   border: none;
   border-top: 1px solid $link-color;
+}
+
+pre {
+  padding: 0.5em;
+  background: #f5f2f0;
+  overflow: scroll;
+}
+
+code {
+  display: inline-block;
+  padding: 0.2em;
+  background: #f5f2f0;
 }

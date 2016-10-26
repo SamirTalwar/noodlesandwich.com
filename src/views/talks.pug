@@ -1,0 +1,11 @@
+extend layout.pug
+
+block head
+  link(rel='stylesheet' href='/talks.css')
+  link(rel='stylesheet' href='/prism.css')
+
+block main
+  div.talk.essay !{contents}
+
+  footer
+    p This work is published under the #[a(href="http://creativecommons.org/licenses/by-sa/4.0/") Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) License].

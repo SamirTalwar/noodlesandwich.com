@@ -5,8 +5,10 @@ const koa = {
   app: require('koa'),
   route: require('koa-route')
 }
+const markdownIt = require('markdown-it')
 const moment = require('moment')
 const pug = require('pug')
+const prism = require('prismjs')
 const sass = require('node-sass')
 const yaml = require('js-yaml')
 
@@ -26,23 +28,39 @@ const main = () => {
   app.use(koa.route.get('/', function*() {
     const data = yield cached('database', loadDatabase)
     this.type = 'text/html'
-    this.body = yield cached('home.pug', page('home.pug'))(data)
+    this.body = yield cached('home.pug', pugPage('home.pug'))(data)
   }))
 
   app.use(koa.route.get('/events/:slug/:date', function*(slug, date) {
     const data = yield cached('database', loadDatabase)
-    const event = data.workshops.concat(data.talks).find(event => event.slug === slug && event.isoDate === date)
+    const event = data.workshops.concat(data.talks).find(event => event.slug === slug && event.date === date)
     if (!event) {
       this.throw(404)
     }
 
     this.type = 'text/html'
-    this.body = yield cached(`events/${slug}.pug`, page(`events/${slug}.pug`))(event)
+    this.body = yield cached(`events/${slug}.pug`, pugPage(`events/${slug}.pug`))(event)
   }))
 
-  app.use(koa.route.get('/site.css', function*() {
+  app.use(koa.route.get('/talks/:slug', function*(slug) {
+    const data = yield cached('database', loadDatabase)
+    const talk = data.talks.find(talk => talk.slug === slug)
+    if (!talk) {
+      this.throw(404)
+    }
+
+    this.type = 'text/html'
+    this.body = yield cached(`talks/${talk.date}--${slug}.md`, markdownPage(`talks/${talk.date}--${slug}.md`, talk))()
+  }))
+
+  app.use(koa.route.get('/prism.css', function*(file) {
     this.type = 'text/css'
-    this.body = (yield cached('site.scss', renderSass)({file: 'src/site.scss'})).css
+    this.body = yield cached(`prism.css`, readFile)(`node_modules/prismjs/themes/prism.css`)
+  }))
+
+  app.use(koa.route.get('/:file.css', function*(file) {
+    this.type = 'text/css'
+    this.body = (yield cached(`${file}.scss`, renderSass)({file: `src/${file}.scss`})).css
   }))
 
   const staticFile = (path, type) => {
@@ -102,9 +120,9 @@ const loadDatabase = function*() {
 
   const today = moment().startOf('day')
   database.upcomingTalks = database.talks
-    .filter(event => event.date.isSameOrAfter(today))
+    .filter(event => event.timestamp.isSameOrAfter(today))
   database.upcomingWorkshops = database.workshops
-    .filter(event => event.date.isSameOrAfter(today))
+    .filter(event => event.timestamp.isSameOrAfter(today))
 
   return database
 }
@@ -112,15 +130,30 @@ const loadDatabase = function*() {
 const parseDates = events =>
   (events || [])
     .map(event =>
-      Object.assign({}, event, {date: moment(event.date)}))
+      Object.assign({}, event, {timestamp: moment(event.timestamp)}))
     .map(event =>
       Object.assign({}, event, {
-        isoDate: event.date.format('YYYY-MM-DD'),
-        formattedDate: event.date.format('dddd Do MMMM, YYYY')
+        date: event.timestamp.format('YYYY-MM-DD'),
+        formattedDate: event.timestamp.format('dddd Do MMMM, YYYY')
       }))
 
-const page = viewFile => function*(data) {
+const markdownPage = (viewFile, {language: defaultLanguage}) => function*() {
+  const markdown = markdownIt({html: true, highlight: highlightCode(defaultLanguage)})
+  const contents = yield readFile(`src/views/${viewFile}`, 'utf8')
+  const renderedContents = markdown.render(contents)
+  return pug.renderFile('src/views/talks.pug', {contents: renderedContents})
+}
+
+const pugPage = viewFile => function*(data) {
   return pug.renderFile(`src/views/${viewFile}`, Object.assign({}, data, {pretty: true}))
+}
+
+const highlightCode = defaultLanguage => (code, language) => {
+  const languageToUse = language || defaultLanguage
+  if (!prism.languages[languageToUse]) {
+    require(`prismjs/components/prism-${languageToUse}`)
+  }
+  return prism.highlight(code, prism.languages[languageToUse])
 }
 
 const env = (name, defaultValue) => {

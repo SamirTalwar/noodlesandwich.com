@@ -1,0 +1,26 @@
+.talk {
+  width: 100%;
+
+  code, kbd, pre, samp, code[class*="language-"], pre[class*="language-"] {
+    font-family: inherit;
+    font-size: 1em;
+  }
+
+  &.essay {
+    .slides-only {
+      display: none;
+    }
+  }
+}
+
+.byte-array {
+  margin: auto;
+
+  td {
+      width: 16px;
+      height: 16px;
+      border: 1px solid #ccc;
+      padding: 4px;
+      text-align: center;
+  }
+}

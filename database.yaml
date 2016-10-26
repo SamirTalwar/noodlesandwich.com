@@ -5,7 +5,7 @@ workshops:
       name: David Tanzer
       link: http://www.davidtanzer.net/
     location: London, UK
-    date: 2016-10-20
+    timestamp: 2016-10-20T09:00:00+0100
 
 talks:
   - title: Driving new features quickly and safely with Elm
@@ -14,7 +14,7 @@ talks:
       link: https://twitter.com/sleepyfox
     event: TopConf Tallinn
     location: Tallinn, Estonia
-    date: 2016-11-17T13:40:00+0200
+    timestamp: 2016-11-17T13:40:00+0200
     link: http://topconf.com/tallinn-2016/
 
   - title: Staying lean with application logs
@@ -23,23 +23,36 @@ talks:
       link: https://twitter.com/sleepyfox
     event: TopConf Tallinn
     location: Tallinn, Estonia
-    date: 2016-11-17T10:20:00+0200
+    timestamp: 2016-11-17T10:20:00+0200
     link: http://topconf.com/tallinn-2016/
 
   - title: I've got 99 problems and asynchronous programming is 127 of them
     event: Codemotion Berlin
     location: Berlin, Germany
-    date: 2016-10-24T16:30:00+0200
+    timestamp: 2016-10-24T16:30:00+0200
     link: http://berlin2016.codemotionworld.com/
 
   - title: Staying lean with application logs
     event: DevOps Linz
     location: Linz, Austria
-    date: 2016-09-22T11:10:00+0200
+    timestamp: 2016-09-22T11:10:00+0200
     link: http://topconf.com/devops-linz-2016/
 
   - title: Driving new features quickly and safely with Elm
     event: GeeCon Reactive
     location: Sopot, Poland
-    date: 2016-09-09T16:30:00+0200
+    timestamp: 2016-09-09T16:30:00+0200
     link: http://2016.reactive.geecon.org/
+
+  - slug: highly-strung
+    title: Highly Strung
+    event: Virtual Java User Group
+    location: Online
+    timestamp: 2014-07-28T17:00:00+0100
+    link: https://virtualjug.com/highly-strung-understanding-your-type-system/
+    language: java
+    presentation:
+      enabled: true
+    video:
+      youtube_id: KMnv-A-ANP4
+      link: http://youtu.be/KMnv-A-ANP4
