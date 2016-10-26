@@ -139,6 +139,7 @@ a {
   color: $link-color;
 
   &:hover, .fa:hover {
+    text-decoration: underline;
     color: $link-hover-color;
   }
 
