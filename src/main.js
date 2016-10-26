@@ -31,7 +31,12 @@ const main = () => {
     this.body = yield cached('home.pug', pugPage('home.pug'))(data)
   }))
 
-  app.use(koa.route.get('/events/:slug/essay', function*(slug) {
+  app.use(koa.route.get('/talks/:slug', function*(slug) {
+    this.status = 301
+    this.redirect(`/talks/${slug}/essay`)
+  }))
+
+  app.use(koa.route.get('/talks/:slug/essay', function*(slug) {
     const data = yield cached('database', loadDatabase)
     const talk = data.talks.find(talk => talk.slug === slug)
     if (!talk) {
@@ -43,7 +48,7 @@ const main = () => {
       markdownPage('essay.pug', `talks/${talk.date}--${slug}.md`))(talk.code.language, talk)
   }))
 
-  app.use(koa.route.get('/events/:slug/presentation', function*(slug) {
+  app.use(koa.route.get('/talks/:slug/presentation', function*(slug) {
     const data = yield cached('database', loadDatabase)
     const talk = data.talks.find(talk => talk.slug === slug && talk.presentation && talk.presentation.type === 'reveal.js')
     if (!talk) {
@@ -55,7 +60,7 @@ const main = () => {
       markdownPage('presentation.pug', `talks/${talk.date}--${slug}.md`))(talk.code.language, talk)
   }))
 
-  app.use(koa.route.get('/events/:slug/video', function*(slug) {
+  app.use(koa.route.get('/talks/:slug/video', function*(slug) {
     const data = yield cached('database', loadDatabase)
     const talk = data.talks.find(talk => talk.slug === slug && talk.video && talk.video.type === 'youtube')
     if (!talk) {
@@ -66,15 +71,15 @@ const main = () => {
     this.body = yield cached('video.pug', pugPage('video.pug'))(talk)
   }))
 
-  app.use(koa.route.get('/events/:slug', function*(slug) {
+  app.use(koa.route.get('/workshops/:slug', function*(slug) {
     const data = yield cached('database', loadDatabase)
-    const event = data.workshops.concat(data.talks).find(event => event.slug === slug)
-    if (!event) {
+    const workshop = data.workshops.find(event => event.slug === slug)
+    if (!workshop) {
       this.throw(404)
     }
 
     this.type = 'text/html'
-    this.body = yield cached(`events/${slug}.pug`, pugPage(`events/${slug}.pug`))(event)
+    this.body = yield cached(`events/${slug}.pug`, pugPage(`events/${slug}.pug`))(workshop)
   }))
 
   app.use(koa.route.get('/:file.css', function*(file) {

@@ -33,7 +33,7 @@ mixin upcomingEvents(title, events)
 
     else
       each event in events
-        +event(event)
+        +event(title, event)
 
 mixin previousEvents(title, events)
   if events.length > 0
@@ -41,15 +41,15 @@ mixin previousEvents(title, events)
       h2 Previous #{title}
 
       each event in events
-        +event(event)
+        +event(title, event)
 
-mixin event(event)
+mixin event(prefix, event)
   article.event
     h3
       if event.link
         a(href=event.link) #{event.title}
       else if event.slug
-        a(href=`/events/${event.slug}/${event.isoDate}`) #{event.title}
+        a(href=`/${prefix}/${event.slug}`) #{event.title}
       else
         | #{event.title}
 
@@ -71,18 +71,18 @@ mixin event(event)
       ul.links
         if event.slug
           li
-            a(href=`/events/${event.slug}/essay`) Read as an essay
+            a(href=`/${prefix}/${event.slug}/essay`) Read as an essay
         if event.presentation
           if event.presentation.type === 'reveal.js'
             li
-              a(href=`/events/${event.slug}/presentation`) Browse the presentation
+              a(href=`/${prefix}/${event.slug}/presentation`) Browse the presentation
           else
             li
               a(href=event.presentation.link) Browse the presentation
         if event.video
           if event.video.type === 'youtube'
             li
-              a(href=`/events/${event.slug}/video`) Watch the video
+              a(href=`/${prefix}/${event.slug}/video`) Watch the video
           else
             li
               a(href=event.video.link) Watch the video
