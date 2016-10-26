@@ -25,19 +25,20 @@ body.full-screen {
     text-align: center;
   }
 
-  .twitter-tweet {
-      margin: 1em auto !important;
+  .image img, .twitter-tweet {
+    display: block;
+    margin: 1em auto;
   }
 
   .byte-array {
     margin: auto;
 
     td {
-        width: 16px;
-        height: 16px;
-        border: 1px solid #ccc;
-        padding: 4px;
-        text-align: center;
+      width: 16px;
+      height: 16px;
+      border: 1px solid #ccc;
+      padding: 4px;
+      text-align: center;
     }
   }
 

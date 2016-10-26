@@ -44,12 +44,29 @@ talks:
     timestamp: 2016-09-09T16:30:00+0200
     link: http://2016.reactive.geecon.org/
 
+  - slug: design-patterns-in-the-21st-century
+    title: Design Patterns in the 21st Century
+    event: JAX London
+    location: London, UK
+    timestamp: 2014-10-15T11:00:00+0100
+    presentation:
+      type: external
+      link: http://www.slideshare.net/SamirTalwar/design-patterns-in-the-21st-century
+    video:
+      type: external
+      link: https://skillsmatter.com/skillscasts/6151-design-patterns-in-the-21st-century
+    code:
+      language: java
+
   - slug: highly-strung
     title: Highly Strung
     event: Virtual Java User Group
     timestamp: 2014-07-28T17:00:00+0100
     link: https://virtualjug.com/highly-strung-understanding-your-type-system/
-    language: java
-    presentation: reveal.js
+    presentation:
+      type: reveal.js
     video:
+      type: youtube
       youtubeId: KMnv-A-ANP4
+    code:
+      language: java

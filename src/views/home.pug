@@ -73,8 +73,16 @@ mixin event(event)
           li
             a(href=`/events/${event.slug}/essay`) Read as an essay
         if event.presentation
-          li
-            a(href=`/events/${event.slug}/presentation`) Browse the presentation
+          if event.presentation.type === 'reveal.js'
+            li
+              a(href=`/events/${event.slug}/presentation`) Browse the presentation
+          else
+            li
+              a(href=event.presentation.link) Browse the presentation
         if event.video
-          li
-            a(href=`/events/${event.slug}/video`) Watch the video
+          if event.video.type === 'youtube'
+            li
+              a(href=`/events/${event.slug}/video`) Watch the video
+          else
+            li
+              a(href=event.video.link) Watch the video

@@ -40,24 +40,24 @@ const main = () => {
 
     this.type = 'text/html'
     this.body = yield cached(`essay.pug & talks/${talk.date}--${slug}.md`,
-      markdownPage('essay.pug', `talks/${talk.date}--${slug}.md`))(talk.language, talk)
+      markdownPage('essay.pug', `talks/${talk.date}--${slug}.md`))(talk.code.language, talk)
   }))
 
   app.use(koa.route.get('/events/:slug/presentation', function*(slug) {
     const data = yield cached('database', loadDatabase)
-    const talk = data.talks.find(talk => talk.slug === slug && talk.presentation === 'reveal.js')
+    const talk = data.talks.find(talk => talk.slug === slug && talk.presentation && talk.presentation.type === 'reveal.js')
     if (!talk) {
       this.throw(404)
     }
 
     this.type = 'text/html'
     this.body = yield cached(`presentation.pug & talks/${talk.date}--${slug}.md`,
-      markdownPage('presentation.pug', `talks/${talk.date}--${slug}.md`))(talk.language, talk)
+      markdownPage('presentation.pug', `talks/${talk.date}--${slug}.md`))(talk.code.language, talk)
   }))
 
   app.use(koa.route.get('/events/:slug/video', function*(slug) {
     const data = yield cached('database', loadDatabase)
-    const talk = data.talks.find(talk => talk.slug === slug && talk.video)
+    const talk = data.talks.find(talk => talk.slug === slug && talk.video && talk.video.type === 'youtube')
     if (!talk) {
       this.throw(404)
     }
@@ -154,8 +154,15 @@ const loadDatabase = function*() {
   return database
 }
 
-const parseDates = events =>
-  (events || [])
+const parseDates = (events = []) => {
+  events
+    .forEach(event => {
+      if (!event.timestamp) {
+        throw new Error(`The following event does not have a timestamp.\n${JSON.stringify(event, null, 2)}`)
+      }
+    })
+
+  return events
     .map(event =>
       Object.assign({}, event, {timestamp: moment(event.timestamp)}))
     .map(event =>
@@ -163,6 +170,7 @@ const parseDates = events =>
         date: event.timestamp.format('YYYY-MM-DD'),
         formattedDate: event.timestamp.format('dddd Do MMMM, YYYY')
       }))
+}
 
 const markdownPage = (layoutFile, viewFile) => function*(defaultLanguage, data) {
   const markdown = markdownIt({html: true, highlight: highlightCode(defaultLanguage)})
