@@ -39,7 +39,8 @@ const main = () => {
     }
 
     this.type = 'text/html'
-    this.body = yield cached(`talks/${talk.date}--${slug}.md`, markdownPage(`talks/${talk.date}--${slug}.md`, talk))()
+    this.body = yield cached(`talks/${talk.date}--${slug}.md`,
+      markdownPage('essay.pug', `talks/${talk.date}--${slug}.md`, talk))()
   }))
 
   app.use(koa.route.get('/events/:slug', function*(slug) {
@@ -139,11 +140,11 @@ const parseDates = events =>
         formattedDate: event.timestamp.format('dddd Do MMMM, YYYY')
       }))
 
-const markdownPage = (viewFile, {language: defaultLanguage}) => function*() {
+const markdownPage = (layoutFile, viewFile, {language: defaultLanguage}) => function*() {
   const markdown = markdownIt({html: true, highlight: highlightCode(defaultLanguage)})
   const contents = yield readFile(`src/views/${viewFile}`, 'utf8')
   const renderedContents = markdown.render(contents)
-  return pug.renderFile('src/views/talks.pug', {contents: renderedContents})
+  return pug.renderFile(`src/views/${layoutFile}`, {contents: renderedContents})
 }
 
 const pugPage = viewFile => function*(data) {
