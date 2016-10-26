@@ -40,7 +40,19 @@ const main = () => {
 
     this.type = 'text/html'
     this.body = yield cached(`talks/${talk.date}--${slug}.md`,
-      markdownPage('essay.pug', `talks/${talk.date}--${slug}.md`, talk))()
+      markdownPage('essay.pug', `talks/${talk.date}--${slug}.md`))(talk.language, talk)
+  }))
+
+  app.use(koa.route.get('/events/:slug/presentation', function*(slug) {
+    const data = yield cached('database', loadDatabase)
+    const talk = data.talks.find(talk => talk.slug === slug && talk.presentation === 'reveal.js')
+    if (!talk) {
+      this.throw(404)
+    }
+
+    this.type = 'text/html'
+    this.body = yield cached(`talks/${talk.date}--${slug}.md`,
+      markdownPage('presentation.pug', `talks/${talk.date}--${slug}.md`))(talk.language, talk)
   }))
 
   app.use(koa.route.get('/events/:slug', function*(slug) {
@@ -54,22 +66,23 @@ const main = () => {
     this.body = yield cached(`events/${slug}.pug`, pugPage(`events/${slug}.pug`))(event)
   }))
 
-  app.use(koa.route.get('/vendor/prismjs/prism.css', function*(file) {
-    this.type = 'text/css'
-    this.body = yield cached(`vendor/prismjs/prism.css`, readFile)(`node_modules/prismjs/themes/prism.css`)
-  }))
-
   app.use(koa.route.get('/:file.css', function*(file) {
     this.type = 'text/css'
     this.body = (yield cached(`${file}.scss`, renderSass)({file: `src/${file}.scss`})).css
   }))
 
-  const staticFile = (path, type) => {
+  const staticFile = (path, type, fileLocation = `src/assets/${path}`) => {
     app.use(koa.route.get(`/${path}`, function*() {
       this.type = type
-      this.body = yield readFile(`src/assets/${path}`)
+      this.body = yield readFile(fileLocation)
     }))
   }
+
+  staticFile('vendor/prismjs/prism.css', 'text/css', 'node_modules/prismjs/themes/prism.css')
+  staticFile('vendor/reveal.js/css/reveal.css', 'text/css', 'node_modules/reveal.js/css/reveal.css')
+  staticFile('vendor/reveal.js/css/theme/white.css', 'text/css', 'node_modules/reveal.js/css/theme/white.css')
+  staticFile('vendor/reveal.js/js/reveal.js', 'application/javascript', 'node_modules/reveal.js/js/reveal.js')
+  staticFile('vendor/reveal.js/lib/js/head.min.js', 'application/javascript', 'node_modules/reveal.js/lib/js/head.min.js')
 
   staticFile('android-chrome-192x192.png', 'image/png')
   staticFile('android-chrome-512x512.png', 'image/png')
@@ -140,11 +153,11 @@ const parseDates = events =>
         formattedDate: event.timestamp.format('dddd Do MMMM, YYYY')
       }))
 
-const markdownPage = (layoutFile, viewFile, {language: defaultLanguage}) => function*() {
+const markdownPage = (layoutFile, viewFile) => function*(defaultLanguage, data) {
   const markdown = markdownIt({html: true, highlight: highlightCode(defaultLanguage)})
   const contents = yield readFile(`src/views/${viewFile}`, 'utf8')
   const renderedContents = markdown.render(contents)
-  return pug.renderFile(`src/views/${layoutFile}`, {contents: renderedContents})
+  return yield pugPage(layoutFile)(Object.assign({contents: renderedContents}, data))
 }
 
 const pugPage = viewFile => function*(data) {

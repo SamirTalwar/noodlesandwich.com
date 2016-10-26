@@ -123,6 +123,7 @@ We often use strings to store arbitrary, human-written text, but it's even more 
 </section>
 
 <section>
+
 ### So what's the problem?
 
 <div class="notes">
@@ -452,7 +453,7 @@ Instead, what about this?
 ```java
 public class Toolboxen {
     public Toolbox containing(Tool tool) {
-        /// do the thing
+        // do the thing
     }
 }
 ```

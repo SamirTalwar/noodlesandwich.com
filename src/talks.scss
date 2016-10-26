@@ -1,8 +1,13 @@
+body.full-screen {
+  width: 100%;
+  max-width: inherit;
+}
+
 .talk {
   width: 100%;
 
   code, kbd, pre, samp, code[class*="language-"], pre[class*="language-"] {
-    font-family: inherit;
+    font-family: 'Source Code Pro', monospace;
     font-size: 1em;
   }
 
@@ -11,16 +16,28 @@
       display: none;
     }
   }
-}
 
-.byte-array {
-  margin: auto;
+  &.presentation {
+    height: 100%;
+  }
 
-  td {
-      width: 16px;
-      height: 16px;
-      border: 1px solid #ccc;
-      padding: 4px;
-      text-align: center;
+  .twitter-tweet {
+      margin: 1em auto !important;
+  }
+
+  .byte-array {
+    margin: auto;
+
+    td {
+        width: 16px;
+        height: 16px;
+        border: 1px solid #ccc;
+        padding: 4px;
+        text-align: center;
+    }
+  }
+
+  .reveal * {
+    font-family: 'Source Code Pro', monospace;
   }
 }

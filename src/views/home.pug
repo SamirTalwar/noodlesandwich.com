@@ -72,3 +72,6 @@ mixin event(event)
         if event.slug
           li
             a(href=`/events/${event.slug}/essay`) Read as an essay
+        if event.presentation
+          li
+            a(href=`/events/${event.slug}/presentation`) Browse the presentation
