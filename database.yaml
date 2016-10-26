@@ -26,11 +26,14 @@ talks:
     timestamp: 2016-11-17T10:20:00+0200
     link: http://topconf.com/tallinn-2016/
 
-  - title: I've got 99 problems and asynchronous programming is 127 of them
+  - slug: 99-problems
+    title: I've got 99 problems and asynchronous programming is 127 of them
     event: Codemotion Berlin
     location: Berlin, Germany
     timestamp: 2016-10-24T16:30:00+0200
     link: http://berlin2016.codemotionworld.com/
+    code:
+      language: javascript
 
   - slug: staying-lean-with-application-logs
     title: Staying lean with application logs

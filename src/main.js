@@ -137,7 +137,7 @@ const timeResponse = function *(next) {
 }
 
 const setSecurityHeaders = function *(next) {
-  this.set('Content-Security-Policy', 'default-src * \'unsafe-inline\'')
+  this.set('Content-Security-Policy', 'default-src * data: \'unsafe-inline\' \'unsafe-eval\'')
   this.set('X-Frame-Options', 'DENY')
   this.set('X-XSS-Protection', '1; mode=block')
   yield next
