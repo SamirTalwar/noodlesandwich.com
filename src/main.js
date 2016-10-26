@@ -31,18 +31,7 @@ const main = () => {
     this.body = yield cached('home.pug', pugPage('home.pug'))(data)
   }))
 
-  app.use(koa.route.get('/events/:slug/:date', function*(slug, date) {
-    const data = yield cached('database', loadDatabase)
-    const event = data.workshops.concat(data.talks).find(event => event.slug === slug && event.date === date)
-    if (!event) {
-      this.throw(404)
-    }
-
-    this.type = 'text/html'
-    this.body = yield cached(`events/${slug}.pug`, pugPage(`events/${slug}.pug`))(event)
-  }))
-
-  app.use(koa.route.get('/talks/:slug', function*(slug) {
+  app.use(koa.route.get('/events/:slug/essay', function*(slug) {
     const data = yield cached('database', loadDatabase)
     const talk = data.talks.find(talk => talk.slug === slug)
     if (!talk) {
@@ -51,6 +40,17 @@ const main = () => {
 
     this.type = 'text/html'
     this.body = yield cached(`talks/${talk.date}--${slug}.md`, markdownPage(`talks/${talk.date}--${slug}.md`, talk))()
+  }))
+
+  app.use(koa.route.get('/events/:slug', function*(slug) {
+    const data = yield cached('database', loadDatabase)
+    const event = data.workshops.concat(data.talks).find(event => event.slug === slug)
+    if (!event) {
+      this.throw(404)
+    }
+
+    this.type = 'text/html'
+    this.body = yield cached(`events/${slug}.pug`, pugPage(`events/${slug}.pug`))(event)
   }))
 
   app.use(koa.route.get('/prism.css', function*(file) {
@@ -119,10 +119,12 @@ const loadDatabase = function*() {
   database.workshops = parseDates(database.workshops)
 
   const today = moment().startOf('day')
-  database.upcomingTalks = database.talks
-    .filter(event => event.timestamp.isSameOrAfter(today))
   database.upcomingWorkshops = database.workshops
     .filter(event => event.timestamp.isSameOrAfter(today))
+  database.upcomingTalks = database.talks
+    .filter(event => event.timestamp.isSameOrAfter(today))
+  database.previousTalks = database.talks
+    .filter(event => event.timestamp.isBefore(today) && event.slug)
 
   return database
 }

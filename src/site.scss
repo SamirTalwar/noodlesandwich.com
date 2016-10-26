@@ -102,6 +102,30 @@ main {
       }
     }
   }
+
+  .event {
+    margin-bottom: 1em;
+
+    h3 {
+      margin: 0;
+      font-size: 1em;
+    }
+
+    p {
+      margin: 0.3em 0 0 0;
+      font-size: 0.8em;
+    }
+
+    ul {
+      padding-left: 2em;
+      font-size: 0.8em;
+      list-style: disclosure-closed;
+
+      li {
+        margin-left: 0;
+      }
+    }
+  }
 }
 
 footer {

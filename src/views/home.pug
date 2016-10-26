@@ -18,29 +18,57 @@ block main
     p I also teach others how to do what I do.
 
   section.narrow.upcoming-events
-    mixin events(title, events)
-      header
-        h2 Upcoming #{title}
+    +upcomingEvents('workshops', upcomingWorkshops)
 
-        if events.length === 0
-          p No upcoming #{title}.
+    +upcomingEvents('talks', upcomingTalks)
 
-        else
-          each event in events
-            article
-              p
-                a(href=(event.slug ? `/events/${event.slug}/${event.isoDate}` : event.link)) #{event.title}
-                if event.partner
-                  br
-                  small with #[a(href=event.partner.link) #{event.partner.name}]
-                br
-                if event.event
-                  small #{event.event} @ #{event.location}
-                else
-                  small #{event.location}
-                br
-                small #{event.formattedDate}
+    +previousEvents('talks', previousTalks)
 
-    +events('workshops', upcomingWorkshops)
+mixin upcomingEvents(title, events)
+  header
+    h2 Upcoming #{title}
 
-    +events('talks', upcomingTalks)
+    if events.length === 0
+      p No upcoming #{title}.
+
+    else
+      each event in events
+        +event(event)
+
+mixin previousEvents(title, events)
+  if events.length > 0
+    header
+      h2 Previous #{title}
+
+      each event in events
+        +event(event)
+
+mixin event(event)
+  article.event
+    h3
+      if event.link
+        a(href=event.link) #{event.title}
+      else if event.slug
+        a(href=`/events/${event.slug}/${event.isoDate}`) #{event.title}
+      else
+        | #{event.title}
+
+    p
+      if event.partner
+        | with #[a(href=event.partner.link) #{event.partner.name}]
+
+    p
+      if event.event && event.location
+        | #{event.event} @ #{event.location}
+      else if event.event
+        | #{event.event}
+      else if event.location
+        | #{event.location}
+
+    p #{event.formattedDate}
+
+    if event.slug || event.presentation || event.video
+      ul.links
+        if event.slug
+          li
+            a(href=`/events/${event.slug}/essay`) Read as an essay

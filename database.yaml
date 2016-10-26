@@ -1,5 +1,5 @@
 workshops:
-  - slug: tdd
+  - slug: tdd-2016-10-20
     title: Introduction to test-driven development
     partner:
       name: David Tanzer
@@ -47,12 +47,10 @@ talks:
   - slug: highly-strung
     title: Highly Strung
     event: Virtual Java User Group
-    location: Online
     timestamp: 2014-07-28T17:00:00+0100
     link: https://virtualjug.com/highly-strung-understanding-your-type-system/
     language: java
-    presentation:
-      enabled: true
+    presentation: reveal.js
     video:
       youtube_id: KMnv-A-ANP4
       link: http://youtu.be/KMnv-A-ANP4
