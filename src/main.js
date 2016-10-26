@@ -54,9 +54,9 @@ const main = () => {
     this.body = yield cached(`events/${slug}.pug`, pugPage(`events/${slug}.pug`))(event)
   }))
 
-  app.use(koa.route.get('/prism.css', function*(file) {
+  app.use(koa.route.get('/vendor/prismjs/prism.css', function*(file) {
     this.type = 'text/css'
-    this.body = yield cached(`prism.css`, readFile)(`node_modules/prismjs/themes/prism.css`)
+    this.body = yield cached(`vendor/prismjs/prism.css`, readFile)(`node_modules/prismjs/themes/prism.css`)
   }))
 
   app.use(koa.route.get('/:file.css', function*(file) {
