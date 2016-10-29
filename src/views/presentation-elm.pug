@@ -1,0 +1,17 @@
+doctype html
+html(lang='en')
+  head
+    include head.pug
+
+    link(rel='stylesheet' href='/site.css')
+    link(rel='stylesheet' href='/talks.css')
+
+    link(rel='stylesheet' href='/vendor/prismjs/prism.css')
+
+    script(src='https://platform.twitter.com/widgets.js' charset='utf-8' async defer)
+
+    script(src=`/assets/talks/${slug}/presentation.js` defer)
+    script(src=`/assets/talks/presentation.js` defer)
+
+  body.full-screen
+    #presentation.talk.presentation.elm

@@ -50,14 +50,21 @@ const main = () => {
 
   app.use(koa.route.get('/talks/:slug/presentation', function*(slug) {
     const data = yield cached('database', loadDatabase)
-    const talk = data.talks.find(talk => talk.slug === slug && talk.presentation && talk.presentation.type === 'reveal.js')
+    const talk = data.talks.find(talk => talk.slug === slug && talk.presentation)
     if (!talk) {
       this.throw(404)
     }
 
     this.type = 'text/html'
-    this.body = yield cached(`presentation.pug & talks/${talk.date}--${slug}.md`,
-      markdownPage('presentation.pug', `talks/${talk.date}--${slug}.md`))(talk.code.language, talk)
+    switch (talk.presentation.type) {
+      case 'elm':
+        this.body = yield cached('presentation-elm.pug', pugPage('presentation-elm.pug'))(talk)
+        break
+      case 'reveal.js':
+        this.body = yield cached(`presentation-reveal.pug & talks/${talk.date}--${slug}.md`,
+          markdownPage('presentation-reveal.pug', `talks/${talk.date}--${slug}.md`))(talk.code.language, talk)
+        break
+    }
   }))
 
   app.use(koa.route.get('/talks/:slug/video', function*(slug) {
@@ -93,6 +100,9 @@ const main = () => {
       this.body = yield readFile(fileLocation)
     }))
   }
+
+  staticFile('assets/talks/presentation.js', 'application/javascript', 'src/presentations/load.js')
+  staticFile('assets/talks/99-problems/presentation.js', 'application/javascript', 'build/presentations/99-problems.js')
 
   staticFile('vendor/prismjs/prism.css', 'text/css', 'node_modules/prismjs/themes/prism.css')
   staticFile('vendor/reveal.js/css/reveal.css', 'text/css', 'node_modules/reveal.js/css/reveal.css')

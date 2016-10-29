@@ -1,6 +1,11 @@
+html, body, .talk.presentation {
+  height: 100%;
+}
+
 body.full-screen {
   width: 100%;
   max-width: inherit;
+  padding: 1em 3em;
 }
 
 .talk {
@@ -19,6 +24,44 @@ body.full-screen {
 
   &.presentation {
     height: 100%;
+
+    .app {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 2em;
+    }
+
+    h1, h2, h3 {
+      text-align: center;
+    }
+
+    .prose {
+      margin: 0 2em;
+    }
+
+    .big {
+      font-size: 2.5em;
+    }
+
+    .slide {
+      display: none;
+      width: 100%;
+    }
+
+    .current.slide {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .codepen-container {
+      width: 100%;
+    }
   }
 
   &.video {

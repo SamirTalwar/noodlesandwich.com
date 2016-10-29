@@ -32,6 +32,8 @@ talks:
     location: Berlin, Germany
     timestamp: 2016-10-24T16:30:00+0200
     link: http://berlin2016.codemotionworld.com/
+    presentation:
+      type: elm
     code:
       language: javascript
 
