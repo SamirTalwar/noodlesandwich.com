@@ -133,7 +133,7 @@ slides =
     [
       h1 [] [text "The event loop"],
       pre [] [
-        code [] [text <| stripMargin
+        code [class "language-javascript"] [text <| stripMargin
           "|while (let event = eventQueue.next()) {
            |  process(event)
            |}"]]
@@ -141,7 +141,7 @@ slides =
     [
       h1 [] [text "Synchronous programming"],
       pre [] [
-        code [] [text <| stripMargin
+        code [class "language-javascript"] [text <| stripMargin
           "|var request = new XMLHttpRequest()
            |request.open('GET', 'something.json', false)
            |
@@ -152,7 +152,7 @@ slides =
     [
       h1 [] [text "Asynchronous programming"],
       pre [] [
-        code [] [text <| stripMargin
+        code [class "language-javascript"] [text <| stripMargin
           "|var request = new XMLHttpRequest()
            |request.onreadystatechange = function () {
            |  if (this.readyState === 4) {
@@ -168,7 +168,7 @@ slides =
     [
       h1 [] [text "Thanks, node.js."],
       pre [style [("font-size", "0.6em")]] [
-        code [] [text <| stripMargin
+        code [class "language-javascript"] [text <| stripMargin
           "|fs.readdir(source, function (err, files) {
            |  if (err) {
            |    console.log('Error finding files: ' + err)
@@ -232,7 +232,7 @@ slides =
     ],
 
     [
-      img [src "https://assets.noodlesandwich.com/prodo.ai/logo/dark.svg", alt "prodo.ai"] []
+      img [src "https://assets.noodlesandwich.com/prodo.ai/logo/light.svg", alt "prodo.ai"] []
     ],
     [
       h1 [] [text "Fin."],

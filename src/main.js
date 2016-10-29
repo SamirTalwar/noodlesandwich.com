@@ -105,6 +105,9 @@ const main = () => {
   staticFile('assets/talks/99-problems/presentation.js', 'application/javascript', 'build/presentations/99-problems.js')
 
   staticFile('vendor/prismjs/prism.css', 'text/css', 'node_modules/prismjs/themes/prism.css')
+  staticFile('vendor/prismjs/prism-okaidia.css', 'text/css', 'node_modules/prismjs/themes/prism-okaidia.css')
+  staticFile('vendor/prismjs/prism.js', 'application/javascript', 'node_modules/prismjs/prism.js')
+
   staticFile('vendor/reveal.js/css/reveal.css', 'text/css', 'node_modules/reveal.js/css/reveal.css')
   staticFile('vendor/reveal.js/css/theme/white.css', 'text/css', 'node_modules/reveal.js/css/theme/white.css')
   staticFile('vendor/reveal.js/js/reveal.js', 'application/javascript', 'node_modules/reveal.js/js/reveal.js')

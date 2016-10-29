@@ -4,8 +4,8 @@ html, body, .talk.presentation {
 
 body.full-screen {
   width: 100%;
+  padding: 0;
   max-width: inherit;
-  padding: 1em 3em;
 }
 
 .talk {
@@ -32,7 +32,23 @@ body.full-screen {
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      padding: 1em 3em;
+      background-color: #1b1328;
+      color: #ffffff;
       font-size: 2em;
+
+      .slide {
+        display: none;
+        width: 100%;
+      }
+    }
+
+    pre, code {
+      background-color: rgba(128, 128, 128, 0.2);
+
+      code {
+        background: none;
+      }
     }
 
     h1, h2, h3 {
@@ -45,11 +61,6 @@ body.full-screen {
 
     .big {
       font-size: 2.5em;
-    }
-
-    .slide {
-      display: none;
-      width: 100%;
     }
 
     .current.slide {
