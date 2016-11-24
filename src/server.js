@@ -11,6 +11,7 @@ const sass = require('node-sass')
 const yaml = require('js-yaml')
 
 const Cache = require('./cache')
+const {denodeify} = require('./promises')
 
 const start = ({port, environment}) => {
   const inProduction = environment === 'production'
@@ -222,17 +223,6 @@ const highlightCode = defaultLanguage => (code, language) => {
   }
   return prism.highlight(code, prism.languages[languageToUse])
 }
-
-const denodeify = func => (...args) =>
-  new Promise((resolve, reject) => {
-    func(...args, (error, value) => {
-      if (error) {
-        reject(error)
-      } else {
-        resolve(value)
-      }
-    })
-  })
 
 const readFile = denodeify(fs.readFile)
 const renderSass = denodeify(sass.render)
