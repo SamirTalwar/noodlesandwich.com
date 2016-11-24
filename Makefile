@@ -16,7 +16,6 @@ check: test lint
 test: build
 	docker run \
 		--rm \
-		--interactive --tty \
 		--volume=$$PWD/test:/usr/src/app/test \
 		samirtalwar/noodlesandwich.com \
 		./node_modules/.bin/ava
@@ -25,7 +24,6 @@ test: build
 lint: build
 	docker run \
 		--rm \
-		--interactive --tty \
 		--volume=$$PWD/test:/usr/src/app/test \
 		samirtalwar/noodlesandwich.com \
 		npm --silent run lint
