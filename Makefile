@@ -10,11 +10,25 @@ clean:
 	rm -rf elm-stuff/build-artifacts
 
 .PHONY: check
-check: lint
+check: test lint
+
+.PHONY: test
+test: build
+	docker run \
+		--rm \
+		--interactive --tty \
+		--volume=$$PWD/test:/usr/src/app/test \
+		samirtalwar/noodlesandwich.com \
+		./node_modules/.bin/ava
 
 .PHONY: lint
-lint: node_modules
-	npm --silent run lint
+lint: build
+	docker run \
+		--rm \
+		--interactive --tty \
+		--volume=$$PWD/test:/usr/src/app/test \
+		samirtalwar/noodlesandwich.com \
+		npm --silent run lint
 
 .PHONY: push
 push: build check

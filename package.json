@@ -17,7 +17,7 @@
   "scripts": {
     "start": "./src/main.js",
     "test": "ava && npm run --silent lint",
-    "lint": "standard"
+    "lint": "standard src test"
   },
   "dependencies": {
     "js-yaml": "^3.7.0",
