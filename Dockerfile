@@ -7,7 +7,7 @@ ARG NODE_ENV
 ENV NODE_ENV $NODE_ENV
 
 COPY package.json .
-RUN npm install
+RUN npm --quiet install
 
 COPY build build
 COPY src src
