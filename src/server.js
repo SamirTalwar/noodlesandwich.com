@@ -12,9 +12,7 @@ const yaml = require('js-yaml')
 
 const Cache = require('./cache')
 
-const start = () => {
-  const port = parseInt(env('PORT'), 10)
-  const environment = env('NODE_ENV', 'development')
+const start = ({port, environment}) => {
   const inProduction = environment === 'production'
 
   const cached = Cache(inProduction)
@@ -223,14 +221,6 @@ const highlightCode = defaultLanguage => (code, language) => {
     }
   }
   return prism.highlight(code, prism.languages[languageToUse])
-}
-
-const env = (name, defaultValue) => {
-  const value = process.env[name] || defaultValue
-  if (!value) {
-    throw new Error(`Required environment variable: ${name}`)
-  }
-  return value
 }
 
 const denodeify = func => (...args) =>
