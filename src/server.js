@@ -122,22 +122,26 @@ const start = () => {
   staticFile('mstile-150x150.png', 'image/png')
   staticFile('safari-pinned-tab.svg', 'image/svg+xml')
 
-  const server = app.listen(port)
-  console.log(JSON.stringify({
-    message: 'Application started.',
-    port: port,
-    environment: environment
-  }))
+  return new Promise(resolve => {
+    const server = app.listen(port, () => resolve(server))
+  })
+    .then(server => {
+      console.log(JSON.stringify({
+        message: 'Application started.',
+        port: port,
+        environment: environment
+      }))
 
-  return {
-    stop: () => {
-      server.close(() => {
-        console.log(JSON.stringify({
-          message: 'Application stopped.'
-        }))
-      })
-    }
-  }
+      return {
+        stop: () => {
+          server.close(() => {
+            console.log(JSON.stringify({
+              message: 'Application stopped.'
+            }))
+          })
+        }
+      }
+    })
 }
 
 const timeResponse = function *(next) {
