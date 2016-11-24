@@ -16,6 +16,7 @@ server.start({
   log: console.log
 })
   .then(appServer => {
-    process.on('SIGINT', appServer.stop)
-    process.on('SIGTERM', appServer.stop)
+    process.once('SIGINT', appServer.stop)
+    process.once('SIGTERM', appServer.stop)
+    process.once('SIGUSR2', appServer.stop)
   })
