@@ -13,13 +13,13 @@ const yaml = require('js-yaml')
 const Cache = require('./cache')
 const {denodeify} = require('./promises')
 
-const start = ({port, environment}) => {
+const start = ({environment, log, port}) => {
   const inProduction = environment === 'production'
 
   const cached = Cache(inProduction)
 
   const app = koa.app()
-  app.use(timeResponse)
+  app.use(timeResponse(log))
   app.use(setSecurityHeaders)
 
   app.use(koa.route.get('/', function*() {
@@ -125,7 +125,7 @@ const start = ({port, environment}) => {
     const server = app.listen(port, () => resolve(server))
   })
     .then(server => {
-      console.log(JSON.stringify({
+      log(JSON.stringify({
         message: 'Application started.',
         port: port,
         environment: environment
@@ -134,7 +134,7 @@ const start = ({port, environment}) => {
       return {
         stop: () => {
           server.close(() => {
-            console.log(JSON.stringify({
+            log(JSON.stringify({
               message: 'Application stopped.'
             }))
           })
@@ -143,11 +143,11 @@ const start = ({port, environment}) => {
     })
 }
 
-const timeResponse = function *(next) {
+const timeResponse = log => function *(next) {
   var start = new Date()
   yield next
   var responseTime = new Date() - start
-  console.log(JSON.stringify({
+  log(JSON.stringify({
     request: {
       method: this.method,
       url: this.url

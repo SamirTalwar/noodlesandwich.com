@@ -10,8 +10,9 @@ test.beforeEach(t => {
     .then(port => {
       t.context.port = port
       return server.start({
+        environment: 'test',
         port,
-        environment: 'test'
+        log: () => {}
       })
     })
     .then(appServer => {

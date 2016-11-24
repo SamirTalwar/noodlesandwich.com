@@ -10,10 +10,11 @@ const env = (name, defaultValue) => {
   return value
 }
 
-const port = parseInt(env('PORT'), 10)
-const environment = env('NODE_ENV', 'development')
-
-server.start({port, environment})
+server.start({
+  environment: env('NODE_ENV', 'development'),
+  port: parseInt(env('PORT'), 10),
+  log: console.log
+})
   .then(appServer => {
     process.on('SIGINT', appServer.stop)
     process.on('SIGTERM', appServer.stop)
