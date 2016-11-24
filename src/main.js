@@ -2,4 +2,6 @@
 
 const server = require('./server')
 
-server.start()
+const appServer = server.start()
+process.on('SIGINT', appServer.stop)
+process.on('SIGTERM', appServer.stop)
