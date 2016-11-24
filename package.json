@@ -16,7 +16,7 @@
   },
   "scripts": {
     "start": "./src/main.js",
-    "test": "npm run --silent lint",
+    "test": "ava && npm run --silent lint",
     "lint": "standard"
   },
   "dependencies": {
@@ -32,7 +32,9 @@
     "reveal.js": "^3.3.0"
   },
   "devDependencies": {
+    "ava": "^0.17.0",
     "nodemon": "^1.11.0",
+    "request": "^2.79.0",
     "standard": "^8.6.0"
   }
 }
