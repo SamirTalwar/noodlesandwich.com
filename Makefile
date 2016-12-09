@@ -1,7 +1,7 @@
 TAG = samirtalwar/noodlesandwich.com
 
 .PHONY: build
-build: build/presentations/99-problems.js
+build:
 	docker build --tag=$(TAG) .
 
 .PHONY: clean
