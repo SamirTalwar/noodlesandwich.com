@@ -1,7 +1,5 @@
 #!/usr/bin/env node
 
-require('sqreen')
-
 const server = require('./server')
 
 const env = (name, defaultValue) => {

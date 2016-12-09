@@ -29,8 +29,7 @@
     "normalize.css": "^5.0.0",
     "prismjs": "^1.5.1",
     "pug": "^2.0.0-beta6",
-    "reveal.js": "^3.3.0",
-    "sqreen": "^0.10.0"
+    "reveal.js": "^3.3.0"
   },
   "devDependencies": {
     "ava": "^0.17.0",
