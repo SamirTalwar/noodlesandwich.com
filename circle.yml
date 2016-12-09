@@ -1,8 +1,18 @@
 machine:
-  node:
-    version: 7.2.1
+  services:
+    - docker
 
 checkout:
   post:
     - git submodule sync --recursive
     - git submodule update --init --recursive
+
+dependencies:
+  override:
+    - docker info
+    - docker pull samirtalwar/noodlesandwich.com
+    - make build
+
+test:
+  override:
+    - make check
