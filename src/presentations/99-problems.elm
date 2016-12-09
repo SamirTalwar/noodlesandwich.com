@@ -1,11 +1,9 @@
 module Main exposing (main)
 
 import Html exposing (..)
-import Html.App as App
 import Html.Attributes exposing (alt, class, href, src, style)
 import Html.Events exposing (..)
 import Html.Keyed
-import Json.Decode as Json exposing ((:=))
 import Keyboard
 import Navigation
 import Regex exposing (HowMany (All), regex, replace)
@@ -13,22 +11,24 @@ import String
 import Task
 
 main =
-  Navigation.program (Navigation.makeParser locationParser) {
-    init = \model -> model ! [],
+  Navigation.program parseLocation {
+    init = init,
     update = update,
-    urlUpdate = urlUpdate,
     view = view,
-    subscriptions = always (Keyboard.presses KeyPress)
+    subscriptions = subscriptions
   }
 
-type Message = Next | Previous | KeyPress Int
+type Message = Next | Previous | KeyPress Int | GoTo SlideNo
 
-type Model = Slide Int
+type Model = Slide SlideNo
 
-locationParser location = Slide <| Result.withDefault 0 <| String.toInt (String.dropLeft 1 location.hash)
+type alias SlideNo = Int
 
-urlUpdate : Model -> Model -> (Model, Cmd Message)
-urlUpdate newModel _ = newModel ! []
+subscriptions = always (Keyboard.presses KeyPress)
+
+parseLocation location = GoTo <| Result.withDefault 0 <| String.toInt (String.dropLeft 1 location.hash)
+
+init location = Slide 0 ! [Task.perform parseLocation (Task.succeed location)]
 
 update message model =
   let (Slide index) = model
@@ -41,9 +41,10 @@ update message model =
       if index > 0
       then Slide (index - 1) ! [Navigation.newUrl ("#" ++ toString (index - 1))]
       else model ! []
-    KeyPress 39 -> model ! [Task.succeed Next |> Task.perform identity identity]
-    KeyPress 37 -> model ! [Task.succeed Previous |> Task.perform identity identity]
+    KeyPress 39 -> model ! [Task.succeed Next |> Task.perform identity]
+    KeyPress 37 -> model ! [Task.succeed Previous |> Task.perform identity]
     KeyPress _ -> model ! []
+    GoTo slide -> Slide slide ! []
 
 view (Slide index) =
   div [class "app", onClick Next] (
@@ -133,34 +134,34 @@ slides =
     [
       h1 [] [text "The event loop"],
       pre [] [
-        code [class "language-javascript"] [text <| stripMargin
-          "|while (let event = eventQueue.next()) {
-           |  process(event)
-           |}"]]
+        code [class "language-javascript"] [text <| lines [
+          "while (let event = eventQueue.next()) {",
+          "  process(event)",
+          "}"]]]
     ],
     [
       h1 [] [text "Synchronous programming"],
       pre [] [
-        code [class "language-javascript"] [text <| stripMargin
-          "|var request = new XMLHttpRequest()
-           |request.open('GET', 'something.json', false)
-           |
-           |request.send(null)
-           |// execution pauses here until we get a response
-           |alert('Response:\\n' + this.responseText)"]]
+        code [class "language-javascript"] [text <| lines [
+          "var request = new XMLHttpRequest()",
+          "request.open('GET', 'something.json', false)",
+          "",
+          "request.send(null)",
+          "// execution pauses here until we get a response",
+          "alert('Response:\\n' + this.responseText)"]]]
     ],
     [
       h1 [] [text "Asynchronous programming"],
       pre [] [
-        code [class "language-javascript"] [text <| stripMargin
-          "|var request = new XMLHttpRequest()
-           |request.onreadystatechange = function () {
-           |  if (this.readyState === 4) {
-           |    alert('Response:\\n' + this.responseText)
-           |  }
-           |}
-           |request.open('GET', 'something.json', true)
-           |request.send(null)"]]
+        code [class "language-javascript"] [text <| lines [
+          "var request = new XMLHttpRequest()",
+          "request.onreadystatechange = function () {",
+          "  if (this.readyState === 4) {",
+          "    alert('Response:\\n' + this.responseText)",
+          "  }",
+          "}",
+          "request.open('GET', 'something.json', true)",
+          "request.send(null)"]]]
     ],
     [
       h1 [] [text "On to the meat."]
@@ -168,31 +169,31 @@ slides =
     [
       h1 [] [text "Thanks, node.js."],
       pre [style [("font-size", "0.6em")]] [
-        code [class "language-javascript"] [text <| stripMargin
-          "|fs.readdir(source, function (err, files) {
-           |  if (err) {
-           |    console.log('Error finding files: ' + err)
-           |  } else {
-           |    files.forEach(function (filename, fileIndex) {
-           |      console.log(filename)
-           |      gm(source + filename).size(function (err, values) {
-           |        if (err) {
-           |          console.log('Error identifying file size: ' + err)
-           |        } else {
-           |          console.log(filename + ' : ' + values)
-           |          aspect = (values.width / values.height)
-           |          widths.forEach(function (width, widthIndex) {
-           |            height = Math.round(width / aspect)
-           |            console.log('resizing ' + filename + 'to ' + height + 'x' + height)
-           |            this.resize(width, height).write(dest + 'w' + width + '_' + filename, function(err) {
-           |              if (err) console.log('Error writing file: ' + err)
-           |            })
-           |          }.bind(this))
-           |        }
-           |      })
-           |    })
-           |  }
-           |})"]]
+        code [class "language-javascript"] [text <| lines [
+          "fs.readdir(source, function (err, files) {",
+          "  if (err) {",
+          "    console.log('Error finding files: ' + err)",
+          "  } else {",
+          "    files.forEach(function (filename, fileIndex) {",
+          "      console.log(filename)",
+          "      gm(source + filename).size(function (err, values) {",
+          "        if (err) {",
+          "          console.log('Error identifying file size: ' + err)",
+          "        } else {",
+          "          console.log(filename + ' : ' + values)",
+          "          aspect = (values.width / values.height)",
+          "          widths.forEach(function (width, widthIndex) {",
+          "            height = Math.round(width / aspect)",
+          "            console.log('resizing ' + filename + 'to ' + height + 'x' + height)",
+          "            this.resize(width, height).write(dest + 'w' + width + '_' + filename, function(err) {",
+          "              if (err) console.log('Error writing file: ' + err)",
+          "            })",
+          "          }.bind(this))",
+          "        }",
+          "      })",
+          "    })",
+          "  }",
+          "})"]]]
     ],
 
     [h1 [] [text "Introducing asynchronous JavaScript"]],
@@ -242,13 +243,9 @@ slides =
     ]
   ]
 
-slideIndexes = [0..(List.length slides)]
+slideIndexes = List.range 0 (List.length slides)
 
-stripMargin =
-  replace All (regex "(^|\n)\\s*\\|")
-    (\match -> case match.submatches of
-      [Just s] -> s
-      _ -> "")
+lines = String.join "\n"
 
 data name = Html.Attributes.attribute ("data-" ++ name)
 
