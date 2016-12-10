@@ -7,7 +7,7 @@ ARG NODE_ENV
 ENV NODE_ENV $NODE_ENV
 
 COPY package.json .
-RUN npm --quiet install
+RUN npm --silent install
 
 COPY elm-package.json .
 RUN ./node_modules/.bin/elm-package install --yes
