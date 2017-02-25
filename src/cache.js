@@ -1,9 +1,9 @@
 module.exports = when => {
   const cache = new Map()
   return (description, behaviour) => {
-    return function*(...args) {
+    return async (...args) => {
       if (!when) {
-        return yield behaviour.apply(this, args)
+        return await behaviour(...args)
       }
 
       const key = {description: description, arguments: args}
@@ -13,7 +13,7 @@ module.exports = when => {
         console.log(JSON.stringify({
           cacheMiss: key
         }))
-        value = yield behaviour.apply(this, args)
+        value = await behaviour(...args)
         cache.set(keyString, value)
       }
       return value
