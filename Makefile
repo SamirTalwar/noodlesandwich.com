@@ -37,6 +37,7 @@ push: build check
 .PHONY: run
 run: build
 	docker run \
+		--name=noodlesandwich.com \
 		--rm \
 		--interactive --tty \
 		--publish=8080:8080 \

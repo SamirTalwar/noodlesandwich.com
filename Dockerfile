@@ -26,4 +26,4 @@ RUN ./node_modules/.bin/elm-make --output=build/presentations/99-problems.js src
 
 COPY database.yaml ./
 
-CMD ["yarn", "start"]
+CMD ["./src/main.js"]
