@@ -21,6 +21,7 @@ RUN yarn install --frozen-lockfile
 COPY elm-package.json ./
 RUN ./node_modules/.bin/elm-package install --yes
 
+COPY .eslintrc.json ./
 COPY src src
 RUN ./node_modules/.bin/elm-make --output=build/presentations/99-problems.js src/presentations/99-problems.elm
 

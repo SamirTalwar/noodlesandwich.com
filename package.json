@@ -17,7 +17,7 @@
   "scripts": {
     "start": "./src/main.js",
     "test": "ava && yarn run lint",
-    "lint": "standard src test"
+    "lint": "eslint src test"
   },
   "dependencies": {
     "js-yaml": "^3.7.0",
@@ -34,7 +34,10 @@
   "devDependencies": {
     "ava": "^0.18.0",
     "elm": "^0.18.0",
-    "nodemon": "^1.11.0",
-    "standard": "^8.6.0"
+    "eslint": "^3.16.1",
+    "eslint-config-airbnb-base": "^11.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "nodemon": "^1.11.0"
   }
 }

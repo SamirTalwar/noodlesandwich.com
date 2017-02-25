@@ -1,8 +1,6 @@
 const fs = require('fs')
-const koa = {
-  Application: require('koa'),
-  route: require('koa-route')
-}
+const Koa = require('koa')
+const route = require('koa-route')
 const markdownIt = require('markdown-it')
 const moment = require('moment')
 const pug = require('pug')
@@ -16,27 +14,27 @@ const {denodeify} = require('./promises')
 const start = ({environment, log, port}) => {
   const inProduction = environment === 'production'
 
-  const cached = Cache(inProduction)
+  const cached = Cache(log, inProduction)
   const loadData = cached('database', loadDatabase)
 
-  const app = new koa.Application()
+  const app = new Koa()
   app.use(timeResponse(log))
   app.use(setSecurityHeaders)
 
-  app.use(koa.route.get('/', async context => {
+  app.use(route.get('/', async context => {
     const data = await loadData()
     context.type = 'text/html'
     context.body = await cached('home.pug', pugPage('home.pug'))(data)
   }))
 
-  app.use(koa.route.get('/talks/:slug', (context, slug) => {
+  app.use(route.get('/talks/:slug', (context, slug) => {
     context.status = 301
     context.redirect(`/talks/${slug}/essay`)
   }))
 
-  app.use(koa.route.get('/talks/:slug/essay', async (context, slug) => {
+  app.use(route.get('/talks/:slug/essay', async (context, slug) => {
     const data = await loadData()
-    const talk = data.talks.find(talk => talk.slug === slug)
+    const talk = data.talks.find(t => t.slug === slug)
     if (!talk) {
       context.throw(404)
     }
@@ -46,9 +44,9 @@ const start = ({environment, log, port}) => {
       markdownPage('essay.pug', `talks/${talk.date}--${slug}.md`))(talk.code.language, talk)
   }))
 
-  app.use(koa.route.get('/talks/:slug/presentation', async (context, slug) => {
+  app.use(route.get('/talks/:slug/presentation', async (context, slug) => {
     const data = await loadData()
-    const talk = data.talks.find(talk => talk.slug === slug && talk.presentation)
+    const talk = data.talks.find(t => t.slug === slug && t.presentation)
     if (!talk) {
       context.throw(404)
     }
@@ -62,12 +60,14 @@ const start = ({environment, log, port}) => {
         context.body = await cached(`presentation-reveal.pug & talks/${talk.date}--${slug}.md`,
           markdownPage('presentation-reveal.pug', `talks/${talk.date}--${slug}.md`))(talk.code.language, talk)
         break
+      default:
+        context.throw(500, 'Unknown presentation type.')
     }
   }))
 
-  app.use(koa.route.get('/talks/:slug/video', async (context, slug) => {
+  app.use(route.get('/talks/:slug/video', async (context, slug) => {
     const data = await loadData()
-    const talk = data.talks.find(talk => talk.slug === slug && talk.video && talk.video.type === 'youtube')
+    const talk = data.talks.find(t => t.slug === slug && t.video && t.video.type === 'youtube')
     if (!talk) {
       context.throw(404)
     }
@@ -76,7 +76,7 @@ const start = ({environment, log, port}) => {
     context.body = await cached('video.pug', pugPage('video.pug'))(talk)
   }))
 
-  app.use(koa.route.get('/workshops/:slug', async (context, slug) => {
+  app.use(route.get('/workshops/:slug', async (context, slug) => {
     const data = await loadData()
     const workshop = data.workshops.find(event => event.slug === slug)
     if (!workshop) {
@@ -87,13 +87,13 @@ const start = ({environment, log, port}) => {
     context.body = await cached(`events/${slug}.pug`, pugPage(`events/${slug}.pug`))(workshop)
   }))
 
-  app.use(koa.route.get('/:file.css', async (context, file) => {
+  app.use(route.get('/:file.css', async (context, file) => {
     context.type = 'text/css'
     context.body = (await cached(`${file}.scss`, renderSass)({file: `src/${file}.scss`})).css
   }))
 
   const staticFile = (path, type, fileLocation = `src/assets/${path}`) => {
-    app.use(koa.route.get(`/${path}`, async context => {
+    app.use(route.get(`/${path}`, async context => {
       context.type = type
       context.body = await readFile(fileLocation)
     }))
@@ -128,36 +128,36 @@ const start = ({environment, log, port}) => {
     .then(server => {
       log(JSON.stringify({
         message: 'Application started.',
-        port: port,
-        environment: environment
+        port,
+        environment,
       }))
 
       return {
         stop: () => {
           server.close(() => {
             log(JSON.stringify({
-              message: 'Application stopped.'
+              message: 'Application stopped.',
             }))
           })
-        }
+        },
       }
     })
 }
 
 const timeResponse = log => async (context, next) => {
-  var start = new Date()
+  const startTime = new Date()
   await next()
-  var responseTime = new Date() - start
+  const responseTime = new Date() - startTime
   log(JSON.stringify({
     request: {
       method: context.method,
-      url: context.url
+      url: context.url,
     },
     response: {
       status: context.response.status,
       message: context.response.message,
-      time: responseTime
-    }
+      time: responseTime,
+    },
   }))
 }
 
@@ -198,7 +198,7 @@ const parseDates = (events = []) => {
     .map(event =>
       Object.assign({}, event, {
         date: event.timestamp.format('YYYY-MM-DD'),
-        formattedDate: event.timestamp.format('dddd Do MMMM, YYYY')
+        formattedDate: event.timestamp.format('dddd Do MMMM, YYYY'),
       }))
 }
 
@@ -206,17 +206,16 @@ const markdownPage = (layoutFile, viewFile) => async (defaultLanguage, data) => 
   const markdown = markdownIt({html: true, highlight: highlightCode(defaultLanguage)})
   const contents = await readFile(`src/views/${viewFile}`, 'utf8')
   const renderedContents = markdown.render(contents)
-  return await pugPage(layoutFile)(Object.assign({contents: renderedContents}, data))
+  return pugPage(layoutFile)(Object.assign({contents: renderedContents}, data))
 }
 
-const pugPage = viewFile => data => {
-  return pug.renderFile(`src/views/${viewFile}`, Object.assign({}, data, {pretty: true}))
-}
+const pugPage = viewFile => data => pug.renderFile(`src/views/${viewFile}`, Object.assign({}, data, {pretty: true}))
 
 const highlightCode = defaultLanguage => (code, language) => {
   const languageToUse = language || defaultLanguage
   if (!prism.languages[languageToUse]) {
     try {
+      // eslint-disable-next-line
       require(`prismjs/components/prism-${languageToUse}`)
     } catch (error) {
       return ''
@@ -229,5 +228,5 @@ const readFile = denodeify(fs.readFile)
 const renderSass = denodeify(sass.render)
 
 module.exports = {
-  start
+  start,
 }

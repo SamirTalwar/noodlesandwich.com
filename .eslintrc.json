@@ -1,0 +1,10 @@
+{
+  "extends": "airbnb-base",
+  "rules": {
+    "arrow-parens": ["error", "as-needed"],
+    "no-param-reassign": ["error", {"props": false}],
+    "no-use-before-define": "off",
+    "object-curly-spacing": ["error", "never"],
+    "semi": ["error", "never"]
+  }
+}

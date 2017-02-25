@@ -13,7 +13,7 @@ const env = (name, defaultValue) => {
 server.start({
   environment: env('NODE_ENV', 'development'),
   port: parseInt(env('PORT'), 10),
-  log: console.log
+  log: console.log, // eslint-disable-line no-console
 })
   .then(appServer => {
     process.once('SIGINT', appServer.stop)
