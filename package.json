@@ -16,7 +16,7 @@
   },
   "scripts": {
     "start": "./src/main.js",
-    "test": "ava && npm run --silent lint",
+    "test": "ava && yarn run lint",
     "lint": "standard src test"
   },
   "dependencies": {

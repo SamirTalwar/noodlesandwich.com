@@ -26,7 +26,7 @@ lint: build
 		--rm \
 		--volume=$$PWD/test:/usr/src/app/test \
 		samirtalwar/noodlesandwich.com \
-		npm --silent run lint
+		yarn run lint
 
 .PHONY: push
 push: build check
@@ -52,4 +52,4 @@ build/presentations/99-problems.js: src/presentations/99-problems.elm elm-packag
 	elm make --output=$@ $<
 
 node_modules: package.json
-	npm install
+	yarn install
