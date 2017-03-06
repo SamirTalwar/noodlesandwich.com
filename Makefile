@@ -30,8 +30,8 @@ lint: build
 
 .PHONY: push
 push: build check
-	IN_MAKEFILE=true git push
 	docker push $(TAG)
+	IN_MAKEFILE=true git push
 	heroku container:push web
 
 .PHONY: run
