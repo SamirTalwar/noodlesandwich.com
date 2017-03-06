@@ -2,7 +2,7 @@ TAG = samirtalwar/noodlesandwich.com
 
 .PHONY: build
 build:
-	docker build --tag=$(TAG) .
+	docker build --pull --tag=$(TAG) .
 
 .PHONY: clean
 clean:
