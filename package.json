@@ -16,7 +16,7 @@
   },
   "scripts": {
     "start": "./src/main.js",
-    "test": "ava && yarn run lint",
+    "test": "ava",
     "lint": "eslint src test"
   },
   "dependencies": {

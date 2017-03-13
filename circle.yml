@@ -1,18 +1,46 @@
-machine:
-  services:
-    - docker
+version: 2
 
-checkout:
-  post:
-    - git submodule sync --recursive
-    - git submodule update --init --recursive
+executorType: docker
 
-dependencies:
-  override:
-    - docker info
-    - docker pull samirtalwar/noodlesandwich.com
-    - make build
+containerInfo:
+  - image: samirtalwar/noodlesandwich.com-build
 
-test:
-  override:
-    - make check
+stages:
+  build:
+    workDir: /root/noodlesandwich.com
+
+    steps:
+      - type: checkout
+
+      - type: shell
+        name: 'Check out submodules'
+        command: |
+          set -ex
+          git submodule sync --recursive
+          git submodule update --init --recursive
+
+      - type: cache-restore
+        key: 'package.json-{{ checksum "package.json" }}'
+
+      - type: shell
+        name: 'Install dependencies'
+        command: make node_modules
+
+      - type: cache-save
+        key: 'package.json-{{ checksum "package.json" }}'
+        paths:
+          - node_modules
+
+      - setup_docker_engine
+
+      - type: shell
+        name: 'Pull the latest version, to avoid re-building'
+        command: docker pull samirtalwar/noodlesandwich.com
+
+      - type: shell
+        name: 'Build'
+        command: make build
+
+      - type: shell
+        name: 'Run tests'
+        command: make check

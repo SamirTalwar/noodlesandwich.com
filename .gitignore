@@ -1,5 +1,4 @@
 build
 docker-cloud.yml
-elm-stuff/build-artifacts
-elm-stuff/packages
+elm-stuff
 node_modules
