@@ -6,32 +6,32 @@ const test = require('ava')
 const server = require('../src/server')
 
 test.beforeEach(t => availablePort()
-    .then(port => {
-      t.context.port = port
-      return server.start({
-        environment: 'test',
-        port,
-        log: () => {},
-      })
+  .then(port => {
+    t.context.port = port
+    return server.start({
+      environment: 'test',
+      port,
+      log: () => {},
     })
-    .then(appServer => {
-      t.context.appServer = appServer
-    }))
+  })
+  .then(appServer => {
+    t.context.appServer = appServer
+  }))
 
 test.afterEach(t => {
   t.context.appServer.stop()
 })
 
 test('the home page renders well', t => get(`http://localhost:${t.context.port}/`)
-    .then(response => {
-      t.is(response.statusCode, 200)
-      return pipeToString('utf8', response)
-    })
-    .then(body => {
-      if (body.indexOf('<h1><a href="/">[≈]</a></h1>') < 0) {
-        t.fail(`Could not find the site header in the body.\nBody:\n${body}`)
-      }
-    }))
+  .then(response => {
+    t.is(response.statusCode, 200)
+    return pipeToString('utf8', response)
+  })
+  .then(body => {
+    if (body.indexOf('<h1><a href="/">[≈]</a></h1>') < 0) {
+      t.fail(`Could not find the site header in the body.\nBody:\n${body}`)
+    }
+  }))
 
 const availablePort = () => new Promise(resolve => {
   const potentialPort = randomNumberBetween(1024, 65536)
