@@ -5,7 +5,14 @@ else
 meta(name='viewport' content='width=device-width, initial-scale=1')
 link(rel='stylesheet' href='/site.css')
 link(rel='stylesheet' href='https://fonts.googleapis.com/css?family=Source+Code+Pro')
-script(src='https://use.fontawesome.com/c941d87d5e.js' defer)
+script(defer src='https://use.fontawesome.com/c941d87d5e.js')
+script(async src="https://www.googletagmanager.com/gtag/js?id=UA-2662678-4")
+script.
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-2662678-4');
 
 link(rel='apple-touch-icon' sizes='180x180' href='/apple-touch-icon.png')
 link(rel='icon' type='image/png' href='/favicon-32x32.png' sizes='32x32')
