@@ -40,8 +40,10 @@ const start = ({environment, log, port}) => {
     }
 
     context.type = 'text/html'
-    context.body = await cached(`essay.pug & talks/${talk.date}--${slug}.md`,
-      markdownPage('essay.pug', `talks/${talk.date}--${slug}.md`))(talk.code.language, talk)
+    context.body = await cached(
+      `essay.pug & talks/${talk.date}--${slug}.md`,
+      markdownPage('essay.pug', `talks/${talk.date}--${slug}.md`),
+    )(talk.code.language, talk)
   }))
 
   app.use(route.get('/talks/:slug/presentation', async (context, slug) => {
@@ -57,8 +59,10 @@ const start = ({environment, log, port}) => {
         context.body = await cached('presentation-elm.pug', pugPage('presentation-elm.pug'))(talk)
         break
       case 'reveal.js':
-        context.body = await cached(`presentation-reveal.pug & talks/${talk.date}--${slug}.md`,
-          markdownPage('presentation-reveal.pug', `talks/${talk.date}--${slug}.md`))(talk.code.language, talk)
+        context.body = await cached(
+          `presentation-reveal.pug & talks/${talk.date}--${slug}.md`,
+          markdownPage('presentation-reveal.pug', `talks/${talk.date}--${slug}.md`),
+        )(talk.code.language, talk)
         break
       default:
         context.throw(500, 'Unknown presentation type.')
