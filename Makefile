@@ -35,19 +35,8 @@ push: build check
 	fi
 
 .PHONY: run
-run: build
-	docker run \
-		--name=noodlesandwich.com \
-		--rm \
-		--interactive --tty \
-		--publish=8080:8080 \
-		--env=NODE_ENV=$$NODE_ENV \
-		--env=PORT=8080 \
-		--volume=$$PWD/database.yaml:/usr/src/app/database.yaml \
-		--volume=$$PWD/build:/usr/src/app/build \
-		--volume=$$PWD/src:/usr/src/app/src \
-		samirtalwar/noodlesandwich.com \
-		./node_modules/.bin/nodemon -L
+run: build/presentations/99-problems.js
+	PORT=8080 ./node_modules/.bin/nodemon -L
 
 build/presentations/99-problems.js: src/presentations/99-problems.elm elm-stuff/packages
 	elm make --output=$@ $<
