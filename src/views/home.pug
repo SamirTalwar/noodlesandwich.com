@@ -22,6 +22,8 @@ block main
 
     +upcomingEvents('talks', upcomingTalks)
 
+    +previousEvents('workshops', previousWorkshops)
+
     +previousEvents('talks', previousTalks)
 
 mixin upcomingEvents(title, events)
@@ -67,7 +69,7 @@ mixin event(prefix, event)
 
     p #{event.formattedDate}
 
-    if event.slug || event.presentation || event.video
+    if event.slug || event.external || event.presentation || event.video
       ul.links
         if event.slug
           li
@@ -86,3 +88,7 @@ mixin event(prefix, event)
           else
             li
               a(href=`/${prefix}/${event.slug}/video`) Watch the video
+        if event.external
+          li
+            a(href=event.external.link)
+              | #{event.external.text}

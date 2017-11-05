@@ -254,6 +254,9 @@ const loadDatabase = async () => {
   database.upcomingWorkshops = database.workshops.filter(event =>
     event.timestamp.isSameOrAfter(today),
   )
+  database.previousWorkshops = database.workshops.filter(
+    event => event.timestamp.isBefore(today) && event.external,
+  )
   database.upcomingTalks = database.talks.filter(event =>
     event.timestamp.isSameOrAfter(today),
   )

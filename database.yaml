@@ -7,6 +7,14 @@ workshops:
     location: London, UK
     timestamp: 2016-10-20T09:00:00+0100
 
+  - title: WebOps
+    event: Software Craftsmanship London
+    location: London, UK
+    timestamp: 2017-10-05T15:15:00+0100
+    external:
+      text: Try it yourself
+      link: https://github.com/SamirTalwar/webops-workshop
+
 talks:
   - title: Driving new features quickly and safely with Elm
     partner:
