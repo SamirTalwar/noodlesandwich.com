@@ -1,4 +1,4 @@
-FROM node
+FROM node:stretch
 
 RUN set -ex; \
     apt-get -qq update; \
