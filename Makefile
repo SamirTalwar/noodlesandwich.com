@@ -36,7 +36,7 @@ push: build check
 
 .PHONY: run
 run: build/presentations/99-problems.js
-	PORT=8080 ./node_modules/.bin/nodemon -w database.yaml -w src -e elm,js,md,pug,yaml
+	PORT=8080 ./node_modules/.bin/nodemon --watch database.yaml --watch src --ext elm,js,md,pug,scss,yaml
 
 build/presentations/99-problems.js: src/presentations/99-problems.elm elm-stuff/packages
 	elm make --output=$@ $<
