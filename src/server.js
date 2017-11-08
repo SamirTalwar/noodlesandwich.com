@@ -203,15 +203,22 @@ const start = ({environment, log, port}) => {
     )
 
     return {
-      stop: () => {
-        server.close(() => {
-          log(
-            JSON.stringify({
-              message: 'Application stopped.',
-            }),
-          )
-        })
-      },
+      stop: () =>
+        new Promise((resolve, reject) => {
+          server.close(error => {
+            if (error) {
+              reject(error)
+              return
+            }
+
+            log(
+              JSON.stringify({
+                message: 'Application stopped.',
+              }),
+            )
+            resolve()
+          })
+        }),
     }
   })
 }

@@ -19,5 +19,12 @@ server
   .then(appServer => {
     process.once('SIGINT', appServer.stop)
     process.once('SIGTERM', appServer.stop)
-    process.once('SIGUSR2', appServer.stop)
+    process.once('SIGUSR2', () =>
+      appServer.stop().then(() => process.kill(process.pid, 'SIGUSR2')),
+    )
+  })
+  .catch(error => {
+    // eslint-disable-next-line no-console
+    console.error(error)
+    process.exit(1)
   })
