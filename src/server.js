@@ -30,6 +30,14 @@ const start = ({environment, log, port}) => {
   )
 
   app.use(
+    route.get('/bio', async context => {
+      const data = await loadData()
+      context.type = 'text/html'
+      context.body = await cached('bio.pug', pugPage('bio.pug'))(data)
+    }),
+  )
+
+  app.use(
     route.get('/talks/:slug', (context, slug) => {
       context.status = 301
       context.redirect(`/talks/${slug}/essay`)
