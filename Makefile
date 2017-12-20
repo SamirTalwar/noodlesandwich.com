@@ -4,7 +4,7 @@ PATH := $(PWD)/node_modules/.bin:$(PATH)
 TAG = samirtalwar/noodlesandwich.com
 BUILD_TAG = samirtalwar/noodlesandwich.com-build
 
-build: node_modules gulpfile.js src build/presentations/99-problems.js
+build: build.Dockerfile Dockerfile node_modules gulpfile.js $(wildcard src/**/*) build/presentations/99-problems.js
 	gulp
 	docker build --pull --tag=$(BUILD_TAG) --file=build.Dockerfile .
 	docker build --pull --tag=$(TAG) .
