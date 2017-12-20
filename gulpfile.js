@@ -3,7 +3,6 @@ const gulp = require('gulp')
 const yaml = require('js-yaml')
 const markdownIt = require('markdown-it')
 const merge = require('merge-stream')
-const moment = require('moment')
 const sass = require('node-sass')
 const path = require('path')
 const pug = require('pug')
@@ -13,6 +12,8 @@ const through = require('through2')
 gulp.task('default', () => {
   const database = loadDatabase()
   return merge(
+    buildDatabase('database.yaml'),
+
     buildPug('src/views/index.pug', database),
     buildPug('src/views/bio.pug', database),
     ...database.talks.filter(talk => talk.slug).map(buildEssay),
@@ -37,6 +38,7 @@ gulp.task('default', () => {
       .pipe(compileSass())
       .pipe(gulp.dest('build')),
 
+    staticFile('assets/pages/index.js', 'src/assets/pages/index.js'),
     staticFile('assets/talks/presentation.js', 'src/presentations/load.js'),
     staticFile(
       'assets/talks/99-problems/presentation.js',
@@ -97,6 +99,12 @@ const staticFile = (dest, src) => {
   const name = dest
   return gulp.src(name).pipe(gulp.dest('build'))
 }
+
+const buildDatabase = file =>
+  gulp
+    .src(file)
+    .pipe(yamlToJson())
+    .pipe(gulp.dest('build'))
 
 const buildPug = (file, data, dest = 'build') =>
   gulp
@@ -175,6 +183,21 @@ const pugPage = (filename = null) =>
     )
   })
 
+const yamlToJson = () =>
+  through.obj((file, encoding, callback) => {
+    const contents = file.isBuffer()
+      ? file.contents.toString(encoding)
+      : file.contents
+    try {
+      const object = yaml.safeLoad(contents)
+      file.contents = Buffer.from(JSON.stringify(object, null, 2))
+      file.path = file.path.replace(/\.ya?ml$/, '.json')
+      callback(null, file)
+    } catch (error) {
+      callback(error)
+    }
+  })
+
 const markdownPage = (layoutFile, filename, defaultLanguage) =>
   through.obj((file, encoding, callback) => {
     const markdown = markdownIt({
@@ -241,49 +264,4 @@ const withData = data =>
     callback(null, file)
   })
 
-const loadDatabase = () => {
-  const database = yaml.safeLoad(fs.readFileSync('database.yaml'))
-  database.talks = parseDates(database.talks)
-  database.workshops = parseDates(database.workshops)
-
-  const today = moment().startOf('day')
-  database.upcomingWorkshops = database.workshops.filter(event =>
-    event.timestamp.isSameOrAfter(today),
-  )
-  database.previousWorkshops = database.workshops.filter(
-    event => event.timestamp.isBefore(today) && event.external,
-  )
-  database.upcomingTalks = database.talks.filter(event =>
-    event.timestamp.isSameOrAfter(today),
-  )
-  database.previousTalks = database.talks.filter(
-    event => event.timestamp.isBefore(today) && event.slug,
-  )
-
-  return database
-}
-
-const parseDates = (events = []) => {
-  events.forEach(event => {
-    if (!event.timestamp) {
-      throw new Error(
-        `The following event does not have a timestamp.\n${JSON.stringify(
-          event,
-          null,
-          2,
-        )}`,
-      )
-    }
-  })
-
-  return events
-    .map(event =>
-      Object.assign({}, event, {timestamp: moment(event.timestamp)}),
-    )
-    .map(event =>
-      Object.assign({}, event, {
-        date: event.timestamp.format('YYYY-MM-DD'),
-        formattedDate: event.timestamp.format('dddd Do MMMM, YYYY'),
-      }),
-    )
-}
+const loadDatabase = () => yaml.safeLoad(fs.readFileSync('database.yaml'))
