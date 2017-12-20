@@ -3,6 +3,7 @@ const gulp = require('gulp')
 const yaml = require('js-yaml')
 const markdownIt = require('markdown-it')
 const merge = require('merge-stream')
+const moment = require('moment')
 const sass = require('node-sass')
 const path = require('path')
 const pug = require('pug')
@@ -264,4 +265,34 @@ const withData = data =>
     callback(null, file)
   })
 
-const loadDatabase = () => yaml.safeLoad(fs.readFileSync('database.yaml'))
+const loadDatabase = () => {
+  const database = yaml.safeLoad(fs.readFileSync('database.yaml'))
+  database.talks = parseDates(database.talks)
+  database.workshops = parseDates(database.workshops)
+  return database
+}
+
+const parseDates = (events = []) => {
+  events.forEach(event => {
+    if (!event.timestamp) {
+      throw new Error(
+        `The following event does not have a timestamp.\n${JSON.stringify(
+          event,
+          null,
+          2,
+        )}`,
+      )
+    }
+  })
+
+  return events
+    .map(event =>
+      Object.assign({}, event, {timestamp: moment(event.timestamp)}),
+    )
+    .map(event =>
+      Object.assign({}, event, {
+        date: event.timestamp.format('YYYY-MM-DD'),
+        formattedDate: event.timestamp.format('dddd Do MMMM, YYYY'),
+      }),
+    )
+}
