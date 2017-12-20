@@ -16,13 +16,10 @@
   },
   "scripts": {
     "start": "./src/main.js",
-    "test": "ava",
     "lint": "eslint src test"
   },
   "dependencies": {
     "js-yaml": "^3.10.0",
-    "koa": "^2.4.1",
-    "koa-route": "^3.2.0",
     "markdown-it": "^8.4.0",
     "moment": "^2.20.1",
     "node-sass": "^4.7.2",
@@ -32,7 +29,6 @@
     "reveal.js": "^3.6.0"
   },
   "devDependencies": {
-    "ava": "^0.24.0",
     "elm": "^0.18.0",
     "eslint": "^4.13.1",
     "eslint-config-airbnb-base": "^12.1.0",
@@ -43,7 +39,6 @@
     "gulp": "^3.9.1",
     "gulp-cli": "^1.4.0",
     "merge-stream": "^1.0.1",
-    "nodemon": "^1.13.3",
     "prettier": "^1.9.2",
     "through2": "^2.0.3"
   }

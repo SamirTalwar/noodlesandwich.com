@@ -41,8 +41,8 @@
       })
       .then(database => {
         const section = document.querySelector('.upcoming-events')
-        document.querySelector('.upcoming-events .message').style.display =
-          'none'
+        const message = document.querySelector('.upcoming-events .message')
+        message.style.display = 'none'
         section.appendChild(upcoming('workshops', database.upcomingWorkshops))
         section.appendChild(upcoming('talks', database.upcomingTalks))
         section.appendChild(previous('workshops', database.previousWorkshops))
@@ -84,7 +84,7 @@
     if (events.length > 0) {
       const header = document.createElement('header')
       const headerText = document.createElement('h2')
-      headerText.textContent = `Upcoming ${title}`
+      headerText.textContent = `Previous ${title}`
       header.appendChild(headerText)
       container.appendChild(header)
 

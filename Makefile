@@ -15,11 +15,7 @@ clean:
 	rm -rf elm-stuff/build-artifacts
 
 .PHONY: check
-check: test lint
-
-.PHONY: test
-test: node_modules
-	yarn run test
+check: lint
 
 .PHONY: lint
 lint: node_modules
