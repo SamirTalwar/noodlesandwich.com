@@ -4,8 +4,8 @@ PATH := $(PWD)/node_modules/.bin:$(PATH)
 TAG = samirtalwar/noodlesandwich.com
 BUILD_TAG = samirtalwar/noodlesandwich.com-build
 
-.PHONY: build
-build: node_modules build/presentations/99-problems.js
+build: node_modules gulpfile.js src build/presentations/99-problems.js
+	gulp
 	docker build --pull --tag=$(BUILD_TAG) --file=build.Dockerfile .
 	docker build --pull --tag=$(TAG) .
 
@@ -26,7 +26,7 @@ lint: node_modules
 	yarn run lint
 
 .PHONY: push
-push: build check
+push: clean build check
 	@ if [ "`git name`" = 'master' ]; then \
 		docker push $(BUILD_TAG); \
 		docker push $(TAG); \
@@ -35,8 +35,13 @@ push: build check
 	fi
 
 .PHONY: run
-run: build/presentations/99-problems.js
-	PORT=8080 ./node_modules/.bin/nodemon --watch database.yaml --watch src --ext elm,js,md,pug,scss,yaml
+run: build
+	docker run \
+		--rm \
+		--interactive --tty \
+		--volume=$(PWD)/build:/usr/share/nginx/html \
+		--publish=80:80 \
+		$(TAG)
 
 build/presentations/99-problems.js: src/presentations/99-problems.elm elm-stuff/packages
 	elm make --output=$@ $<

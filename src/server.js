@@ -25,7 +25,7 @@ const start = ({environment, log, port}) => {
     route.get('/', async context => {
       const data = await loadData()
       context.type = 'text/html'
-      context.body = await cached('home.pug', pugPage('home.pug'))(data)
+      context.body = await cached('index.pug', pugPage('index.pug'))(data)
     }),
   )
 

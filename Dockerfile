@@ -1,12 +1,5 @@
-FROM node:stretch
+FROM nginx
 
-WORKDIR /usr/src/app
-
-COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
-
-COPY build build
-COPY src src
-COPY database.yaml ./
-
-CMD ["./src/main.js"]
+COPY src/nginx.conf /etc/nginx/conf.d/default.conf
+COPY build/* /usr/share/nginx/html/
+RUN chmod -R go=u-w /usr/share/nginx/html
