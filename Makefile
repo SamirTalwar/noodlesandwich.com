@@ -37,11 +37,12 @@ push: clean build check
 .PHONY: run
 run: build
 	docker run \
-		--rm \
-		--interactive --tty \
+		--detach \
+		--interactive \
 		--volume=$(PWD)/build:/usr/share/nginx/html \
 		--publish=80:80 \
 		$(TAG)
+	gulp watch
 
 build/presentations/99-problems.js: src/presentations/99-problems.elm elm-stuff/packages
 	elm make --output=$@ $<

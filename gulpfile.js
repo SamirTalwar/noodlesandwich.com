@@ -83,6 +83,10 @@ gulp.task('default', () => {
   )
 })
 
+gulp.task('watch', () =>
+  gulp.watch('src/**/*.{elm,js,md,pug,scss,yaml}', ['default']),
+)
+
 const staticFile = (dest, src) => {
   if (src) {
     return gulp
