@@ -21,26 +21,26 @@
   },
   "dependencies": {
     "js-yaml": "^3.10.0",
-    "koa": "^2.3.0",
+    "koa": "^2.4.1",
     "koa-route": "^3.2.0",
     "markdown-it": "^8.4.0",
-    "moment": "^2.19.1",
-    "node-sass": "^4.6.0",
+    "moment": "^2.20.1",
+    "node-sass": "^4.7.2",
     "normalize.css": "^7.0.0",
-    "prismjs": "^1.8.4",
+    "prismjs": "^1.9.0",
     "pug": "^2.0.0-rc.4",
-    "reveal.js": "^3.5.0"
+    "reveal.js": "^3.6.0"
   },
   "devDependencies": {
-    "ava": "^0.23.0",
+    "ava": "^0.24.0",
     "elm": "^0.18.0",
-    "eslint": "^4.10.0",
+    "eslint": "^4.13.1",
     "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-config-prettier": "^2.7.0",
+    "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-jsx-a11y": "^6.0.2",
-    "eslint-plugin-prettier": "^2.3.1",
-    "nodemon": "^1.12.1",
-    "prettier": "^1.7.4"
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-prettier": "^2.4.0",
+    "nodemon": "^1.13.3",
+    "prettier": "^1.9.2"
   }
 }
