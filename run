@@ -1,0 +1,25 @@
+#!/usr/bin/env zsh
+
+set -e
+set -u
+set -o pipefail
+
+function start {
+  make build
+  docker run \
+    --name=noodlesandwich \
+    --detach \
+    --interactive \
+    --volume=$(PWD)/build:/usr/share/nginx/html \
+    --publish=80:80 \
+    samirtalwar/noodlesandwich.com
+  trap stop INT TERM
+  gulp watch
+}
+
+function stop {
+  docker stop noodlesandwich
+  docker rm noodlesandwich
+}
+
+start
