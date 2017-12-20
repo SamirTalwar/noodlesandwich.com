@@ -36,6 +36,7 @@ build/presentations/99-problems.js: src/presentations/99-problems.elm elm-stuff/
 node_modules: package.json
 	yarn install --frozen-lockfile
 	npm rebuild
+	touch node_modules
 
 elm-stuff/packages: elm-package.json node_modules
 	elm package install -y
