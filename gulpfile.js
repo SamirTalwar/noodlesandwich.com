@@ -39,6 +39,12 @@ gulp.task('default', () => {
       .pipe(compileSass())
       .pipe(gulp.dest('build')),
 
+    staticFile('dat.json', 'dat.json'),
+    gulp
+      .src('dat.json')
+      .pipe(wellKnownDat())
+      .pipe(gulp.dest('build')),
+
     staticFile('assets/pages/index.js', 'src/assets/pages/index.js'),
     staticFile('assets/talks/presentation.js', 'src/presentations/load.js'),
     staticFile(
@@ -263,6 +269,24 @@ const withData = data =>
   through.obj((file, encoding, callback) => {
     file.data = data
     callback(null, file)
+  })
+
+const wellKnownDat = () =>
+  through.obj((file, encoding, callback) => {
+    try {
+      const contents = file.isBuffer()
+        ? file.contents.toString(encoding)
+        : file.contents
+      const {url} = JSON.parse(contents)
+      if (!url) {
+        throw new Error('No URL in the dat.json file.')
+      }
+      file.contents = Buffer.from(`${url}\n`)
+      file.path = '.well-known/dat'
+      callback(null, file)
+    } catch (error) {
+      callback(error)
+    }
   })
 
 const loadDatabase = () => {
