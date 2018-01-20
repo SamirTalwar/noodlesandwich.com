@@ -32,11 +32,17 @@ lint: node_modules
 
 .PHONY: push
 push: clean build check
-	@ if [ "`git name`" = 'master' ]; then \
-		docker push $(BUILD_TAG); \
-		docker push $(TAG); \
-		IN_MAKEFILE=true git push $(GIT_FLAGS); \
-	fi
+	@ [[ -z "$$(git status --porcelain)" ]] || { \
+		echo >&2 'Cannot push with a dirty working tree.'; \
+		exit 1; \
+	}
+	@ [[ "$$(git name)" == 'master' ]] || { \
+		echo >&2 'You must run this command from the `master` branch.'; \
+		exit 1; \
+	}
+	docker push $(BUILD_TAG)
+	docker push $(TAG)
+	IN_MAKEFILE=true git push $(GIT_FLAGS)
 
 build/presentations/99-problems.js: src/presentations/99-problems.elm elm-stuff/packages
 	elm make --output=$@ $<
