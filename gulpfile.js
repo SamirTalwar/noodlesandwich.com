@@ -44,6 +44,10 @@ gulp.task('default', () => {
       .src('dat.json')
       .pipe(wellKnownDat())
       .pipe(gulp.dest('build')),
+    gulp
+      .src('dat.json')
+      .pipe(datHttpdConfig())
+      .pipe(gulp.dest('docker')),
 
     staticFile('assets/pages/index.js', 'src/assets/pages/index.js'),
     staticFile('assets/talks/presentation.js', 'src/presentations/load.js'),
@@ -283,6 +287,33 @@ const wellKnownDat = () =>
       }
       file.contents = Buffer.from(`${url}\n`)
       file.path = '.well-known/dat'
+      callback(null, file)
+    } catch (error) {
+      callback(error)
+    }
+  })
+
+const datHttpdConfig = () =>
+  through.obj((file, encoding, callback) => {
+    try {
+      const contents = file.isBuffer()
+        ? file.contents.toString(encoding)
+        : file.contents
+      const {host, url} = JSON.parse(contents)
+      if (!host) {
+        throw new Error('No host in the dat.json file.')
+      }
+      if (!url) {
+        throw new Error('No URL in the dat.json file.')
+      }
+      file.contents = Buffer.from(
+        JSON.stringify({
+          sites: {
+            [host]: {url},
+          },
+        }),
+      )
+      file.path = 'dathttpd.yml'
       callback(null, file)
     } catch (error) {
       callback(error)

@@ -1,4 +1,5 @@
 build
+docker
 docker-cloud.yml
 elm-stuff
 node_modules
