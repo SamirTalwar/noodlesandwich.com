@@ -1,9 +1,6 @@
 SHELL := /bin/bash
 PATH := $(PWD)/node_modules/.bin:$(PATH)
 
-SITE_HOST = noodlesandwich.com
-SITE_URL = $(shell jq -r '.url' < dat.json)
-
 TAG = samirtalwar/noodlesandwich.com
 BUILD_TAG = samirtalwar/noodlesandwich.com-build
 ifdef OFFLINE
