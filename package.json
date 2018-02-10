@@ -23,23 +23,23 @@
     "markdown-it": "^8.4.0",
     "moment": "^2.20.1",
     "node-sass": "^4.7.2",
-    "normalize.css": "^7.0.0",
-    "prismjs": "^1.9.0",
+    "normalize.css": "^8.0.0",
+    "prismjs": "^1.11.0",
     "pug": "^2.0.0-rc.4",
     "reveal.js": "^3.6.0"
   },
   "devDependencies": {
     "elm": "^0.18.0",
-    "eslint": "^4.13.1",
+    "eslint": "^4.17.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-prettier": "^2.4.0",
+    "eslint-plugin-prettier": "^2.6.0",
     "gulp": "^3.9.1",
-    "gulp-cli": "^1.4.0",
+    "gulp-cli": "^2.0.1",
     "merge-stream": "^1.0.1",
-    "prettier": "^1.9.2",
+    "prettier": "^1.10.2",
     "through2": "^2.0.3"
   }
 }
