@@ -310,6 +310,7 @@ const datHttpdConfig = () =>
         JSON.stringify({
           sites: {
             [host]: {url},
+            localhost: {url},
           },
         }),
       )
