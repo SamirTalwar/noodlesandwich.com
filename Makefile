@@ -12,8 +12,7 @@ endif
 build: build.Dockerfile Dockerfile node_modules gulpfile.js $(wildcard src/**/*) build/presentations/99-problems.js
 	gulp
 	docker build $(BUILD_ARGS) --tag=$(BUILD_TAG) --file=build.Dockerfile .
-	cp Dockerfile docker
-	docker build $(BUILD_ARGS) --tag=$(TAG) docker
+	docker build $(BUILD_ARGS) --tag=$(TAG) .
 
 .PHONY: clean
 clean:
@@ -40,6 +39,7 @@ push: clean build check
 	docker push $(BUILD_TAG)
 	docker push $(TAG)
 	git push $(GIT_FLAGS)
+	heroku container:push web
 
 build/presentations/99-problems.js: src/presentations/99-problems.elm elm-stuff/packages
 	elm make --output=$@ $<
