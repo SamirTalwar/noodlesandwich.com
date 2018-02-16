@@ -2,7 +2,6 @@ SHELL := /bin/bash
 PATH := $(PWD)/node_modules/.bin:$(PATH)
 
 TAG = samirtalwar/noodlesandwich.com
-BUILD_TAG = samirtalwar/noodlesandwich.com-build
 ifdef OFFLINE
 BUILD_ARGS =
 else
@@ -11,7 +10,6 @@ endif
 
 build: build.Dockerfile Dockerfile node_modules gulpfile.js $(wildcard src/**/*) build/presentations/99-problems.js
 	gulp
-	docker build $(BUILD_ARGS) --tag=$(BUILD_TAG) --file=build.Dockerfile .
 	docker build $(BUILD_ARGS) --tag=$(TAG) .
 
 .PHONY: clean
@@ -36,7 +34,6 @@ push: clean build check
 		echo >&2 'You must run this command from the `master` branch.'; \
 		exit 1; \
 	}
-	docker push $(BUILD_TAG)
 	docker push $(TAG)
 	git push $(GIT_FLAGS)
 
