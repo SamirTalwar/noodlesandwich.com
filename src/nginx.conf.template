@@ -1,5 +1,6 @@
 server {
   listen $PORT default_server;
+  server_name "$DOMAIN";
 
   charset utf-8;
 
@@ -13,4 +14,11 @@ server {
     index index.html;
     try_files $uri.html $uri/ $uri =404;
   }
+}
+
+server {
+  listen $PORT;
+  server_name "www.$DOMAIN";
+
+  return 301 $scheme://$DOMAIN$request_uri;
 }
