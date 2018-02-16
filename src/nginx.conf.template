@@ -3,6 +3,7 @@ server {
   server_name "$DOMAIN";
 
   charset utf-8;
+  gzip on;
 
   location / {
     add_header "Content-Security-Policy" "default-src * data: 'unsafe-inline' 'unsafe-eval'";
