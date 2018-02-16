@@ -39,7 +39,6 @@ push: clean build check
 	docker push $(BUILD_TAG)
 	docker push $(TAG)
 	git push $(GIT_FLAGS)
-	heroku container:push web
 
 build/presentations/99-problems.js: src/presentations/99-problems.elm elm-stuff/packages
 	elm make --output=$@ $<
