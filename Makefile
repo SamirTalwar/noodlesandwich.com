@@ -8,7 +8,8 @@ else
 BUILD_ARGS = --pull
 endif
 
-build: build.Dockerfile Dockerfile node_modules gulpfile.js $(wildcard src/**/*) build/presentations/99-problems.js
+.PHONY: build
+build: Dockerfile node_modules gulpfile.js $(wildcard src/**/*) build/presentations/99-problems.js
 	gulp
 	docker build $(BUILD_ARGS) --tag=$(TAG) .
 
