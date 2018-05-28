@@ -11,6 +11,9 @@ endif
 .PHONY: build
 build: Dockerfile node_modules gulpfile.js $(wildcard src/**/*) build/presentations/99-problems.js
 	gulp
+
+.PHONY: docker-build
+docker-build: build
 	docker build $(BUILD_ARGS) --tag=$(TAG) .
 
 .PHONY: run
@@ -37,7 +40,7 @@ lint: node_modules
 	yarn run lint
 
 .PHONY: push
-push: clean build check
+push: clean build check docker-build
 	@ [[ -z "$$(git status --porcelain)" ]] || { \
 		echo >&2 'Cannot push with a dirty working tree.'; \
 		exit 1; \
