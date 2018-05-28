@@ -50,6 +50,10 @@ gulp.task('default', () => {
       .src('src/talks.scss')
       .pipe(compileSass())
       .pipe(gulp.dest('build')),
+    gulp
+      .src('src/slides.scss')
+      .pipe(compileSass())
+      .pipe(gulp.dest('build')),
 
     staticFile('dat.json', 'dat.json'),
     gulp

@@ -107,11 +107,11 @@ view extraHtml (Model slides currentSlide) =
         (List.map2
             (\slideIndex slide ->
                 div
-                    [ if currentSlide == slideIndex then
-                        class "current slide"
-                      else
-                        class "slide"
-                    ]
+                    (if currentSlide == slideIndex then
+                        []
+                     else
+                        [ style [ ( "display", "none" ) ] ]
+                    )
                     slide
             )
             (List.range 0 (List.length slides))
