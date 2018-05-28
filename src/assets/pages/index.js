@@ -103,9 +103,9 @@
     container.classList.add('event')
 
     const header = document.createElement('h3')
-    if (event.link || hasLinks) {
+    if (hasLinks) {
       const headerLink = document.createElement('a')
-      headerLink.href = event.link || `/${prefix}/${event.slug}`
+      headerLink.href = `/${prefix}/${event.slug}`
       headerLink.textContent = event.title
       header.appendChild(headerLink)
     } else {
@@ -124,10 +124,17 @@
     }
 
     const eventDetails = document.createElement('p')
-    eventDetails.textContent =
-      event.event && event.location
-        ? `${event.event} @ ${event.location}`
-        : event.event || event.location
+    const eventDetailsText = [event.event, event.location]
+      .filter(text => text)
+      .join(' @ ')
+    if (event.link) {
+      const eventLink = document.createElement('a')
+      eventLink.href = event.link
+      eventLink.textContent = eventDetailsText
+      eventDetails.appendChild(eventLink)
+    } else {
+      eventDetails.textContent = eventDetailsText
+    }
     container.appendChild(eventDetails)
 
     const eventDate = document.createElement('p')
