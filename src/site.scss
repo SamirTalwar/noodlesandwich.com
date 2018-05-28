@@ -15,7 +15,12 @@ body {
   font-family: 'Source Code Pro', monospace;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: normal;
 }
 
@@ -24,7 +29,8 @@ h4 {
 }
 
 body > header {
-  a:hover, a .fa:hover {
+  a:hover,
+  a .fa:hover {
     text-decoration: none;
   }
 
@@ -144,7 +150,8 @@ a {
   text-decoration: none;
   color: $link-color;
 
-  &:hover, .fa:hover {
+  &:hover,
+  .fa:hover {
     text-decoration: underline;
     color: $link-hover-color;
   }

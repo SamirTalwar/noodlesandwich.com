@@ -1,4 +1,6 @@
-html, body, .talk.presentation {
+html,
+body,
+.talk.presentation {
   height: 100%;
 }
 
@@ -11,7 +13,12 @@ body.full-screen {
 .talk {
   width: 100%;
 
-  code, kbd, pre, samp, code[class*="language-"], pre[class*="language-"] {
+  code,
+  kbd,
+  pre,
+  samp,
+  code[class*='language-'],
+  pre[class*='language-'] {
     font-family: 'Source Code Pro', monospace;
     font-size: 1em;
   }
@@ -43,7 +50,8 @@ body.full-screen {
       }
     }
 
-    pre, code {
+    pre,
+    code {
       background-color: rgba(128, 128, 128, 0.2);
 
       code {
@@ -51,7 +59,9 @@ body.full-screen {
       }
     }
 
-    h1, h2, h3 {
+    h1,
+    h2,
+    h3 {
       text-align: center;
     }
 
@@ -79,7 +89,8 @@ body.full-screen {
     text-align: center;
   }
 
-  .image img, .twitter-tweet {
+  .image img,
+  .twitter-tweet {
     display: block;
     max-width: 100%;
     margin: 1em auto;
