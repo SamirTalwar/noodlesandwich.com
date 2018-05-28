@@ -13,6 +13,17 @@ build: Dockerfile node_modules gulpfile.js $(wildcard src/**/*) build/presentati
 	gulp
 	docker build $(BUILD_ARGS) --tag=$(TAG) .
 
+.PHONY: run
+run:
+	docker run \
+		--rm \
+		--interactive --tty \
+		--publish=80:80 \
+		--env=DOMAIN=localhost \
+		--env=PORT=80 \
+		--volume=$(PWD)/build:/usr/share/nginx/html \
+		samirtalwar/noodlesandwich.com
+
 .PHONY: clean
 clean:
 	rm -rf build/*
