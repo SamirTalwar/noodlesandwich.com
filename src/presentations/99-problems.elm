@@ -3,13 +3,12 @@ module Main exposing (main)
 import Html exposing (..)
 import Html.Attributes exposing (alt, class, href, src, style)
 import Html.Events exposing (..)
-import Html.Keyed
 import Keyboard
 import Navigation
-import Regex exposing (HowMany (All), regex, replace)
 import String
 import Task
 
+main : Program Never Model Message
 main =
   Navigation.program parseLocation {
     init = init,
@@ -24,12 +23,16 @@ type Model = Slide SlideNo
 
 type alias SlideNo = Int
 
+subscriptions : model -> Sub Message
 subscriptions = always (Keyboard.presses KeyPress)
 
+parseLocation : Navigation.Location -> Message
 parseLocation location = GoTo <| Result.withDefault 0 <| String.toInt (String.dropLeft 1 location.hash)
 
+init : Navigation.Location -> (Model, Cmd Message)
 init location = Slide 0 ! [Task.perform parseLocation (Task.succeed location)]
 
+update : Message -> Model -> (Model, Cmd Message)
 update message model =
   let (Slide index) = model
   in case message of
@@ -46,6 +49,7 @@ update message model =
     KeyPress _ -> model ! []
     GoTo slide -> Slide slide ! []
 
+view : Model -> Html Message
 view (Slide index) =
   div [class "app", onClick Next] (
     List.map2 (\slideIndex slide ->
@@ -54,6 +58,7 @@ view (Slide index) =
     ++ [node "script" [src "https://assets.codepen.io/assets/embed/ei.js"] []]
   )
 
+slides : List (List (Html message))
 slides =
   [
     [
@@ -243,12 +248,16 @@ slides =
     ]
   ]
 
+slideIndexes : List SlideNo
 slideIndexes = List.range 0 (List.length slides)
 
+lines : List String -> String
 lines = String.join "\n"
 
+data : String -> String -> Attribute message
 data name = Html.Attributes.attribute ("data-" ++ name)
 
+codepen : Int -> Int -> String -> String -> Html message
 codepen major minor name slug =
   div [class "codepen-container"] [
     p [] [text (toString major ++ "." ++ toString minor)],

@@ -50,7 +50,7 @@ push: clean build check
 	git push $(GIT_FLAGS)
 
 build/presentations/99-problems.js: src/presentations/99-problems.elm elm-stuff/packages
-	elm make --output=$@ $<
+	elm make --warn --output=$@ $<
 
 node_modules: package.json
 	yarn install --frozen-lockfile
