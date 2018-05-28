@@ -1,0 +1,10 @@
+extend layout.pug
+
+block head
+  meta(http-equiv='refresh' content=('0; url=' + destination))
+  script.
+    window.location.href = "#{destination}"
+
+block main
+  p
+    If you are not redirected automatically, follow this #[a(href=destination) link to the content].

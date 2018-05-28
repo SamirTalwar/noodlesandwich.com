@@ -17,6 +17,8 @@ gulp.task('default', () => {
 
     buildPug('src/views/index.pug', database),
     buildPug('src/views/bio.pug', database),
+
+    ...database.talks.filter(talk => talk.slug).map(redirectEvent('talks')),
     ...database.talks.filter(talk => talk.slug).map(buildEssay),
     ...database.talks
       .filter(
@@ -29,7 +31,12 @@ gulp.task('default', () => {
     ...database.talks
       .filter(talk => talk.slug && talk.video && talk.video.type === 'youtube')
       .map(buildVideo),
+
+    ...database.workshops
+      .filter(talk => talk.slug)
+      .map(redirectEvent('workshops')),
     ...database.workshops.filter(workshop => workshop.slug).map(buildWorkshop),
+
     gulp
       .src('src/site.scss')
       .pipe(compileSass())
@@ -119,6 +126,36 @@ const buildPug = (file, data, dest = 'build') =>
     .pipe(withData(data))
     .pipe(pugPage())
     .pipe(gulp.dest(dest))
+
+const primaryEventLink = (prefix, event) => {
+  if (event.slug) {
+    return `/${prefix}/${event.slug}/essay`
+  }
+  if (event.presentation) {
+    if (event.presentation.type === 'external') {
+      return event.presentation.link
+    }
+    return `/${prefix}/${event.slug}/presentation`
+  }
+  if (event.video) {
+    if (event.video.type === 'external') {
+      return event.video.link
+    }
+    return `/${prefix}/${event.slug}/video`
+  }
+  if (event.external) {
+    return event.external.link
+  }
+  return null
+}
+
+const redirectEvent = prefix => event =>
+  gulp
+    .src('src/views/redirect.pug')
+    .pipe(withData({destination: primaryEventLink(prefix, event)}))
+    .pipe(pugPage())
+    .pipe(renameTo(`index.html`))
+    .pipe(gulp.dest(`build/${prefix}/${event.slug}`))
 
 const buildEssay = talk =>
   gulp
