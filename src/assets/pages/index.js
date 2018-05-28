@@ -27,14 +27,14 @@
         database.upcomingWorkshops = database.workshops.filter(event =>
           event.timestamp.isSameOrAfter(today),
         )
-        database.previousWorkshops = database.workshops.filter(
-          event => event.timestamp.isBefore(today) && event.external,
+        database.previousWorkshops = database.workshops.filter(event =>
+          event.timestamp.isBefore(today),
         )
         database.upcomingTalks = database.talks.filter(event =>
           event.timestamp.isSameOrAfter(today),
         )
-        database.previousTalks = database.talks.filter(
-          event => event.timestamp.isBefore(today) && event.slug,
+        database.previousTalks = database.talks.filter(event =>
+          event.timestamp.isBefore(today),
         )
 
         return database
