@@ -23,6 +23,8 @@ talks:
     location: Rotterdam, Netherlands
     timestamp: 2018-06-08T12:00:00+0200
     link: http://joyofcoding.org/2018/
+    presentation:
+      type: elm
 
   - title: Driving new features quickly and safely with Elm
     partner:

@@ -8,8 +8,14 @@ else
 BUILD_ARGS = --pull
 endif
 
-.PHONY: build
-build: Dockerfile node_modules gulpfile.js $(wildcard src/**/*) build/presentations/99-problems.js
+PRESENTATION_INPUT_FILES = $(wildcard src/presentations/*.elm)
+PRESENTATION_NAMES = $(basename $(notdir $(PRESENTATION_INPUT_FILES)))
+PRESENTATION_OUTPUT_FILES = $(addprefix build/assets/talks/, \
+								$(addsuffix /presentation.js, $(PRESENTATION_NAMES)))
+ELM_DEPENDENCIES = $(wildcard src/NoodleSandwich/*.elm) $(wildcard src/NoodleSandwich/**/*.elm) \
+				   elm-stuff/packages
+
+build: Dockerfile node_modules gulpfile.js $(wildcard src/**/*) $(PRESENTATION_OUTPUT_FILES)
 	gulp
 
 .PHONY: docker-build
@@ -52,7 +58,7 @@ push: clean build check docker-build
 	docker push $(TAG)
 	git push $(GIT_FLAGS)
 
-build/presentations/99-problems.js: src/presentations/99-problems.elm $(wildcard src/NoodleSandwich/*.elm) $(wildcard src/NoodleSandwich/**/*.elm) elm-stuff/packages
+build/assets/talks/%/presentation.js: src/presentations/%.elm $(ELM_DEPENDENCIES)
 	elm make --warn --output=$@ $<
 
 node_modules: package.json
