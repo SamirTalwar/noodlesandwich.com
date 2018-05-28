@@ -17,6 +17,13 @@ workshops:
       link: https://github.com/SamirTalwar/webops-workshop
 
 talks:
+  - slug: teaching-a-machine-to-code
+    title: Teaching a Machine to Code
+    event: Joy of Coding 2018
+    location: Rotterdam, Netherlands
+    timestamp: 2018-06-08T12:00:00+0200
+    link: http://joyofcoding.org/2018/
+
   - title: Driving new features quickly and safely with Elm
     partner:
       name: Nigel Runnels-Moss
