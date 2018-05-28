@@ -49,7 +49,7 @@ push: clean build check
 	docker push $(TAG)
 	git push $(GIT_FLAGS)
 
-build/presentations/99-problems.js: src/presentations/99-problems.elm elm-stuff/packages
+build/presentations/99-problems.js: src/presentations/99-problems.elm $(wildcard src/NoodleSandwich/*.elm) $(wildcard src/NoodleSandwich/**/*.elm) elm-stuff/packages
 	elm make --warn --output=$@ $<
 
 node_modules: package.json

@@ -2,105 +2,19 @@ module Main exposing (main)
 
 import Html exposing (..)
 import Html.Attributes exposing (alt, class, href, src, style)
-import Html.Events exposing (..)
-import Keyboard
-import Navigation
 import String
-import Task
+import NoodleSandwich.Slides as Slides
 
 
-main : Program Never Model Message
+main : Program Never Slides.Model Slides.Message
 main =
-    Navigation.program parseLocation
-        { init = init
-        , update = update
-        , view = view
-        , subscriptions = subscriptions
+    Slides.program
+        { slides = slides
+        , extraHtml = [ node "script" [ src "https://assets.codepen.io/assets/embed/ei.js" ] [] ]
         }
 
 
-type Message
-    = Next
-    | Previous
-    | KeyPress Int
-    | GoTo SlideNo
-
-
-type Model
-    = Slide SlideNo
-
-
-type alias SlideNo =
-    Int
-
-
-subscriptions : model -> Sub Message
-subscriptions =
-    always (Keyboard.presses KeyPress)
-
-
-parseLocation : Navigation.Location -> Message
-parseLocation location =
-    GoTo <| Result.withDefault 0 <| String.toInt (String.dropLeft 1 location.hash)
-
-
-init : Navigation.Location -> ( Model, Cmd Message )
-init location =
-    Slide 0 ! [ Task.perform parseLocation (Task.succeed location) ]
-
-
-update : Message -> Model -> ( Model, Cmd Message )
-update message model =
-    let
-        (Slide index) =
-            model
-    in
-        case message of
-            Next ->
-                if index < List.length slides - 1 then
-                    Slide (index + 1) ! [ Navigation.newUrl ("#" ++ toString (index + 1)) ]
-                else
-                    model ! []
-
-            Previous ->
-                if index > 0 then
-                    Slide (index - 1) ! [ Navigation.newUrl ("#" ++ toString (index - 1)) ]
-                else
-                    model ! []
-
-            KeyPress 39 ->
-                model ! [ Task.succeed Next |> Task.perform identity ]
-
-            KeyPress 37 ->
-                model ! [ Task.succeed Previous |> Task.perform identity ]
-
-            KeyPress _ ->
-                model ! []
-
-            GoTo slide ->
-                Slide slide ! []
-
-
-view : Model -> Html Message
-view (Slide index) =
-    div [ class "app", onClick Next ]
-        (List.map2
-            (\slideIndex slide ->
-                div
-                    [ if index == slideIndex then
-                        class "current slide"
-                      else
-                        class "slide"
-                    ]
-                    slide
-            )
-            slideIndexes
-            slides
-            ++ [ node "script" [ src "https://assets.codepen.io/assets/embed/ei.js" ] [] ]
-        )
-
-
-slides : List (List (Html message))
+slides : Slides.Slides
 slides =
     [ [ h1 [] [ text "I've got 99 problems and asynchronous programming is 127 of them" ]
       , h2 []
@@ -286,11 +200,6 @@ slides =
       , h2 [] [ text "prodo", span [ style [ ( "color", "#00e3a0" ) ] ] [ text ".ai" ] ]
       ]
     ]
-
-
-slideIndexes : List SlideNo
-slideIndexes =
-    List.range 0 (List.length slides)
 
 
 lines : List String -> String
