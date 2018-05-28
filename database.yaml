@@ -7,7 +7,8 @@ workshops:
     location: London, UK
     timestamp: 2016-10-20T09:00:00+0100
 
-  - title: WebOps
+  - slug: webops
+    title: WebOps
     event: Software Craftsmanship London
     location: London, UK
     timestamp: 2017-10-05T15:15:00+0100
@@ -40,6 +41,7 @@ talks:
     location: Berlin, Germany
     timestamp: 2016-10-24T16:30:00+0200
     link: http://berlin2016.codemotionworld.com/
+    essay: true
     presentation:
       type: elm
     code:
@@ -51,6 +53,7 @@ talks:
     location: Linz, Austria
     timestamp: 2016-09-22T11:10:00+0200
     link: http://topconf.com/devops-linz-2016/
+    essay: true
     presentation:
       type: external
       link: http://www.slideshare.net/SamirTalwar/staying-lean-with-application-logs
@@ -60,7 +63,8 @@ talks:
     code:
       language: javascript
 
-  - title: Driving new features quickly and safely with Elm
+  - slug: driving-new-features-with-elm
+    title: Driving new features quickly and safely with Elm
     event: GeeCon Reactive
     location: Sopot, Poland
     timestamp: 2016-09-09T16:30:00+0200
@@ -71,6 +75,7 @@ talks:
     event: ProgSCon
     location: London, UK
     timestamp: 2015-04-17T15:40:00+0100
+    essay: true
     presentation:
       type: external
       link: http://www.slideshare.net/SamirTalwar/use-your-type-system-write-less-code
@@ -85,6 +90,7 @@ talks:
     event: JAX London
     location: London, UK
     timestamp: 2014-10-15T11:00:00+0100
+    essay: true
     presentation:
       type: external
       link: http://www.slideshare.net/SamirTalwar/design-patterns-in-the-21st-century
@@ -99,6 +105,7 @@ talks:
     event: Virtual Java User Group
     timestamp: 2014-07-28T17:00:00+0100
     link: https://virtualjug.com/highly-strung-understanding-your-type-system/
+    essay: true
     presentation:
       type: reveal.js
     video:

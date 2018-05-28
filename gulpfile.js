@@ -18,8 +18,10 @@ gulp.task('default', () => {
     buildPug('src/views/index.pug', database),
     buildPug('src/views/bio.pug', database),
 
-    ...database.talks.filter(talk => talk.slug).map(redirectEvent('talks')),
-    ...database.talks.filter(talk => talk.slug).map(buildEssay),
+    ...database.talks
+      .map(redirectEvent('talks'))
+      .filter(event => event != null),
+    ...database.talks.filter(talk => talk.slug && talk.essay).map(buildEssay),
     ...database.talks
       .filter(
         talk =>
@@ -34,8 +36,11 @@ gulp.task('default', () => {
 
     ...database.workshops
       .filter(talk => talk.slug)
-      .map(redirectEvent('workshops')),
-    ...database.workshops.filter(workshop => workshop.slug).map(buildWorkshop),
+      .map(redirectEvent('workshops'))
+      .filter(event => event != null),
+    ...database.workshops
+      .filter(workshop => workshop.slug && workshop.essay)
+      .map(buildWorkshop),
 
     gulp
       .src('src/site.scss')
@@ -128,7 +133,7 @@ const buildPug = (file, data, dest = 'build') =>
     .pipe(gulp.dest(dest))
 
 const primaryEventLink = (prefix, event) => {
-  if (event.slug) {
+  if (event.essay) {
     return `/${prefix}/${event.slug}/essay`
   }
   if (event.presentation) {
@@ -149,13 +154,18 @@ const primaryEventLink = (prefix, event) => {
   return null
 }
 
-const redirectEvent = prefix => event =>
-  gulp
+const redirectEvent = prefix => event => {
+  const link = primaryEventLink(prefix, event)
+  if (!link) {
+    return null
+  }
+  return gulp
     .src('src/views/redirect.pug')
-    .pipe(withData({destination: primaryEventLink(prefix, event)}))
+    .pipe(withData({destination: link}))
     .pipe(pugPage())
     .pipe(renameTo(`index.html`))
     .pipe(gulp.dest(`build/${prefix}/${event.slug}`))
+}
 
 const buildEssay = talk =>
   gulp
@@ -198,10 +208,10 @@ const buildVideo = talk =>
     .pipe(pugPage('video.html'))
     .pipe(gulp.dest(`build/talks/${talk.slug}`))
 
-const buildWorkshop = talk =>
+const buildWorkshop = workshop =>
   gulp
-    .src(`src/views/events/${talk.slug}.pug`)
-    .pipe(withData(talk))
+    .src(`src/views/events/${workshop.slug}.pug`)
+    .pipe(withData(workshop))
     .pipe(pugPage())
     .pipe(gulp.dest(`build/workshops`))
 

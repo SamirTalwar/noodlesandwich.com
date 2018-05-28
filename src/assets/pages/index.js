@@ -96,11 +96,14 @@
   }
 
   const eventElement = (prefix, event) => {
+    const hasLinks =
+      event.essay || event.external || event.presentation || event.video
+
     const container = document.createElement('article')
     container.classList.add('event')
 
     const header = document.createElement('h3')
-    if (event.link || event.slug) {
+    if (event.link || hasLinks) {
       const headerLink = document.createElement('a')
       headerLink.href = event.link || `/${prefix}/${event.slug}`
       headerLink.textContent = event.title
@@ -131,10 +134,10 @@
     eventDate.textContent = event.formattedDate
     container.appendChild(eventDate)
 
-    if (event.slug || event.external || event.presentation || event.video) {
+    if (hasLinks) {
       const links = document.createElement('ul')
       links.classList.add('links')
-      if (event.slug) {
+      if (event.essay) {
         links.appendChild(
           eventLink(`/${prefix}/${event.slug}/essay`, 'Read as an essay'),
         )
