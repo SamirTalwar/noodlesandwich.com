@@ -65,7 +65,7 @@ Turns out that the previous commit had a bug, where the function would access `s
 
 (Later on, this got converted to the more idiomatic `str = str + '';`.)
 
-Turns out, computers are much better at finding these kinds of bugs than humans are. For example, a type checker might have caught the reference to `str.length` before the conversation, and complained about the type of `str`.
+Turns out, computers are much better at finding these kinds of bugs than humans are. For example, a type checker might have caught the reference to `str.length` before the conversion, and complained about the type of `str`.
 
 Here's my problem, though. We're dealing with JavaScript, where not knowing the type of a variable isn't a barrier to execution. I tried the [Flow][] type checker on this code and it didn't help, because it's _permissive_—if it doesn't know the type, anything goes, including references to `str.length`.
 
@@ -244,7 +244,7 @@ Chaiyong and his supervisor, [Jens Krinke][], published a paper on this techniqu
 [chaiyong raghkitwetsagul]: https://cragkhit.github.io/
 [vincent]: https://ucl-crest.github.io/iwsc2018-vincent-web/
 [jaccard index]: https://en.wikipedia.org/wiki/Jaccard_index
-[cachedstream.java]: https://en.wikipedia.org/wiki/Jaccard_index
+[cachedstream.java]: https://github.com/SamirTalwar/Streams/blob/4e9d766f395d96e15c218720fedbf3775085f5a3/src/main/java/com/noodlesandwich/streams/implementations/CachedStream.java
 [jens krinke]: http://www.cs.ucl.ac.uk/staff/j.krinke/
 [a picture is worth a thousand words]: http://www0.cs.ucl.ac.uk/staff/j.krinke/publications/iwsc18.pdf
 
