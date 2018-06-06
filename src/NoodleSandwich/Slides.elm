@@ -108,9 +108,9 @@ view extraHtml (Model slides currentSlide) =
             (\slideIndex slide ->
                 div
                     (if currentSlide == slideIndex then
-                        []
+                        [ class "slide" ]
                      else
-                        [ style [ ( "display", "none" ) ] ]
+                        [ class "slide", style [ ( "display", "none" ) ] ]
                     )
                     slide
             )

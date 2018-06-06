@@ -63,6 +63,10 @@ gulp.task('default', () => {
 
     staticFile('assets/pages/index.js', 'src/assets/pages/index.js'),
     staticFile('assets/talks/presentation.js', 'src/presentations/load.js'),
+    staticFile(
+      'assets/presentations/teaching-a-machine-to-code/kitchener.png',
+      'src/assets/presentations/teaching-a-machine-to-code/kitchener.png',
+    ),
 
     staticFile(
       'vendor/prismjs/prism.css',

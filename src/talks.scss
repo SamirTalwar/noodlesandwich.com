@@ -65,6 +65,22 @@ body.full-screen {
       text-align: center;
     }
 
+    del {
+      text-decoration: line-through;
+      color: #f99;
+    }
+
+    ins {
+      text-decoration: none;
+      color: #9f9;
+    }
+
+    a,
+    a:link,
+    a:visited {
+      color: #b397c3;
+    }
+
     .prose {
       margin: 0 2em;
     }
