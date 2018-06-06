@@ -23,6 +23,10 @@ body.full-screen {
     font-size: 1em;
   }
 
+  figure {
+    margin: 1em 0;
+  }
+
   &.essay {
     .slides-only {
       display: none;
