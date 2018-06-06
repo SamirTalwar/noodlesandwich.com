@@ -15,7 +15,6 @@
     "url": "https://github.com/SamirTalwar/noodlesandwich.com/issues"
   },
   "scripts": {
-    "start": "./src/main.js",
     "lint": "eslint src test"
   },
   "dependencies": {
