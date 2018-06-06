@@ -220,6 +220,34 @@ We're already seeing very promising results with type inference, and we're looki
 
 [wat]: https://www.destroyallsoftware.com/talks/wat
 
+### I've Seen That Before…
+
+Not everything has to be so _complicated_, though.
+
+Researchers have been working on _clone detection_ for decades now. This is the scientific term for what you and I call "code duplication": two piece of code sharing a missing abstraction. Often, they perform structural analysis in the same way that static analysers do: parse the code, build a tree, and look for similarities in the tree structure.
+
+You and I perform clone detection too, but we do it differently. We look for code that _looks_ the same.
+
+My colleague [Chaiyong][chaiyong raghkitwetsagul], who is a PhD student focusing on clone detection, felt the same way. So he built [Vincent][], which literally takes screenshots of code, blurs them a little bit, and looks for similarities by computing the [Jaccard index][] of the images.
+
+So, if you have any Java code with some duplication, give it a try. (If you don't have any Java files with duplication, [here's one][cachedstream.java].)
+
+<figure>
+  <iframe src="http://toybox.prodo.ai/widget/clone-detection" style="width: 100%; height: 600px; border: 0;"></iframe>
+  <figcaption><a href="http://toybox.prodo.ai/widget/clone-detection">Prodo.AI Toybox: Image-Based Clone Detection</a></figcaption>
+</figure>
+
+For the absence of doubt, this one doesn't use any machine learning techniques, just straight-up algorithms.
+
+Chaiyong and his supervisor, [Jens Krinke][], published a paper on this technique entitled [_A Picture Is Worth a Thousand Words: Code Clone Detection Based on Image Similarity_][a picture is worth a thousand words] at the International Workshop on Software Clones 2018. I'd recommend giving it a skim (or just looking at the pictures) if you want to know how it works.
+
+[chaiyong raghkitwetsagul]: https://cragkhit.github.io/
+[vincent]: https://ucl-crest.github.io/iwsc2018-vincent-web/
+[jaccard index]: https://en.wikipedia.org/wiki/Jaccard_index
+[cachedstream.java]: https://en.wikipedia.org/wiki/Jaccard_index
+[jens krinke]: http://www.cs.ucl.ac.uk/staff/j.krinke/
+[a picture is worth a thousand words]: http://www0.cs.ucl.ac.uk/staff/j.krinke/publications/iwsc18.pdf
+
 ## What's next?
 
 Hopefully I've shown you a few examples of areas in which you don't have to be satisfied with your current tools. We can break them down, ask pointed questions, capture a lot of data and then rebuild them to solve real-world problems.
