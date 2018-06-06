@@ -8,7 +8,10 @@
 
 ### Who are you?
 
-<blockquote class="twitter-tweet" data-conversation="none"><p><a href="https://twitter.com/SamirTalwar">@SamirTalwar</a> seriously you&#39;ll be fine! it&#39;s a rant. you&#39;re one of the most talented ranters I know!</p>&mdash; Chris Neuroth (@c089) <a href="https://twitter.com/c089/statuses/493785174606241792">July 28, 2014</a></blockquote>
+<blockquote class="twitter-tweet" data-conversation="none">
+  <p><a href="https://twitter.com/SamirTalwar">@SamirTalwar</a> seriously you&#39;ll be fine! it&#39;s a rant. you&#39;re one of the most talented ranters I know!</p>
+  &mdash; Chris Neuroth (@c089) <a href="https://twitter.com/c089/statuses/493785174606241792">July 28, 2014</a>
+</blockquote>
 
 </section>
 
@@ -854,3 +857,5 @@ Give it a try. I think you'll be pleasantly surprised.
 # Thank you.
 
 </section>
+
+<script src="https://platform.twitter.com/widgets.js" charset="utf-8" async defer></script>
