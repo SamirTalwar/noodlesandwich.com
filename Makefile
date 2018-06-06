@@ -36,7 +36,7 @@ run:
 .PHONY: clean
 clean:
 	rm -rf build/*
-	rm -rf elm-stuff/build-artifacts
+	rm -rf elm-stuff/build-artifacts/0.18.0/SamirTalwar
 
 .PHONY: check
 check: lint
