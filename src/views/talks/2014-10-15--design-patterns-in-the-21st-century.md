@@ -38,19 +38,19 @@ I want you to stop using design patterns.
 
 OK, let me rephrase that.
 
-I want you to stop using design patterns like it's *1999*.
+I want you to stop using design patterns like it's _1999_.
 
 ## This is a book.
 
 <p style="text-align: center;"><img src="https://assets.noodlesandwich.com/talks/design-patterns-in-the-21st-century/design-patterns.jpg" alt="Design Patterns, by Gamma, Helm, Johnson and Vlissides" style="max-width: 50%;"/></p>
 
-*Design Patterns* was a book by the "Gang of Four", first published very nearly 20 years ago (at the time of writing this essay), which attempted to canonicalise and formalise the tools that many experienced software developers and designers found themselves using over and over again.
+_Design Patterns_ was a book by the "Gang of Four", first published very nearly 20 years ago (at the time of writing this essay), which attempted to canonicalise and formalise the tools that many experienced software developers and designers found themselves using over and over again.
 
 The originator of the concept (and the term "design pattern") was Christopher Alexander, who wasn't a software developer at all. Alexander was an architect who came up with the idea of rigorously documenting common problems in design with their potential solutions.
 
 > The elements of this language are entities called patterns. Each pattern describes a problem that occurs over and over again in our environment, and then describes the core of the solution to that problem, in such a way that you can use this solution a million times over, without ever doing it the same way twice. <cite>— Christopher Alexander</cite>
 
-Alexander, and the Gang of Four after him, did more than just document solutions to common problems in their respective universes. By naming these patterns and providing a good starting point, they hoped to provide a consistent *language*, as well as providing these tools up front so that even novices might benefit from them.
+Alexander, and the Gang of Four after him, did more than just document solutions to common problems in their respective universes. By naming these patterns and providing a good starting point, they hoped to provide a consistent _language_, as well as providing these tools up front so that even novices might benefit from them.
 
 ## And now, an aside, on functional programming.
 
@@ -125,7 +125,7 @@ We're assigning `prepareCake` a reference to the `combinedWith` method of `mix`:
 mix::combinedWith
 ```
 
-`mix::combinedWith` is a *method reference*. Its type looks like this:
+`mix::combinedWith` is a _method reference_. Its type looks like this:
 
 ```
 Course combinedWith(Ingredient);
@@ -137,7 +137,7 @@ And it's (pretty much) exactly the same as `deliciousIngredient -> cakeMix.combi
 
 ### The Abstract Factory Pattern
 
-This pattern is used *everywhere* in Java code, especially in more "enterprisey" code bases. It involves an interface and an implementation. The interface looks something like this:
+This pattern is used _everywhere_ in Java code, especially in more "enterprisey" code bases. It involves an interface and an implementation. The interface looks something like this:
 
 ```
 public interface Bakery {
@@ -254,7 +254,7 @@ Aaaaaah. Much better.
 
 ### The Adapter Pattern
 
-The Adapter pattern bridges worlds. In one world, we have an interface for a concept; in another world, we have a different interface. These two interfaces serve different purposes, but sometimes we need to transfer things across. In a well-written universe, we can use *adapters* to make objects following one protocol adhere to the other.
+The Adapter pattern bridges worlds. In one world, we have an interface for a concept; in another world, we have a different interface. These two interfaces serve different purposes, but sometimes we need to transfer things across. In a well-written universe, we can use _adapters_ to make objects following one protocol adhere to the other.
 
 There are two kinds of Adapter pattern. We're not going to talk about this one:
 
@@ -279,9 +279,9 @@ class MakeshiftOven extends WoodFire implements Oven {
 }
 ```
 
-This form, the *class Adapter pattern*, freaks me out, because `extends` gives me the heebie jeebies. *Why* is out of the scope of this essay; feel free to ask me any time and I'll gladly talk your ears (and probably your nose) off about it.
+This form, the _class Adapter pattern_, freaks me out, because `extends` gives me the heebie jeebies. _Why_ is out of the scope of this essay; feel free to ask me any time and I'll gladly talk your ears (and probably your nose) off about it.
 
-Instead, let's talk about the *object Adapter pattern*, which is generally considered far more useful and flexible in all regards.
+Instead, let's talk about the _object Adapter pattern_, which is generally considered far more useful and flexible in all regards.
 
 Let's take a look at the same class, following this alternative:
 
@@ -319,7 +319,7 @@ That's nice, right?
 
 Yes. Sort of. We can do better.
 
-We already have a reference to a `Fire`, so constructing another object just to play with it seems a bit… overkill. And that object implements `Oven`. Which has a *single abstract method*. I'm seeing a trend here.
+We already have a reference to a `Fire`, so constructing another object just to play with it seems a bit… overkill. And that object implements `Oven`. Which has a _single abstract method_. I'm seeing a trend here.
 
 Instead, we can make a function that does the same thing.
 
@@ -378,7 +378,7 @@ This won't work:
 tasks.forEach(executor);
 ```
 
-It turns out the `forEach` method on `Stream` *does* take a consumer, but a very specific type:
+It turns out the `forEach` method on `Stream` _does_ take a consumer, but a very specific type:
 
 ```
 public interface Stream<T> {
@@ -539,9 +539,9 @@ Not all Chain of Responsibility implementations involve mutation, but for those 
 
 There are three cases of mutation here.
 
-1. Each member of staff has the "next" member set later, and the patrons themselves are mutated. Instead of setting the next member of staff later, we'll construct each one with the next.
-2. Though you can't see it, Alice, the `PieChef`, sets a flag on the `Pie` to mark it as `cooked` for Bob, the `DollopDistributor`. Instead of changing the object, we'll have her accept an `UncookedPie` and pass a `CookedPie` to Bob. We then adapt Bob to accept a `CookedPie`. This ensures we can't get the order wrong, as `Bob` will never receive an uncooked pie.
-3. And as for the patron, we'll start off with a `HungryPatron` and have them return a new instance of themselves upon feeding.
+1.  Each member of staff has the "next" member set later, and the patrons themselves are mutated. Instead of setting the next member of staff later, we'll construct each one with the next.
+2.  Though you can't see it, Alice, the `PieChef`, sets a flag on the `Pie` to mark it as `cooked` for Bob, the `DollopDistributor`. Instead of changing the object, we'll have her accept an `UncookedPie` and pass a `CookedPie` to Bob. We then adapt Bob to accept a `CookedPie`. This ensures we can't get the order wrong, as `Bob` will never receive an uncooked pie.
+3.  And as for the patron, we'll start off with a `HungryPatron` and have them return a new instance of themselves upon feeding.
 
 ```
 @Test public void
@@ -629,7 +629,7 @@ private static interface KitchenStaff<I, O> {
 }
 ```
 
-To do this, we also have to return a value rather than operating purely on side effects, ensuring that we *always* pass on the value. In situations where we may not want to continue, we can return an `Optional<T>` value, which can contain either something (`Optional.of(value)`) or nothing (`Optional.empty()`).
+To do this, we also have to return a value rather than operating purely on side effects, ensuring that we _always_ pass on the value. In situations where we may not want to continue, we can return an `Optional<T>` value, which can contain either something (`Optional.of(value)`) or nothing (`Optional.empty()`).
 
 #### Step 4: Split the domain from the infrastructure.
 
@@ -732,9 +732,9 @@ By decoupling the business domain (in this case, pie preparation) from the infra
 
 We've seen three examples of design patterns that can be drastically improved by approaching them with a functional mindset. Together, these three span the spectrum.
 
-  * The Abstract Factory pattern is an example of a **creational** pattern, which increases flexibility during the application wiring process
-  * The Adapter pattern, a **structural** pattern, is a huge aid in object composition
-  * The Chain of Responsibility pattern is a good demonstration of a **behavioural** *anti-pattern* that actually makes the communication between objects *more* rigid
+- The Abstract Factory pattern is an example of a **creational** pattern, which increases flexibility during the application wiring process
+- The Adapter pattern, a **structural** pattern, is a huge aid in object composition
+- The Chain of Responsibility pattern is a good demonstration of a **behavioural** _anti-pattern_ that actually makes the communication between objects _more_ rigid
 
 We took these three patterns, made them a lot smaller, removed a lot of boilerplate, and knocked out a bunch of extra classes we didn't need in the process.
 
