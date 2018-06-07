@@ -38,8 +38,8 @@ type Model
 type Message
     = Next
     | Previous
-    | KeyPress Int
     | GoTo SlideNo
+    | NoMessage
 
 
 type alias Slides =
@@ -52,7 +52,33 @@ type alias SlideNo =
 
 subscriptions : model -> Sub Message
 subscriptions =
-    always (Keyboard.presses KeyPress)
+    always <|
+        Sub.batch
+            [ Keyboard.presses
+                (\n ->
+                    case n of
+                        -- right arrow
+                        39 ->
+                            Next
+
+                        -- left arrow
+                        37 ->
+                            Previous
+
+                        _ ->
+                            NoMessage
+                )
+            , Keyboard.ups
+                (\n ->
+                    case n of
+                        -- space
+                        32 ->
+                            Next
+
+                        _ ->
+                            NoMessage
+                )
+            ]
 
 
 parseLocation : Navigation.Location -> Message
@@ -88,17 +114,11 @@ update message model =
                 else
                     model ! []
 
-            KeyPress 39 ->
-                model ! [ Task.succeed Next |> Task.perform identity ]
-
-            KeyPress 37 ->
-                model ! [ Task.succeed Previous |> Task.perform identity ]
-
-            KeyPress _ ->
-                model ! []
-
             GoTo slide ->
                 Model slides slide ! []
+
+            NoMessage ->
+                model ! []
 
 
 view : List (Html Message) -> Model -> Html Message
