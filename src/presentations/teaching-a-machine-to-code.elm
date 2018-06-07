@@ -188,7 +188,7 @@ slides =
                 ]
             ]
       ]
-    , [ pre []
+    , [ pre [ style [ ( "font-size", "0.75em" ) ] ]
             [ code [ class "language-javascript" ]
                 [ text <|
                     lines
