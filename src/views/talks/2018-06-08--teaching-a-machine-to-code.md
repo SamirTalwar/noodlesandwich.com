@@ -267,9 +267,7 @@ Right now, our tools are like teachers of the 1800s, slapping us on the wrists w
 
 ## But Why Should You Care?
 
-Machine learning is definitely here to stay. Sure, there are the gimmicks, like Amazon's Echo, but even ignoring all the hype, it's making a remarkable difference to people's lives all the time, including yours. Google's search results and Apple's FaceID save you enormous amounts of time, and more negatively, Facebook's surfacing technology means you see what they want you to see, not necessarily what you do.
-
-Just about the only industry that doesn't use artificial intelligence to make things more efficient and less mundane is ours.
+Machine learning is definitely here to stay. Even ignoring all the hype, it's making a remarkable difference to people's lives all the time, including yours. Google's search results and Apple's FaceID save you enormous amounts of time. Just about the only industry that doesn't use artificial intelligence to make things more efficient and less mundane is, well, ours.
 
 In some, it's causing problems. I don't want to think about what's about to happen to the American truck-driving industry. But it doesn't have to be that way. We could be using technology to improve everyone's lives, not necessarily to destroy people's livelihoods.
 
