@@ -228,7 +228,7 @@ lines =
 toy : String -> Html a
 toy name =
     iframe
-        [ src ("http://toybox.prodo.ai/widget/" ++ name)
+        [ src ("https://toybox.prodo.ai/widget/" ++ name)
         , style [ ( "width", "100%" ), ( "height", "600px" ), ( "border", "0" ) ]
         ]
         []

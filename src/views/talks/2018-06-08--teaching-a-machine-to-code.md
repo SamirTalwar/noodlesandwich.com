@@ -100,8 +100,8 @@ numbers.forEach(console.log);
 ```
 
 <figure>
-  <iframe src="http://toybox.prodo.ai/widget/autofix" style="width: 100%; height: 600px; border: 0;"></iframe>
-  <figcaption><a href="http://toybox.prodo.ai/widget/autofix">Prodo.AI Toybox: Autofix</a></figcaption>
+  <iframe src="https://toybox.prodo.ai/widget/autofix" style="width: 100%; height: 600px; border: 0;"></iframe>
+  <figcaption><a href="https://toybox.prodo.ai/widget/autofix">Prodo.AI Toybox: Autofix</a></figcaption>
 </figure>
 
 As you can see, "Autofix" just adds missing brackets where you need them. It doesn't do much more. And it's not very good—it's just a proof of concept that we _can_ solve these kinds of problems.
@@ -130,8 +130,8 @@ numbers.every(number => {
 ```
 
 <figure>
-  <iframe src="http://toybox.prodo.ai/widget/token-prediction" style="width: 100%; height: 600px; border: 0;"></iframe>
-  <figcaption><a href="http://toybox.prodo.ai/widget/token-prediction">Prodo.AI Toybox: Anomaly Detection</a></figcaption>
+  <iframe src="https://toybox.prodo.ai/widget/token-prediction" style="width: 100%; height: 600px; border: 0;"></iframe>
+  <figcaption><a href="https://toybox.prodo.ai/widget/token-prediction">Prodo.AI Toybox: Anomaly Detection</a></figcaption>
 </figure>
 
 You might have spotted that `every` doesn't really get us very far here. The developer intended it to run through _every_ item in the array, but what it really does is return `true` if _every_ item in the array fulfills the predicate passed to it, or `false` otherwise. Because it's a clever function, it short-circuits: if any item fails the test, it returns `false` immediately.
@@ -210,8 +210,8 @@ const y = b + 'x';
 ```
 
 <figure>
-  <iframe src="http://toybox.prodo.ai/widget/type-inference" style="width: 100%; height: 600px; border: 0;"></iframe>
-  <figcaption><a href="http://toybox.prodo.ai/widget/type-inference">Prodo.AI Toybox: Type Inference</a></figcaption>
+  <iframe src="https://toybox.prodo.ai/widget/type-inference" style="width: 100%; height: 600px; border: 0;"></iframe>
+  <figcaption><a href="https://toybox.prodo.ai/widget/type-inference">Prodo.AI Toybox: Type Inference</a></figcaption>
 </figure>
 
 Notice how it recognises that `x` is a number, and `y` is a string, even though it doesn't know the types of `a` or `b`. And it'll still work if you delete the line importing them.
@@ -233,8 +233,8 @@ My colleague [Chaiyong][chaiyong raghkitwetsagul], who is a PhD student focusing
 So, if you have any Java code with some duplication, give it a try. (If you don't have any Java files with duplication, [here's one][cachedstream.java].)
 
 <figure>
-  <iframe src="http://toybox.prodo.ai/widget/clone-detection" style="width: 100%; height: 600px; border: 0;"></iframe>
-  <figcaption><a href="http://toybox.prodo.ai/widget/clone-detection">Prodo.AI Toybox: Image-Based Clone Detection</a></figcaption>
+  <iframe src="https://toybox.prodo.ai/widget/clone-detection" style="width: 100%; height: 600px; border: 0;"></iframe>
+  <figcaption><a href="https://toybox.prodo.ai/widget/clone-detection">Prodo.AI Toybox: Image-Based Clone Detection</a></figcaption>
 </figure>
 
 For the absence of doubt, this one doesn't use any machine learning techniques, just straight-up algorithms.
