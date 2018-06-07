@@ -231,7 +231,7 @@ We're already seeing very promising results with type inference, and we're looki
 
 Not everything has to be so _complicated_, though.
 
-Researchers have been working on _clone detection_ for decades now. This is the scientific term for what you and I call "code duplication": two piece of code sharing a missing abstraction. Often, they perform structural analysis in the same way that static analysers do: parse the code, build a tree, and look for similarities in the tree structure.
+Researchers have been working on _clone detection_ for decades now. This is the scientific term for what you and I call "code duplication": two pieces of code sharing a missing abstraction. Often, they perform structural analysis in the same way that static analysers do: parse the code, build a tree, and look for similarities in the tree structure.
 
 You and I perform clone detection too, but we do it differently. We look for code that _looks_ the same.
 
