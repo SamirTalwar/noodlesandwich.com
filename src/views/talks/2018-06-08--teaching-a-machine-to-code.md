@@ -211,9 +211,10 @@ This project is still very much a work in progress, but because we don't try to 
 For example, try this:
 
 ```
-const {a, b} = require('something');
-const x = a + 2;
-const y = b + 'x';
+const tomorrow = day + 1;
+const weekday = day % 7;
+const isSunday = weekday % 7 === 6;
+const name = isSunday ? 'Sunday' : 'No idea';
 ```
 
 <figure>
@@ -221,7 +222,7 @@ const y = b + 'x';
   <figcaption><a href="https://toybox.prodo.ai/widget/type-inference">Prodo.AI Toybox: Type Inference</a></figcaption>
 </figure>
 
-Notice how it recognises that `x` is a number, and `y` is a string, even though it doesn't know the types of `a` or `b`. And it'll still work if you delete the line importing them.
+Notice how it recognises that `tomorrow` and `weekday` are numbers, even though it doesn't know the type of `day`.
 
 We're already seeing very promising results with type inference, and we're looking to spread the love across our other tooling. Perhaps we'll see anomalous code detection rebuilt on top of our graph infrastructure soon. 😃
 
