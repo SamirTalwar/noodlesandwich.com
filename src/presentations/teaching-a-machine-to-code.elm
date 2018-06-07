@@ -158,16 +158,61 @@ slides =
             , h3 [] [ text "But what your machine can do for you!" ]
             ]
       ]
-    , [ p [] [ text "Just Fix It, Please" ]
+    , [ h1 [] [ text "Just Fix It, Please" ] ]
+    , [ p [] [ text "Autofix" ]
       , toy "autofix"
       ]
-    , [ p [] [ text "Huh, That Looks Funny…" ]
+    , [ h1 [] [ text "Huh, That Looks Funny…" ] ]
+    , [ p [] [ text "Anomaly Detection" ]
       , toy "token-prediction"
       ]
-    , [ p [] [ text "What even is this?" ]
+    , [ blockquote []
+            [ p [] [ text "Real software, the kind working programmers produce by the kLOC to solve real-world problems, tends to be \"natural\", like speech or natural language; it tends to be highly repetitive and predictable." ]
+            , cite []
+                [ text "— "
+                , a [ href "https://arxiv.org/abs/1506.01159\n" ]
+                    [ text "On The \"Naturalness\" of Buggy Code" ]
+                , text ", 2015"
+                ]
+            ]
+      ]
+    , [ h1 [] [ text "What even is this?" ] ]
+    , [ pre []
+            [ code [ class "language-javascript" ]
+                [ text <|
+                    lines
+                        [ "function add(x, y) {"
+                        , "  return x + y;"
+                        , "}"
+                        ]
+                ]
+            ]
+      ]
+    , [ pre []
+            [ code [ class "language-javascript" ]
+                [ text <|
+                    lines
+                        [ "> 1 + 2"
+                        , "3"
+                        , "> '1' + '2'"
+                        , "'12'"
+                        , "> 3 + '4'"
+                        , "'34'"
+                        , "> null + undefined"
+                        , "NaN"
+                        , "> null + 'x'"
+                        , "'nullx'"
+                        , "> {} + []"
+                        , "0"
+                        ]
+                ]
+            ]
+      ]
+    , [ p [] [ text "Type Inference" ]
       , toy "type-inference"
       ]
-    , [ p [] [ text "I've Seen That Before…" ]
+    , [ h1 [] [ text "I've Seen That Before…" ] ]
+    , [ p [] [ text "Image-Based Clone Detection" ]
       , toy "clone-detection"
       ]
     , [ h1 [] [ text "Be Dissatisfied" ] ]
