@@ -68,3 +68,4 @@ node_modules: package.json
 
 elm-stuff/packages: elm-package.json node_modules
 	elm package install -y
+	touch $@
