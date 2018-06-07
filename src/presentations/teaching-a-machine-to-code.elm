@@ -29,6 +29,16 @@ slides =
             ]
       ]
     , [ h1 [] [ text "People are awful at programming." ] ]
+    , [ pre []
+            [ code [ class "language-javascript" ]
+                [ text <|
+                    lines
+                        [ "> leftPad(37, 5, '0')"
+                        , "'00037'"
+                        ]
+                ]
+            ]
+      ]
     , [ pre [ style [ ( "font-size", "0.6em" ) ] ]
             [ code [ class "language-javascript" ]
                 [ text <|

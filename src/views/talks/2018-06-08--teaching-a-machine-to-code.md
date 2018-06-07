@@ -1,6 +1,13 @@
 People are awful at programming.
 
-Let's take a simple piece of code as an example: the infamous [_left-pad.js_][left-pad] (with cache and comments removed for terseness):
+Let's take a simple piece of code as an example: the infamous [_left-pad.js_][left-pad]. This library pads strings to the left, so that, for example:
+
+```
+> leftPad(37, 5, '0')
+'00037'
+```
+
+Here's the implementation (with cache and comments removed for terseness):
 
 ```
 module.exports = leftPad;
@@ -134,7 +141,7 @@ numbers.every(number => {
   <figcaption><a href="https://toybox.prodo.ai/widget/token-prediction">Prodo.AI Toybox: Anomaly Detection</a></figcaption>
 </figure>
 
-You might have spotted that `every` doesn't really get us very far here. The developer intended it to run through _every_ item in the array, but what it really does is return `true` if _every_ item in the array fulfills the predicate passed to it, or `false` otherwise. Because it's a clever function, it short-circuits: if any item fails the test, it returns `false` immediately.
+You might have spotted that `every` doesn't really get us very far here. The developer intended it to run through _every_ item in the array, but what it really does is return `true` if _every_ item in the array fulfils the predicate passed to it, or `false` otherwise. Because it's a clever function, it short-circuits: if any item fails the test, it returns `false` immediately.
 
 Typically, you'd use it like this:
 
@@ -199,7 +206,7 @@ Your favourite static analyser probably already takes this into account, and fir
 
 So let's try doing this more intelligently. My colleagues Liam and Nora have been working on teaching machines to infer types. Unfortunately, while we know how to process text using _natural language processing_ (NLP) techniques, or by using _recurrent neural networks_ (RNNs) such as the LSTM structure mentioned earlier, we're not very good at graphs. In order to do this, they've had to push the boundaries of graph-based neural networks.
 
-This project is still very much a work in progress, but because we don't try and prove anything, instead relying on probabilities, we don't necessarily even have to have valid code to get reasonable types out.
+This project is still very much a work in progress, but because we don't try to prove anything, instead relying on probabilities, we don't necessarily even have to have valid code to get reasonable types out.
 
 For example, try this:
 
