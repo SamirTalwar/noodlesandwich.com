@@ -89,54 +89,31 @@ slides =
                 ]
             ]
       ]
-    , [ div [ style [ ( "font-size", "0.5em" ) ] ]
-            [ p []
-                [ a
-                    [ href "https://github.com/stevemao/left-pad/commit/6b25e7775731eb0f5bb5d243a84f609707da6bd7" ]
-                    [ text "commit 6b25e77" ]
-                ]
-            , pre []
-                [ code [ class "language-diff" ]
-                    [ text <|
-                        lines
-                            [ "@@ -6,6 +6,8 @@ function leftpad (str, len, ch) {"
-                            , "   ch || (ch = ' ');"
-                            , "   len = len - str.length;"
-                            , ""
-                            , "+  str = String(str);"
-                            , "+"
-                            , "   while (++i < len) {"
-                            , "     str = ch + str;"
-                            , "   }"
-                            ]
-                    ]
-                ]
-            , p []
-                [ a
-                    [ href "https://github.com/stevemao/left-pad/commit/7aa20d4289b7c706787adfcff7056f7bc0349e62" ]
-                    [ text "commit 7aa20d4" ]
-                ]
-            , pre []
-                [ code [ class "language-diff" ]
-                    [ text <|
-                        lines
-                            [ "@@ -1,12 +1,13 @@"
-                            , " module.exports = leftpad;"
-                            , ""
-                            , " function leftpad (str, len, ch) {"
-                            , "+  str = String(str);"
-                            , "+"
-                            , "   var i = -1;"
-                            , ""
-                            , "   ch || (ch = ' ');"
-                            , "   len = len - str.length;"
-                            , ""
-                            , "-  str = String(str);"
-                            , ""
-                            , "   while (++i < len) {"
-                            , "     str = ch + str;"
-                            ]
-                    ]
+    , [ p []
+            [ a
+                [ href "https://github.com/stevemao/left-pad/commit/7aa20d4289b7c706787adfcff7056f7bc0349e62" ]
+                [ text "commit 7aa20d4" ]
+            ]
+      , pre [ style [ ( "font-size", "0.8em" ) ] ]
+            [ code [ class "language-diff" ]
+                [ text <|
+                    lines
+                        [ "@@ -1,12 +1,13 @@"
+                        , " module.exports = leftpad;"
+                        , ""
+                        , " function leftpad (str, len, ch) {"
+                        , "+  str = String(str);"
+                        , "+"
+                        , "   var i = -1;"
+                        , ""
+                        , "   ch || (ch = ' ');"
+                        , "   len = len - str.length;"
+                        , ""
+                        , "-  str = String(str);"
+                        , ""
+                        , "   while (++i < len) {"
+                        , "     str = ch + str;"
+                        ]
                 ]
             ]
       ]
