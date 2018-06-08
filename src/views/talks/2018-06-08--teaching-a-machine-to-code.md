@@ -249,6 +249,12 @@ For the absence of doubt, this one doesn't use any machine learning techniques, 
 
 Chaiyong and his supervisor, [Jens Krinke][], published a paper on this technique entitled [_A Picture Is Worth a Thousand Words: Code Clone Detection Based on Image Similarity_][a picture is worth a thousand words] at the International Workshop on Software Clones 2018. I'd recommend giving it a skim (or just looking at the pictures) if you want to know how it works.
 
+Let me call one thing out from the paper:
+
+> The manual investigation of clone pairs in three software systems revealed that our technique, while it missed some of the true clones, could also detect additional true clone pairs missed by NiCad.
+
+This approach was an experiment, and I don't think anyone's going to be integrating it into classical clone detection software any time soon. But it _works_. It finds clones that others don't, because taking multiple approaches beats a single approach pretty much every time.
+
 [chaiyong raghkitwetsagul]: https://cragkhit.github.io/
 [vincent]: https://ucl-crest.github.io/iwsc2018-vincent-web/
 [jaccard index]: https://en.wikipedia.org/wiki/Jaccard_index
