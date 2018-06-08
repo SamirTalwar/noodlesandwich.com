@@ -68,11 +68,11 @@ This makes sure that the `str` is actually a string. Now, here's the subsequent 
      str = ch + str;
 ```
 
-Turns out that the previous commit had a bug, where the function would access `str.length` before converting it to a string. This was obviously broken (which is why it was fixed 2 minutes later).
+The previous commit had a bug, where the function would access `str.length` before converting it to a string. This was obviously broken (which is why it was fixed 2 minutes later).
 
 (Later on, this got converted to the more idiomatic `str = str + '';`.)
 
-Turns out, computers are much better at finding these kinds of bugs than humans are. For example, a type checker might have caught the reference to `str.length` before the conversion, and complained about the type of `str`.
+I hate to tell you this, but computers are much better at finding these kinds of bugs than humans are. For example, a type checker might have caught the reference to `str.length` before the conversion, and complained about the type of `str`.
 
 Here's my problem, though. We're dealing with JavaScript, where not knowing the type of a variable isn't a barrier to execution. I tried the [Flow][] type checker on this code and it didn't help, because it's _permissive_—if it doesn't know the type, anything goes, including references to `str.length`.
 
