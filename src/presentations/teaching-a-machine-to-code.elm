@@ -212,8 +212,23 @@ slides =
       , toy "type-inference"
       ]
     , [ h1 [] [ text "I've Seen That Before…" ] ]
+    , [ img [ src "/assets/presentations/teaching-a-machine-to-code/a-picture-is-worth-a-thousand-words.png" ] [] ]
     , [ p [] [ text "Image-Based Clone Detection" ]
       , toy "clone-detection"
+      ]
+    , [ blockquote []
+            [ p [] [ text "The manual investigation of clone pairs in three software systems revealed that our technique, while it missed some of the true clones, could also detect additional true clone pairs missed by NiCad." ]
+            , cite []
+                [ a [ href "http://www0.cs.ucl.ac.uk/staff/j.krinke/publications/iwsc18.pdf" ]
+                    [ text "— A Picture Is Worth a Thousand Words:"
+                    , br [] []
+                    , text "Code Clone Detection Based on Image Similarity"
+                    ]
+                , br [] []
+                , br [] []
+                , text "International Workshop on Software Clones, 2018"
+                ]
+            ]
       ]
     , [ h1 [] [ text "Be Dissatisfied" ] ]
     , [ h1 [] [ text "What's Next?" ]
