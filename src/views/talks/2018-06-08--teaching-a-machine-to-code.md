@@ -213,7 +213,7 @@ For example, try this:
 ```
 const tomorrow = day + 1;
 const weekday = day % 7;
-const isSunday = weekday % 7 === 6;
+const isSunday = weekday === 6;
 const name = isSunday ? 'Sunday' : 'No idea';
 ```
 
