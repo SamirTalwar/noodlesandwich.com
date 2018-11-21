@@ -64,6 +64,10 @@ gulp.task("default", () => {
     staticFile("assets/pages/index.js", "src/assets/pages/index.js"),
     staticFile("assets/talks/presentation.js", "src/presentations/load.js"),
     staticFile(
+      "assets/presentations/plz-respect-ur-data/jupyter-notebook-lorenz.gif",
+      "src/assets/presentations/plz-respect-ur-data/jupyter-notebook-lorenz.gif",
+    ),
+    staticFile(
       "assets/presentations/teaching-a-machine-to-code/a-picture-is-worth-a-thousand-words.png",
       "src/assets/presentations/teaching-a-machine-to-code/a-picture-is-worth-a-thousand-words.png",
     ),
@@ -179,7 +183,13 @@ const buildEssay = talk =>
   gulp
     .src(`src/views/talks/${talk.date}--${talk.slug}.md`)
     .pipe(withData(talk))
-    .pipe(markdownPage("src/views/essay.pug", "essay.html", talk.code.language))
+    .pipe(
+      markdownPage(
+        "src/views/essay.pug",
+        "essay.html",
+        talk.code && talk.code.language,
+      ),
+    )
     .pipe(gulp.dest(`build/talks/${talk.slug}`));
 
 const buildPresentation = talk => {
@@ -198,7 +208,7 @@ const buildPresentation = talk => {
           markdownPage(
             "src/views/presentation-reveal.pug",
             "presentation.html",
-            talk.code.language,
+            talk.code && talk.code.language,
           ),
         )
         .pipe(gulp.dest(`build/talks/${talk.slug}`));

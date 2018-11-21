@@ -17,6 +17,13 @@ workshops:
       link: https://github.com/SamirTalwar/webops-workshop
 
 talks:
+  - slug: plz-respect-ur-data
+    title: Plz, Respect Ur Data
+    event: RAPIDS
+    location: London, UK
+    timestamp: 2018-11-22T18:30:00Z
+    essay: true
+
   - slug: teaching-a-machine-to-code
     title: Teaching a Machine to Code
     event: Joy of Coding 2018
