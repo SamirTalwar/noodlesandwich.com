@@ -1,3 +1,3 @@
 /* globals document, Elm */
 
-Elm.Main.embed(document.getElementById('presentation'))
+Elm.Main.embed(document.getElementById("presentation"));
