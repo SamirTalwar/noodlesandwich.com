@@ -125,9 +125,62 @@ Each time, you get a different and unique "execution ID". As long as you remembe
 
 Try it, by running `plz describe <execution-ID>`. (If you're talking about the last execution you ran, you can omit the ID.) You'll get a bunch of information out, but notice that the parameters were captured. The output is already in _output/&lt;execution-ID&gt;_, but you can also re-download it with `plz output <execution-ID>` too. And finally, `plz rerun <execution-ID>` will re-run it (and you can provide different parameters if you like). Of course, the output is saved, so the need to re-run programs with the exact same input is reduced massively.
 
-Plz also supports input files, of course. Take a look at the _examples/pytorch_ directory inside Plz itself for an example. That particular example will run on your GPU to train a model if you have CUDA set up.
+It's common to deal with files, rather than simple numbers when feeding input into any kind of data science. Plz will happily upload files to the controller and make them available to the job.
 
-Finally, it manages your AWS EC2 spot instances, so that when it's time to run stuff on a much, much bigger machine than you have available, all you need to do is start the controller pointing at an AWS account and specify an instance type.
+Oh, and one more thing.
+
+## Hardware, the bane of our existence
+
+At some point, training models becomes _slow_ on my 3-year old laptop. Funny, that.
+
+Fortunately, I don't need to go and buy a big machine with a big GPU. Amazon have those, and I can use them.
+
+Here's another example, this time in the Plz repository, under _examples/pytorch_. Start an AWS-compatible controller, then run:
+
+```
+cd examples/pytorch
+plz -c plz.cuda.config.json run -p parameters.json
+```
+
+Here's my truncated output:
+
+```
+[...]
+👌 Sending request to start execution
+Instance status: querying availability
+Instance status: requesting new instance
+Instance status: waiting for the instance to be ready
+Instance status: pending
+Instance status: pending
+Instance status: pending
+Instance status: DNS name is: ec2-54-194-209-21.eu-west-1.compute.amazonaws.com
+Instance status: starting container
+Instance status: running
+👌 Execution ID is: a018e0d0-ee46-11e8-9c27-b15bc3e3f713
+👌 Streaming logs...
+Using device: cuda
+Epoch: 1. Training loss: 2.146244
+Evaluation accuracy: 47.80 (max 0.00)
+Best model found at epoch 1, with accurary 47.80
+[...]
+Epoch: 30. Training loss: 0.008634
+Evaluation accuracy: 97.40 (max 98.00)
+
+👌 Harvesting the output...
+👌 Retrieving summary of measures (if present)...
+{
+  "max_accuracy": 98.0,
+  "training_loss_at_max": 0.016884028911590576,
+  "epoch_at_max": 29,
+  "training_time": 45.41165781021118
+}
+👌 Execution succeeded.
+👌 Retrieving the output...
+le_net.pth
+👌 Done and dusted.
+```
+
+Watch as it spawns as _p2.xlarge_ instance, complete with a beefy graphics card, and runs our model. It'll keep that instance around for a little while, then shut it down if it's not used.
 
 ## What's your point?
 
