@@ -59,6 +59,7 @@ push: clean build check docker-build
 	git push $(GIT_FLAGS)
 
 build/assets/talks/%/presentation.js: src/presentations/%.elm $(ELM_DEPENDENCIES)
+	elm-format --yes $<
 	elm make --warn --output=$@ $<
 
 node_modules: package.json

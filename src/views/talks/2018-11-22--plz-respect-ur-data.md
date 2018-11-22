@@ -123,7 +123,7 @@ weights.pickle
 
 Each time, you get a different and unique "execution ID". As long as you remember that (or, let's be honest, write it down; humans aren't great at memorising UUIDs), you can always inspect the input and output data, and re-run the program.
 
-Try it, by running `plz describe <execution-ID>`. (If you're talking about the last execution you ran, you can omit the ID.) You'll get a bunch of information out, but notice that the parameters were captured. The output is already in _output/&lt;execution-ID&gt;_, but you can also re-download it with `plz output <execution-ID>` too. And finally, `plz rerun <execution-ID>` will re-run it (and you can provide different parameters if you like). Of course, the output is saved, so the need to re-run programs with the exact same input is reduced massively.
+Try it, by running `plz describe <execution-ID>`. (If you're talking about the last execution you ran, you can omit the ID.) You'll get a bunch of information out, but notice that the parameters were captured. The output is already in _output/&lt;execution-ID&gt;_, but you can also re-download it with `plz output <execution-ID>` too. And finally, `plz rerun <execution-ID>` will re-run it as a new execution (and you can provide different parameters if you like). Of course, the output is saved, so the need to re-run programs with the exact same input is reduced massively.
 
 It's common to deal with files, rather than simple numbers when feeding input into any kind of data science. Plz will happily upload files to the controller and make them available to the job.
 
