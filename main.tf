@@ -163,3 +163,64 @@ resource "cloudflare_page_rule" "redirect_alternative_talks" {
     }
   }
 }
+
+resource "cloudflare_record" "mail" {
+  domain = "${local.domain}"
+  name   = "mail"
+  type   = "CNAME"
+  value  = "ghs.googlehosted.com"
+}
+
+resource "cloudflare_record" "mx_0" {
+  domain   = "${local.domain}"
+  name     = "${local.domain}"
+  type     = "MX"
+  value    = "aspmx.l.google.com"
+  priority = 1
+}
+
+resource "cloudflare_record" "mx_1" {
+  domain   = "${local.domain}"
+  name     = "${local.domain}"
+  type     = "MX"
+  value    = "alt1.aspmx.l.google.com"
+  priority = 5
+}
+
+resource "cloudflare_record" "mx_2" {
+  domain   = "${local.domain}"
+  name     = "${local.domain}"
+  type     = "MX"
+  value    = "alt2.aspmx.l.google.com"
+  priority = 5
+}
+
+resource "cloudflare_record" "mx_3" {
+  domain   = "${local.domain}"
+  name     = "${local.domain}"
+  type     = "MX"
+  value    = "alt3.aspmx.l.google.com"
+  priority = 10
+}
+
+resource "cloudflare_record" "mx_4" {
+  domain   = "${local.domain}"
+  name     = "${local.domain}"
+  type     = "MX"
+  value    = "alt4.aspmx.l.google.com"
+  priority = 10
+}
+
+resource "cloudflare_record" "keybase_site_verification" {
+  domain = "${local.domain}"
+  name   = "${local.domain}"
+  type   = "TXT"
+  value  = "keybase-site-verification=YPF-r-na8c2rGHEe5DxOI0xzGC1sSqr8743dqV4iF2o"
+}
+
+resource "cloudflare_record" "alternative_keybase_site_verification" {
+  domain = "${local.alternative_domain}"
+  name   = "${local.alternative_domain}"
+  type   = "TXT"
+  value  = "keybase-site-verification=mekOQ5MzFzpNa9ql62LM0IfNgZhcbpW7VSsj5mGOCxk"
+}
