@@ -61,20 +61,8 @@ gulp.task("default", () => {
       .pipe(wellKnownDat())
       .pipe(gulp.dest("build")),
 
-    staticFile("assets/pages/index.js", "src/assets/pages/index.js"),
-    staticFile("assets/talks/presentation.js", "src/presentations/load.js"),
-    staticFile(
-      "assets/presentations/plz-respect-ur-data/jupyter-notebook-lorenz.gif",
-      "src/assets/presentations/plz-respect-ur-data/jupyter-notebook-lorenz.gif",
-    ),
-    staticFile(
-      "assets/presentations/teaching-a-machine-to-code/a-picture-is-worth-a-thousand-words.png",
-      "src/assets/presentations/teaching-a-machine-to-code/a-picture-is-worth-a-thousand-words.png",
-    ),
-    staticFile(
-      "assets/presentations/teaching-a-machine-to-code/kitchener.png",
-      "src/assets/presentations/teaching-a-machine-to-code/kitchener.png",
-    ),
+    staticFile("pages/index.js", "src/pages/index.js"),
+    staticFile("talks/presentation.js", "src/presentations/load.js"),
 
     staticFile(
       "vendor/prismjs/prism.css",

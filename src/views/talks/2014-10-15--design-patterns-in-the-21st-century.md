@@ -42,7 +42,7 @@ I want you to stop using design patterns like it's _1999_.
 
 ## This is a book.
 
-<p style="text-align: center;"><img src="https://assets.noodlesandwich.com/talks/design-patterns-in-the-21st-century/design-patterns.jpg" alt="Design Patterns, by Gamma, Helm, Johnson and Vlissides" style="max-width: 50%;"/></p>
+<p style="text-align: center;"><img src="https://noodlesandwich.com/talks/design-patterns-in-the-21st-century/design-patterns.jpg" alt="Design Patterns, by Gamma, Helm, Johnson and Vlissides" style="max-width: 50%;"/></p>
 
 _Design Patterns_ was a book by the "Gang of Four", first published very nearly 20 years ago (at the time of writing this essay), which attempted to canonicalise and formalise the tools that many experienced software developers and designers found themselves using over and over again.
 
@@ -164,7 +164,7 @@ More generally, the Abstract Factory pattern is usually implemented according to
 
 <div class="image">
 
-![Abstract Factory pattern UML diagram](https://assets.noodlesandwich.com/talks/design-patterns-in-the-21st-century/abstract-factory-pattern-uml.png)
+![Abstract Factory pattern UML diagram](https://noodlesandwich.com/talks/design-patterns-in-the-21st-century/abstract-factory-pattern-uml.png)
 
 </div>
 
@@ -246,7 +246,7 @@ Here's our updated UML diagram:
 
 <div class="image">
 
-![Updated Abstract Factory pattern UML diagram](https://assets.noodlesandwich.com/talks/design-patterns-in-the-21st-century/abstract-factory-pattern-uml-functional.png)
+![Updated Abstract Factory pattern UML diagram](https://noodlesandwich.com/talks/design-patterns-in-the-21st-century/abstract-factory-pattern-uml-functional.png)
 
 </div>
 
@@ -311,7 +311,7 @@ The pattern generally follows this simple structure:
 
 <div class="image">
 
-![Adapter pattern UML diagram](https://assets.noodlesandwich.com/talks/design-patterns-in-the-21st-century/adapter-pattern-uml.png)
+![Adapter pattern UML diagram](https://noodlesandwich.com/talks/design-patterns-in-the-21st-century/adapter-pattern-uml.png)
 
 </div>
 
@@ -344,7 +344,7 @@ Our new UML diagram will look something like this:
 
 <div class="image">
 
-![Updated Adapter pattern UML diagram](https://assets.noodlesandwich.com/talks/design-patterns-in-the-21st-century/adapter-pattern-uml-functional.png)
+![Updated Adapter pattern UML diagram](https://noodlesandwich.com/talks/design-patterns-in-the-21st-century/adapter-pattern-uml-functional.png)
 
 </div>
 
@@ -500,7 +500,7 @@ In UML, it looks a little like this:
 
 <div class="image">
 
-![Chain of Responsibility pattern UML diagram](https://assets.noodlesandwich.com/talks/design-patterns-in-the-21st-century/chain-of-responsibility-pattern-uml.png)
+![Chain of Responsibility pattern UML diagram](https://noodlesandwich.com/talks/design-patterns-in-the-21st-century/chain-of-responsibility-pattern-uml.png)
 
 </div>
 
@@ -722,7 +722,7 @@ Our new structure is quite different—far more so than the earlier examples.
 
 <div class="image">
 
-![Updated Chain of Responsibility pattern UML diagram](https://assets.noodlesandwich.com/talks/design-patterns-in-the-21st-century/chain-of-responsibility-pattern-uml-functional.png)
+![Updated Chain of Responsibility pattern UML diagram](https://noodlesandwich.com/talks/design-patterns-in-the-21st-century/chain-of-responsibility-pattern-uml-functional.png)
 
 </div>
 

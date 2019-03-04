@@ -2,7 +2,7 @@ So I've got this website.
 
 <div class="image">
 
-![BuyMoarFlats.com](https://assets.noodlesandwich.com/talks/use-your-type-system/buy-moar-flats.png)
+![BuyMoarFlats.com](https://noodlesandwich.com/talks/use-your-type-system/buy-moar-flats.png)
 
 </div>
 
@@ -218,7 +218,7 @@ For comparison, here's a Venn diagram of them both:
 
 <div class="image">
 
-![`PropertyId` overlapped with `int`](https://assets.noodlesandwich.com/talks/use-your-type-system/propertyid-venn-diagram.png)
+![`PropertyId` overlapped with `int`](https://noodlesandwich.com/talks/use-your-type-system/propertyid-venn-diagram.png)
 
 </div>
 

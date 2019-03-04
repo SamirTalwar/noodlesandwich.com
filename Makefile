@@ -10,28 +10,13 @@ endif
 
 PRESENTATION_INPUT_FILES = $(wildcard src/presentations/*.elm)
 PRESENTATION_NAMES = $(basename $(notdir $(PRESENTATION_INPUT_FILES)))
-PRESENTATION_OUTPUT_FILES = $(addprefix build/assets/talks/, \
+PRESENTATION_OUTPUT_FILES = $(addprefix build/talks/, \
 								$(addsuffix /presentation.js, $(PRESENTATION_NAMES)))
 ELM_DEPENDENCIES = $(wildcard src/NoodleSandwich/*.elm) $(wildcard src/NoodleSandwich/**/*.elm) \
 				   elm-stuff/packages
 
-build: Dockerfile node_modules gulpfile.js $(wildcard src/**/*) $(PRESENTATION_OUTPUT_FILES)
+build: node_modules gulpfile.js build/assets $(wildcard src/**/*) $(PRESENTATION_OUTPUT_FILES)
 	gulp
-
-.PHONY: docker-build
-docker-build: build
-	docker build $(BUILD_ARGS) --tag=$(TAG) .
-
-.PHONY: run
-run:
-	docker run \
-		--rm \
-		--interactive --tty \
-		--publish=80:80 \
-		--env=DOMAIN=localhost \
-		--env=PORT=80 \
-		--volume=$(PWD)/build:/usr/share/nginx/html \
-		samirtalwar/noodlesandwich.com
 
 .PHONY: clean
 clean:
@@ -45,20 +30,19 @@ check: lint
 lint: node_modules
 	yarn run lint
 
-.PHONY: push
-push: clean build check docker-build
-	@ [[ -z "$$(git status --porcelain)" ]] || { \
-		echo >&2 'Cannot push with a dirty working tree.'; \
-		exit 1; \
-	}
-	@ [[ "$$(git name)" == 'master' ]] || { \
-		echo >&2 'You must run this command from the `master` branch.'; \
-		exit 1; \
-	}
-	docker push $(TAG)
-	git push $(GIT_FLAGS)
+.PHONY: deploy
+deploy: build
+	terraform init
+	terraform apply
+	aws s3 sync build s3://noodlesandwich.com --acl=public-read --follow-symlinks --delete
 
-build/assets/talks/%/presentation.js: src/presentations/%.elm $(ELM_DEPENDENCIES)
+assets:
+	aws s3 sync s3://noodlesandwich.com/assets assets
+
+build/assets: assets
+	(cd build && ln -sf ../assets assets)
+
+build/talks/%/presentation.js: src/presentations/%.elm $(ELM_DEPENDENCIES)
 	elm-format --yes $<
 	elm make --warn --output=$@ $<
 

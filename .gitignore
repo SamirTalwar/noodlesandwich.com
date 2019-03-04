@@ -1,4 +1,5 @@
+.terraform
+assets
 build
-docker-cloud.yml
 elm-stuff
 node_modules

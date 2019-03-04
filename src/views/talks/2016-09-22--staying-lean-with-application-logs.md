@@ -7,7 +7,7 @@ _With [@sleepyfox][]._
 We're building a game for Xbox Two: <strong title="Which is definitely not related to &quot;Destiny&quot;.">Fate</strong>. One of the game modes is called the… um… <strong>Trials of Anubis</strong>.
 
 <figure class="image">
-  <img alt="Fate cover art" src="https://assets.noodlesandwich.com/talks/staying-lean-with-application-logs/cover-art.jpg"/>
+  <img alt="Fate cover art" src="https://noodlesandwich.com/talks/staying-lean-with-application-logs/cover-art.jpg"/>
   <figcaption>Copyright me, 2016</figcaption>
 </figure>
 
@@ -26,7 +26,7 @@ It used to look like this:
 
 <div class="image">
 
-![Monolith](https://assets.noodlesandwich.com/talks/staying-lean-with-application-logs/monolith.png)
+![Monolith](https://noodlesandwich.com/talks/staying-lean-with-application-logs/monolith.png)
 
 </div>
 
@@ -40,7 +40,7 @@ Next up: scale out the monolith.
 
 <div class="image">
 
-![Distributed monolith](https://assets.noodlesandwich.com/talks/staying-lean-with-application-logs/monolith-distributed.png)
+![Distributed monolith](https://noodlesandwich.com/talks/staying-lean-with-application-logs/monolith-distributed.png)
 
 </div>
 
@@ -50,7 +50,7 @@ So we rewrote it to use services. That went as well as you might expect.
 
 <div class="image">
 
-![Services with a centralised database](https://assets.noodlesandwich.com/talks/staying-lean-with-application-logs/services-centralised-database.png)
+![Services with a centralised database](https://noodlesandwich.com/talks/staying-lean-with-application-logs/services-centralised-database.png)
 
 </div>
 
@@ -60,7 +60,7 @@ So we moved to services communicating directly with each other. We looked at the
 
 <div class="image">
 
-![Decentralised services](https://assets.noodlesandwich.com/talks/staying-lean-with-application-logs/services-decentralised.png)
+![Decentralised services](https://noodlesandwich.com/talks/staying-lean-with-application-logs/services-decentralised.png)
 
 </div>
 
@@ -70,7 +70,7 @@ Let's blow up the Gameplay service.
 
 <div class="image">
 
-![Decentralised services](https://assets.noodlesandwich.com/talks/staying-lean-with-application-logs/services-decentralised-gameplay.png)
+![Decentralised services](https://noodlesandwich.com/talks/staying-lean-with-application-logs/services-decentralised-gameplay.png)
 
 </div>
 
