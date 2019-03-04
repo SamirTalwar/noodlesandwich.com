@@ -8,6 +8,8 @@ terraform {
 
 locals {
   domain = "noodlesandwich.com"
+
+  alternative_domain = "samirtalwar.com"
 }
 
 provider "aws" {
@@ -76,6 +78,30 @@ resource "cloudflare_record" "www" {
   proxied = true
 }
 
+resource "cloudflare_record" "alternative_root" {
+  domain  = "${local.alternative_domain}"
+  name    = "@"
+  type    = "CNAME"
+  value   = "${local.domain}"
+  proxied = true
+}
+
+resource "cloudflare_record" "alternative_www" {
+  domain  = "${local.alternative_domain}"
+  name    = "www"
+  type    = "CNAME"
+  value   = "${local.domain}"
+  proxied = true
+}
+
+resource "cloudflare_record" "alternative_talks" {
+  domain  = "${local.alternative_domain}"
+  name    = "talks"
+  type    = "CNAME"
+  value   = "${local.domain}"
+  proxied = true
+}
+
 resource "cloudflare_page_rule" "always_use_https" {
   zone     = "${local.domain}"
   target   = "http://*${local.domain}/*"
@@ -94,6 +120,45 @@ resource "cloudflare_page_rule" "redirect_www" {
   actions = {
     forwarding_url {
       url         = "https://${local.domain}/$1"
+      status_code = 301
+    }
+  }
+}
+
+resource "cloudflare_page_rule" "redirect_alternative_root" {
+  zone     = "${local.alternative_domain}"
+  target   = "${local.alternative_domain}/*"
+  priority = 1
+
+  actions = {
+    forwarding_url {
+      url         = "https://${local.domain}/$1"
+      status_code = 301
+    }
+  }
+}
+
+resource "cloudflare_page_rule" "redirect_alternative_www" {
+  zone     = "${local.alternative_domain}"
+  target   = "www.${local.alternative_domain}/*"
+  priority = 2
+
+  actions = {
+    forwarding_url {
+      url         = "https://${local.domain}/$1"
+      status_code = 301
+    }
+  }
+}
+
+resource "cloudflare_page_rule" "redirect_alternative_talks" {
+  zone     = "${local.alternative_domain}"
+  target   = "talks.${local.alternative_domain}/*"
+  priority = 3
+
+  actions = {
+    forwarding_url {
+      url         = "https://${local.domain}/talks/$1"
       status_code = 301
     }
   }
