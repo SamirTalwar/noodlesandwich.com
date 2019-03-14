@@ -1,0 +1,76 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: circleci/node
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          name: Restore dependencies from cache
+          keys:
+            - v1-dependencies-{{ checksum "yarn.lock" }}
+
+      - run:
+          name: Install dependencies
+          command: yarn install --frozen-lockfile
+
+      - save_cache:
+          name: Cache dependencies
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "yarn.lock" }}
+
+      - run:
+          name: Build
+          command: make build
+
+      - persist_to_workspace:
+          root: .
+          paths:
+            - build
+
+  deploy-infrastructure:
+    docker:
+      - image: hashicorp/terraform
+
+    steps:
+      - checkout
+
+      - run:
+          name: Initialize Terraform
+          command: terraform init
+
+      - run:
+          name: Deploy infrastructure
+          command: terraform apply -auto-approve
+
+  deploy-site:
+    docker:
+      - image: mesosphere/aws-cli
+
+    steps:
+      - checkout
+
+      - attach_workspace:
+          at: ./build
+
+      - run:
+          name: Push to AWS S3
+          command: aws s3 sync build s3://noodlesandwich.com --acl=public-read --delete
+
+workflows:
+  version: 2
+  deploy:
+    jobs:
+      - build
+
+      - deploy-infrastructure:
+          context: Deployment
+
+      - deploy-site:
+          requires:
+            - build
+          context: Deployment
