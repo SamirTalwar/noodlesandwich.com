@@ -134,19 +134,19 @@ const buildPug = (file, data, dest = "build") =>
 
 const primaryEventLink = (prefix, event) => {
   if (event.essay) {
-    return `/${prefix}/${event.slug}/essay`;
+    return `/${prefix}/${event.slug}/essay.html`;
   }
   if (event.presentation) {
     if (event.presentation.type === "external") {
       return event.presentation.link;
     }
-    return `/${prefix}/${event.slug}/presentation`;
+    return `/${prefix}/${event.slug}/presentation.html`;
   }
   if (event.video) {
     if (event.video.type === "external") {
       return event.video.link;
     }
-    return `/${prefix}/${event.slug}/video`;
+    return `/${prefix}/${event.slug}/video.html`;
   }
   if (event.external) {
     return event.external.link;
