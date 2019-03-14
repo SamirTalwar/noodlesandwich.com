@@ -5,6 +5,8 @@ jobs:
     docker:
       - image: circleci/node
 
+    working_directory: /tmp/project
+
     steps:
       - checkout
 
@@ -36,6 +38,8 @@ jobs:
     docker:
       - image: hashicorp/terraform
 
+    working_directory: /tmp/project
+
     steps:
       - checkout
 
@@ -50,6 +54,8 @@ jobs:
   deploy-site:
     docker:
       - image: mesosphere/aws-cli
+
+    working_directory: /tmp/project
 
     steps:
       - checkout
