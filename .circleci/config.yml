@@ -5,8 +5,6 @@ jobs:
     docker:
       - image: circleci/node
 
-    working_directory: /tmp/project
-
     steps:
       - checkout
 
@@ -38,8 +36,6 @@ jobs:
     docker:
       - image: hashicorp/terraform
 
-    working_directory: /tmp/project
-
     steps:
       - checkout
 
@@ -53,19 +49,21 @@ jobs:
 
   deploy-site:
     docker:
-      - image: mesosphere/aws-cli
-
-    working_directory: /tmp/project
+      - image: circleci/python
 
     steps:
       - checkout
+
+      - run:
+          name: Install the AWS CLI
+          command: pip install --user awscli
 
       - attach_workspace:
           at: ./build
 
       - run:
           name: Push to AWS S3
-          command: aws s3 sync build s3://noodlesandwich.com --acl=public-read --delete
+          command: ~/.local/bin/aws s3 sync build s3://noodlesandwich.com --acl=public-read --delete
 
 workflows:
   version: 2
