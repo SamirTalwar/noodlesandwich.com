@@ -9,19 +9,34 @@ jobs:
       - checkout
 
       - restore_cache:
-          name: Restore dependencies from cache
+          name: Restore node.js dependencies from cache
           keys:
             - v1-dependencies-{{ checksum "yarn.lock" }}
 
       - run:
-          name: Install dependencies
-          command: yarn install --frozen-lockfile
+          name: Install node.js dependencies
+          command: make node_modules
 
       - save_cache:
-          name: Cache dependencies
+          name: Cache node.js dependencies
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "yarn.lock" }}
+
+      - restore_cache:
+          name: Restore Elm dependencies from cache
+          keys:
+            - v1-dependencies-{{ checksum "elm-package.json" }}
+
+      - run:
+          name: Install Elm dependencies
+          command: make elm-stuff/packages
+
+      - save_cache:
+          name: Cache Elm dependencies
+          paths:
+            - elm-stuff/packages
+          key: v1-dependencies-{{ checksum "elm-package.json" }}
 
       - run:
           name: Build
