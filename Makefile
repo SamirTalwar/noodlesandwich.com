@@ -15,7 +15,7 @@ PRESENTATION_OUTPUT_FILES = $(addprefix build/talks/, \
 ELM_DEPENDENCIES = $(wildcard src/NoodleSandwich/*.elm) $(wildcard src/NoodleSandwich/**/*.elm) \
 				   elm-stuff/packages
 
-build: node_modules gulpfile.js build/assets $(wildcard src/**/*) $(PRESENTATION_OUTPUT_FILES)
+build: node_modules gulpfile.js $(wildcard src/**/*) $(PRESENTATION_OUTPUT_FILES)
 	gulp
 
 .PHONY: clean
@@ -31,16 +31,14 @@ lint: node_modules
 	yarn run lint
 
 .PHONY: deploy
-deploy: build
+deploy: build assets
 	terraform init
 	terraform apply
-	aws s3 sync build s3://noodlesandwich.com --acl=public-read --follow-symlinks --delete
+	aws s3 sync build s3://noodlesandwich.com --acl=public-read --delete
+	aws s3 sync assets s3://assets.noodlesandwich.com --acl=public-read --delete
 
 assets:
 	aws s3 sync s3://noodlesandwich.com/assets assets
-
-build/assets: assets
-	(cd build && ln -sf ../assets assets)
 
 build/talks/%/presentation.js: src/presentations/%.elm $(ELM_DEPENDENCIES)
 	elm-format --yes $<

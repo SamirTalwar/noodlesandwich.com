@@ -39,7 +39,7 @@ slides =
     , [ p [] [ em [] [ text "Chorus of data scientists:" ] ]
       , p [] [ text "YES, WE KNOW." ]
       ]
-    , [ p [] [ img [ src "/assets/talks/plz-respect-ur-data/jupyter-notebook-lorenz.gif" ] [] ]
+    , [ p [] [ img [ src "https://assets.noodlesandwich.com/talks/plz-respect-ur-data/jupyter-notebook-lorenz.gif" ] [] ]
       , p []
             [ text "Source: "
             , cite []

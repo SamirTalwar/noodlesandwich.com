@@ -35,7 +35,7 @@ I'm probably missing something. The data toolchain, on the other hand? We've jus
 If you're a data scientist, you're probably already aware of everything I've just written. This isn't news for you. After all, you use a Jupyter Notebook, in which code and data are equal partners in getting the job done. [Like this one][try jupyterlab]:
 
 <p style="text-align: center;">
-  <img src="/assets/talks/plz-respect-ur-data/jupyter-notebook-lorenz.gif" alt="Jupyter Notebook - Lorenz transformation example"/>
+  <img src="https://assets.noodlesandwich.com/talks/plz-respect-ur-data/jupyter-notebook-lorenz.gif" alt="Jupyter Notebook - Lorenz transformation example"/>
 </p>
 
 It's got sliders! You can change the values and watch the result mutate in real time! How cool is that?

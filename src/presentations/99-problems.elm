@@ -2,8 +2,8 @@ module Main exposing (main)
 
 import Html exposing (..)
 import Html.Attributes exposing (alt, class, href, src, style)
-import String
 import NoodleSandwich.Slides as Slides
+import String
 
 
 main : Program Never Slides.Model Slides.Message
@@ -192,7 +192,7 @@ slides =
             , li [] [ text "Handle your errors" ]
             ]
       ]
-    , [ img [ src "https://noodlesandwich.com/prodo.ai/logo/light.svg", alt "prodo.ai" ] []
+    , [ img [ src "https://assets.noodlesandwich.com/prodo.ai/logo/light.svg", alt "prodo.ai" ] []
       ]
     , [ h1 [] [ text "Fin." ]
       , h2 [] [ text "talks.samirtalwar.com" ]

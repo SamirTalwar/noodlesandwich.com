@@ -129,7 +129,7 @@ slides =
       ]
     , [ div []
             [ p [ style [ ( "height", "50%" ), ( "opacity", "0.25" ), ( "text-align", "center" ) ] ]
-                [ img [ src "/assets/talks/teaching-a-machine-to-code/kitchener.png" ] []
+                [ img [ src "https://assets.noodlesandwich.com/talks/teaching-a-machine-to-code/kitchener.png" ] []
                 ]
             , h3 [] [ text "Ask not what you can do for your machine" ]
             , h3 [] [ text "But what your machine can do for you!" ]
@@ -189,7 +189,7 @@ slides =
       , toy "type-inference"
       ]
     , [ h1 [] [ text "I've Seen That Before…" ] ]
-    , [ img [ src "/assets/talks/teaching-a-machine-to-code/a-picture-is-worth-a-thousand-words.png" ] [] ]
+    , [ img [ src "https://assets.noodlesandwich.com/talks/teaching-a-machine-to-code/a-picture-is-worth-a-thousand-words.png" ] [] ]
     , [ p [] [ text "Image-Based Clone Detection" ]
       , toy "clone-detection"
       ]
