@@ -77,4 +77,5 @@ workflows:
       - deploy-site:
           requires:
             - build
+            - deploy-infrastructure
           context: Deployment
