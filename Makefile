@@ -38,7 +38,7 @@ deploy: build assets
 	aws s3 sync assets s3://assets.noodlesandwich.com --acl=public-read --delete
 
 assets:
-	aws s3 sync s3://noodlesandwich.com/assets assets
+	aws s3 sync s3://assets.noodlesandwich.com assets
 
 build/talks/%/presentation.js: src/presentations/%.elm $(ELM_DEPENDENCIES)
 	elm-format --yes $<
