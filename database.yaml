@@ -35,6 +35,9 @@ talks:
     essay: true
     presentation:
       type: elm
+    video:
+      type: external
+      link: https://www.infoq.com/presentations/machine-coding-neural-networks
     code:
       language: javascript
 
