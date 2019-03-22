@@ -31,10 +31,19 @@ lint: node_modules
 	yarn run lint
 
 .PHONY: deploy
-deploy: build assets
+deploy: deploy-site deploy-assets
+
+.PHONY: hardware
+hardware:
 	terraform init
 	terraform apply
+
+.PHONY: deploy-site
+deploy-site: hardware build
 	aws s3 sync build s3://noodlesandwich.com --acl=public-read --delete
+
+.PHONY: deploy-assets
+deploy-assets: hardware assets
 	aws s3 sync assets s3://assets.noodlesandwich.com --acl=public-read --delete
 
 assets:
