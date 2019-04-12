@@ -18,7 +18,7 @@
     "lint": "eslint src test"
   },
   "dependencies": {
-    "js-yaml": "^3.13.0",
+    "js-yaml": "^3.13.1",
     "markdown-it": "^8.4.1",
     "moment": "^2.22.1",
     "node-sass": "^4.9.1",
