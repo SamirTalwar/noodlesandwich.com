@@ -6,6 +6,30 @@ jobs:
       - image: circleci/node:11
 
     steps:
+      - restore_cache:
+          name: Restore sysconfcpus from cache
+          keys:
+            - v1-sysconfcpus
+
+      - run:
+          name: Install sysconfcpus
+          command: |
+            set -ex
+            if [[ ! -f ~/libsysconfcpus/out/bin/sysconfcpus ]]; then
+              cd ~
+              git clone git://github.com/obmarg/libsysconfcpus.git
+              cd libsysconfcpus
+              ./configure --prefix=$PWD/out
+              make
+              make install
+            fi
+
+      - save_cache:
+          name: Cache sysconfcpus
+          paths:
+            - ~/libsysconfcpus/out
+          key: v1-sysconfcpus
+
       - checkout
 
       - restore_cache:
@@ -30,7 +54,7 @@ jobs:
 
       - run:
           name: Install Elm dependencies
-          command: make elm-stuff/packages
+          command: ~/libsysconfcpus/out/bin/sysconfcpus --num 1 -- make elm-stuff/packages
 
       - save_cache:
           name: Cache Elm dependencies
@@ -40,7 +64,7 @@ jobs:
 
       - run:
           name: Build
-          command: make build
+          command: ~/libsysconfcpus/out/bin/sysconfcpus --num 1 -- make build
 
       - persist_to_workspace:
           root: .
