@@ -17,9 +17,9 @@ body.full-screen {
   kbd,
   pre,
   samp,
-  code[class*='language-'],
-  pre[class*='language-'] {
-    font-family: 'Source Code Pro', monospace;
+  code[class*="language-"],
+  pre[class*="language-"] {
+    font-family: "Source Code Pro", monospace;
     font-size: 1em;
   }
 
@@ -127,6 +127,6 @@ body.full-screen {
   }
 
   .reveal * {
-    font-family: 'Source Code Pro', monospace;
+    font-family: "Source Code Pro", monospace;
   }
 }
