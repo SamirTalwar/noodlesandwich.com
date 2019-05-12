@@ -5,19 +5,24 @@ set -u
 set -o pipefail
 
 function stop {
-  docker stop noodlesandwich.com
-  docker rm noodlesandwich.com
+  if [[ -n "${CONTAINER_ID:-}" ]]; then
+    docker stop ${CONTAINER_ID}
+    docker rm ${CONTAINER_ID}
+    CONTAINER_ID=''
+  fi
 }
 
 make build
-docker run \
-       --name=noodlesandwich.com \
-       --detach \
-       --interactive \
-       --publish=8080:80 \
-       --volume=${PWD}/src/nginx.conf:/etc/nginx/conf.d/default.conf \
-       --volume=${PWD}/build:/usr/share/nginx/html \
-       --volume=${PWD}/assets:/usr/share/nginx/html/assets \
-       nginx
+CONTAINER_ID=$(
+  docker run \
+    --name=noodlesandwich.com \
+    --detach \
+    --interactive \
+    --publish=8080:80 \
+    --volume=${PWD}/src/nginx.conf:/etc/nginx/conf.d/default.conf \
+    --volume=${PWD}/build:/usr/share/nginx/html \
+    --volume=${PWD}/assets:/usr/share/nginx/html/assets \
+    nginx
+)
 trap stop EXIT INT TERM
 gulp watch
