@@ -19,5 +19,5 @@ docker run \
        --volume=${PWD}/build:/usr/share/nginx/html \
        --volume=${PWD}/assets:/usr/share/nginx/html/assets \
        nginx
-trap stop INT TERM
+trap stop EXIT INT TERM
 gulp watch
