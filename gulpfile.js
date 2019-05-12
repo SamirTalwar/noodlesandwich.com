@@ -10,7 +10,7 @@ const pug = require("pug");
 const prism = require("prismjs");
 const through = require("through2");
 
-gulp.task("default", () => {
+exports.default = () => {
   const database = loadDatabase();
   return merge(
     buildDatabase("database.yaml"),
@@ -86,27 +86,22 @@ gulp.task("default", () => {
       "vendor/reveal.js/js/reveal.js",
       "node_modules/reveal.js/js/reveal.js",
     ),
-    staticFile(
-      "vendor/reveal.js/lib/js/head.min.js",
-      "node_modules/reveal.js/lib/js/head.min.js",
-    ),
 
-    staticFile("src/assets/android-chrome-192x192.png"),
-    staticFile("src/assets/android-chrome-512x512.png"),
-    staticFile("src/assets/apple-touch-icon.png"),
-    staticFile("src/assets/browserconfig.xml"),
-    staticFile("src/assets/favicon-16x16.png"),
-    staticFile("src/assets/favicon-32x32.png"),
-    staticFile("src/assets/favicon.ico"),
-    staticFile("src/assets/manifest.json"),
-    staticFile("src/assets/mstile-150x150.png"),
-    staticFile("src/assets/safari-pinned-tab.svg"),
+    staticFile("assets/android-chrome-192x192.png"),
+    staticFile("assets/android-chrome-512x512.png"),
+    staticFile("assets/apple-touch-icon.png"),
+    staticFile("assets/browserconfig.xml"),
+    staticFile("assets/favicon-16x16.png"),
+    staticFile("assets/favicon-32x32.png"),
+    staticFile("assets/favicon.ico"),
+    staticFile("assets/manifest.json"),
+    staticFile("assets/mstile-150x150.png"),
+    staticFile("assets/safari-pinned-tab.svg"),
   );
-});
+};
 
-gulp.task("watch", () =>
-  gulp.watch("src/**/*.{elm,js,md,pug,scss,yaml}", ["default"]),
-);
+exports.watch = () =>
+  gulp.watch("src/**/*.{elm,js,md,pug,scss,yaml}", exports.default);
 
 const staticFile = (dest, src) => {
   if (src) {
