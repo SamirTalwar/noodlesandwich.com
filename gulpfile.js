@@ -86,17 +86,6 @@ exports.default = () => {
       "vendor/reveal.js/js/reveal.js",
       "node_modules/reveal.js/js/reveal.js",
     ),
-
-    staticFile("assets/android-chrome-192x192.png"),
-    staticFile("assets/android-chrome-512x512.png"),
-    staticFile("assets/apple-touch-icon.png"),
-    staticFile("assets/browserconfig.xml"),
-    staticFile("assets/favicon-16x16.png"),
-    staticFile("assets/favicon-32x32.png"),
-    staticFile("assets/favicon.ico"),
-    staticFile("assets/manifest.json"),
-    staticFile("assets/mstile-150x150.png"),
-    staticFile("assets/safari-pinned-tab.svg"),
   );
 };
 
