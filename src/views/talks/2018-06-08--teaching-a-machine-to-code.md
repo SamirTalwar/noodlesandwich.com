@@ -106,8 +106,8 @@ const numbers = [1, 2, 3;
 numbers.forEach(console.log);
 ```
 
-<figure>
-  <iframe src="https://toybox.prodo.ai/widget/autofix" style="width: 100%; height: 600px; border: 0;"></iframe>
+<figure class="embed">
+  <iframe src="https://toybox.prodo.ai/widget/autofix"></iframe>
   <figcaption><a href="https://toybox.prodo.ai/widget/autofix">Prodo.AI Toybox: Autofix</a></figcaption>
 </figure>
 
@@ -136,8 +136,8 @@ numbers.every(number => {
 });
 ```
 
-<figure>
-  <iframe src="https://toybox.prodo.ai/widget/token-prediction" style="width: 100%; height: 600px; border: 0;"></iframe>
+<figure class="embed">
+  <iframe src="https://toybox.prodo.ai/widget/token-prediction"></iframe>
   <figcaption><a href="https://toybox.prodo.ai/widget/token-prediction">Prodo.AI Toybox: Anomaly Detection</a></figcaption>
 </figure>
 
@@ -217,8 +217,8 @@ const isSunday = weekday === 6;
 const name = isSunday ? 'Sunday' : 'No idea';
 ```
 
-<figure>
-  <iframe src="https://toybox.prodo.ai/widget/type-inference" style="width: 100%; height: 600px; border: 0;"></iframe>
+<figure class="embed">
+  <iframe src="https://toybox.prodo.ai/widget/type-inference"></iframe>
   <figcaption><a href="https://toybox.prodo.ai/widget/type-inference">Prodo.AI Toybox: Type Inference</a></figcaption>
 </figure>
 
@@ -240,8 +240,8 @@ My colleague [Chaiyong][chaiyong raghkitwetsagul], who is a PhD student focusing
 
 So, if you have any Java code with some duplication, give it a try. (If you don't have any Java files with duplication, [here's one][cachedstream.java].)
 
-<figure>
-  <iframe src="https://toybox.prodo.ai/widget/clone-detection" style="width: 100%; height: 600px; border: 0;"></iframe>
+<figure class="embed">
+  <iframe src="https://toybox.prodo.ai/widget/clone-detection"></iframe>
   <figcaption><a href="https://toybox.prodo.ai/widget/clone-detection">Prodo.AI Toybox: Image-Based Clone Detection</a></figcaption>
 </figure>
 

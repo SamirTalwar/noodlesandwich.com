@@ -1,7 +1,7 @@
 html,
 body,
 .talk.presentation {
-  height: 100%;
+  min-height: 100%;
 }
 
 body.full-screen {
@@ -25,6 +25,19 @@ body.full-screen {
 
   figure {
     margin: 1em 0;
+
+    figcaption {
+      text-align: center;
+    }
+  }
+
+  .embed {
+    iframe {
+      margin-left: calc((100% - 90vw) / 2);
+      width: 90vw;
+      height: 600px;
+      border: 0;
+    }
   }
 
   &.essay {
