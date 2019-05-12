@@ -29,6 +29,14 @@ resource "aws_s3_bucket" "site" {
 
 resource "aws_s3_bucket" "assets" {
   bucket = "assets.${local.domain}"
+
+  cors_rule {
+    allowed_headers = ["*"]
+    allowed_methods = ["HEAD", "GET"]
+    allowed_origins = ["https://noodlesandwich.com", "http://localhost:8080"]
+    expose_headers  = ["ETag"]
+    max_age_seconds = 3000
+  }
 }
 
 resource "aws_cloudfront_distribution" "site_distribution" {
