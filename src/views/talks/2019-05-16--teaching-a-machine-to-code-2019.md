@@ -204,11 +204,9 @@ numbers.forEach(console.log);
   <figcaption><a href="https://toybox.prodo.ai/widget/autofix">Prodo.AI Toybox: Autofix</a></figcaption>
 </figure>
 
-As you can see, "Autofix" just adds missing brackets where you need them. It doesn't do much more.
+As you can see, "Autofix" just adds missing punctuation where you need it. It doesn't do much more.
 
-This is a minor problem, but it's one that bites me every day. It's cognitive overhead of the worst sort: it's important to the machine, not to me. I know what I meant and my colleagues do too. It's just the computer that can't figure it out.
-
-Well, now it can. 🙃
+This is a minor problem, but it's one that bites me every day. It's cognitive overhead of the worst sort: it's important to the machine, not to me. I know what I meant and my colleagues do too. It's just the computer that can't figure it out. And I'm only human, after all.
 
 ### What's next?
 
@@ -229,7 +227,7 @@ Right now, our tools are like teachers of the 1800s, slapping us on the wrists w
 
 ## Symbiosis
 
-I love working with a team who aren't satisfied with the status quo. So far I've shown you how we can teach machines to be clever, or even better, _nuanced_. But sometimes we don't need them to be clever, we just need them to be machines.
+I love working with a team who aren't satisfied with the status quo. So far I've shown you how we can teach machines to be clever, or even better, _nuanced_. But sometimes we don't need them to be clever, we just need them to do what machines do best.
 
 ### When you boil down the Agile manifesto, what do you get?
 
@@ -265,11 +263,13 @@ Snoopy is Alfie, for React components. It's the equivalent of your TDD workflow,
 
 Unlike the others, there's no online demo (yet). Instead, you'll need to run `npx @prodo-ai/snoopy-cli` inside a React project and configure it a little. (This'll change when we get to a proper release.)
 
-Just like Alfie, you can change code and watch the results update as you save. But you can do it from the comfort of your own editor, on a real project. Over the coming weeks, we plan on delivering more and more information directly into your eyeballs via Snoopy. Just like Alfie, the goal is to give you feedback faster than you could ever get it before. Over time, we're planning on adding snapshot testing, diffs (so you can see what changed), GitHub pull request integration, and much more. And just like you all, we're looking for feedback, so please try it out and tell me what you think.
+Just like Alfie, you can change code and watch the results update as you save. But you can do it from the comfort of your own editor, on a real project. Over the coming weeks, we plan on delivering more and more information directly into your eyeballs via Snoopy. Just like Alfie, the goal is to give you feedback faster than you could ever get it before.
+
+Sure, you can change some code and watch your page refresh, but that's not really good enough. It doesn't show you what it looks like on a mobile screen, or how that button looks everywhere it's used. Snoopy aims to empower you by giving you all the information you need to do a good job. And we're not done until you aren't clicking to get there. Over time, we're planning on adding snapshot testing, diffs (so you can see what changed), GitHub pull request integration, and much more. And just like you all, we're looking for feedback, so please try it out and tell me what you think.
 
 Snoopy doesn't contain any machine learning… yet. Because in the last few months, we've been re-evaluating our goals. We want machines to make your lives easier. This doesn't just mean writing code for you, but also helping you write better code.
 
-Sure, you can change some code and watch your page refresh, but that's not really good enough. It doesn't show you what it looks like on a mobile screen, or how that button looks everywhere it's used. Snoopy aims to empower you by giving you all the information you need to do a good job. And we're not done until you aren't clicking buttons to get there.
+You, the programmer, are important. You puzzle out what people mean. You transform vague ideas into pure logic, and in doing so, find the edge cases, the inconsistencies, and the outright failures of your business. I don't want you spending time puzzling out bugs in your infrastructure, I want you identifying bugs in the product.
 
 ## Why Should You Care?
 
