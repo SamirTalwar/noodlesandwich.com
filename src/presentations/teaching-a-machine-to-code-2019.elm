@@ -234,7 +234,7 @@ slides =
             ]
       ]
     , [ p [] [ text "Type Inference" ]
-      , toy "type-inference"
+      , embedded "https://toybox.prodo.ai/typewriter/Types/?c=function+add%28x%2C+y%29+%7B%0A++return+x+%2B+y%3B%0A%7D%0A"
       ]
     , [ h1 [] [ text "Just Fix It, Please" ] ]
     , [ p [] [ text "Do you how know to read this?" ] ]
@@ -249,7 +249,7 @@ slides =
             ]
       ]
     , [ p [] [ text "Autofix" ]
-      , toy "autofix"
+      , embedded "https://toybox.prodo.ai/autofix/DiffText/?c=const+numbers+%3D+%5B1%2C+2%2C+3%3B%0Anumbers.forEach%28console.log%29%3B%0A"
       ]
     , [ h1 [] [ text "Be Dissatisfied" ] ]
     , [ h1 [] [ text "Symbiosis" ] ]
@@ -350,11 +350,6 @@ hidden element =
 lines : List String -> String
 lines =
     String.join "\n"
-
-
-toy : String -> Html a
-toy name =
-    embedded <| "https://toybox.prodo.ai/widget/" ++ name
 
 
 embedded : String -> Html a

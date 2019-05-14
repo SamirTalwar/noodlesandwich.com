@@ -213,8 +213,8 @@ function concatenate(str1, str2) {
 ```
 
 <figure class="embed">
-  <iframe src="https://toybox.prodo.ai/widget/type-inference"></iframe>
-  <figcaption><a href="https://toybox.prodo.ai/widget/type-inference">Prodo.AI Toybox: Type Inference</a></figcaption>
+  <iframe src="https://toybox.prodo.ai/typewriter/Types/?c=function+add%28x%2C+y%29+%7B%0A++return+x+%2B+y%3B%0A%7D%0A"></iframe>
+  <figcaption><a href="https://toybox.prodo.ai/typewriter/Types/?c=function+add%28x%2C+y%29+%7B%0A++return+x+%2B+y%3B%0A%7D%0A">Prodo.AI Toybox: Type Inference</a></figcaption>
 </figure>
 
 Notice how it recognises `x` and `y` are likely to be numbers, but `str1` and `str2` are probably strings.
@@ -239,8 +239,8 @@ numbers.forEach(console.log);
 ```
 
 <figure class="embed">
-  <iframe src="https://toybox.prodo.ai/widget/autofix"></iframe>
-  <figcaption><a href="https://toybox.prodo.ai/widget/autofix">Prodo.AI Toybox: Autofix</a></figcaption>
+  <iframe src="https://toybox.prodo.ai/autofix/DiffText/?c=const+numbers+%3D+%5B1%2C+2%2C+3%3B%0Anumbers.forEach%28console.log%29%3B%0A"></iframe>
+  <figcaption><a href="https://toybox.prodo.ai/autofix/DiffText/?c=const+numbers+%3D+%5B1%2C+2%2C+3%3B%0Anumbers.forEach%28console.log%29%3B%0A">Prodo.AI Toybox: Autofix</a></figcaption>
 </figure>
 
 As you can see, "Autofix" just adds missing punctuation where you need it. It doesn't do much more.
