@@ -17,6 +17,18 @@ workshops:
       link: https://github.com/SamirTalwar/webops-workshop
 
 talks:
+  - slug: teaching-a-machine-to-code-2019
+    title: Teaching a Machine to Code
+    event: Newcrafts 2019
+    location: Paris, France
+    timestamp: 2019-05-16T10:30:00+0200
+    link: https://ncrafts.io/
+    essay: true
+    presentation:
+      type: elm
+    code:
+      language: javascript
+
   - slug: plz-respect-ur-data
     title: Plz, Respect Ur Data
     event: RAPIDS
