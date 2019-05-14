@@ -43,12 +43,14 @@ body > header {
   nav {
     > ul {
       display: flex;
+      flex-wrap: wrap;
       padding: 0;
       justify-content: center;
       list-style: none;
 
       > li > a {
         display: block;
+        padding: 5px 1em;
       }
     }
   }
@@ -59,7 +61,6 @@ body > header {
       color: white;
 
       > li > a {
-        padding: 5px 1em;
         color: white;
 
         &:hover {
@@ -79,12 +80,6 @@ body > header {
 
     > ul {
       margin: 0.5em;
-    }
-
-    i {
-      display: block;
-      height: 1em;
-      margin: 0 1em;
     }
   }
 }
