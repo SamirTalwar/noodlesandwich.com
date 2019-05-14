@@ -31,6 +31,12 @@ body.full-screen {
     }
   }
 
+  table {
+    td {
+      padding: 0.5rem 1rem;
+    }
+  }
+
   .embed {
     iframe {
       margin-left: calc((100% - 90vw) / 2);

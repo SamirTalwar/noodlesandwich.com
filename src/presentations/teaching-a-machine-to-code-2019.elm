@@ -29,11 +29,11 @@ slides =
             ]
       ]
     , [ h1 [] [ text "What does it mean to be human?" ] ]
-    , [ p [] [ text "Foucalt said:" ]
+    , [ p [] [ text "Foucault said:" ]
       , blockquote [] [ text "\"Je ne pense pas qu'il soit nécessaire de savoir exactement qui je suis. Ce qui fait l'intérêt principal de la vie et du travail est qu'ils vous permettent de devenir quelqu'un de différent de ce que vous étiez au départ.\"" ]
       , hidden <| blockquote [] [ text "\"I don't feel that it is necessary to know exactly what I am. The main interest in life and work is to become someone else that you were not in the beginning.\"" ]
       ]
-    , [ p [] [ text "Foucalt said:" ]
+    , [ p [] [ text "Foucault said:" ]
       , blockquote [] [ text "\"Je ne pense pas qu'il soit nécessaire de savoir exactement qui je suis. Ce qui fait l'intérêt principal de la vie et du travail est qu'ils vous permettent de devenir quelqu'un de différent de ce que vous étiez au départ.\"" ]
       , blockquote [] [ text "\"I don't feel that it is necessary to know exactly what I am. The main interest in life and work is to become someone else that you were not in the beginning.\"" ]
       ]
@@ -53,7 +53,35 @@ slides =
       , blockquote [] [ text "\"Nous sommes nos choix.\"" ]
       , blockquote [] [ text "\"We are our choices.\"" ]
       ]
-    , [ h1 [] [ text "People are awful at programming." ] ]
+    , [ table []
+            [ thead []
+                [ tr []
+                    [ td [] [ strong [] [ text "Humans" ] ]
+                    , td [] [ strong [] [ text "Machines" ] ]
+                    ]
+                ]
+            , tbody
+                []
+                [ tr []
+                    [ td [] [ text "make guesses" ]
+                    , td [] [ text "are logical" ]
+                    ]
+                , tr []
+                    [ td [] [ text "are forgiving" ]
+                    , td [] [ text "are precise" ]
+                    ]
+                , tr []
+                    [ td [] [ text "assume from context" ]
+                    , td [] [ text "are unassuming" ]
+                    ]
+                , tr []
+                    [ td [] [ text "are visual" ]
+                    , td [] [ text "process bits" ]
+                    ]
+                ]
+            ]
+      ]
+    , [ h1 [] [ text "Humans are awful at programming." ] ]
     , [ pre []
             [ code [ class "language-javascript" ]
                 [ text <|
@@ -161,12 +189,25 @@ slides =
             ]
       ]
     , [ h1 [] [ text "What even is this?" ] ]
-    , [ pre []
+    , [ p [] [ text "What are the types of the parameters to this function?" ]
+      , pre []
             [ code [ class "language-javascript" ]
                 [ text <|
                     lines
                         [ "function add(x, y) {"
                         , "  return x + y;"
+                        , "}"
+                        ]
+                ]
+            ]
+      ]
+    , [ p [] [ text "And how about this one?" ]
+      , pre []
+            [ code [ class "language-javascript" ]
+                [ text <|
+                    lines
+                        [ "function concatenate(str1, str2) {"
+                        , "  return str1 + str2;"
                         , "}"
                         ]
                 ]
@@ -196,13 +237,24 @@ slides =
       , toy "type-inference"
       ]
     , [ h1 [] [ text "Just Fix It, Please" ] ]
+    , [ p [] [ text "Do you how know to read this?" ] ]
+    , [ pre []
+            [ code [ class "language-javascript" ]
+                [ text <|
+                    lines
+                        [ "const numbers = [1, 2, 3;"
+                        , "console.log(numbers);"
+                        ]
+                ]
+            ]
+      ]
     , [ p [] [ text "Autofix" ]
       , toy "autofix"
       ]
     , [ h1 [] [ text "Be Dissatisfied" ] ]
     , [ h1 [] [ text "Symbiosis" ] ]
     , [ p [] [ text "Agility" ]
-      , embedded "https://alfie.prodo.ai/tame-stocking-filler/3"
+      , embedded "https://alfie.prodo.ai/tame-stocking-filler/4"
       ]
     , [ p [] [ text "Machines don't have to be smart to help you." ]
       , p [] [ text "They're good at doing one thing very fast." ]
@@ -210,13 +262,13 @@ slides =
       ]
     , [ h2 [] [ text "Principles of the Agile Manifesto" ]
       , ul []
-            [ li [] [ text "Our highest priority is to satisfy the customer through early and continuous delivery of valuable software." ]
-            , li [] [ text "Welcome changing requirements, even late in development. […]" ]
-            , li [] [ text "Deliver working software frequently […]" ]
-            , li [] [ text "[…] work together daily […]" ]
-            , li [] [ text "The most efficient and effective method of conveying information […] is face-to-face conversation." ]
-            , li [] [ text "Continuous attention […] enhances agility." ]
-            , li [] [ text "At regular intervals, the team reflects […]" ]
+            [ li [] [ text "early and continuous delivery" ]
+            , li [] [ text "changing requirements" ]
+            , li [] [ text "deliver […] frequently" ]
+            , li [] [ text "work together daily" ]
+            , li [] [ text "is face-to-face conversation" ]
+            , li [] [ text "continuous attention […] enhances agility" ]
+            , li [] [ text "At regular intervals, the team reflects" ]
             ]
       ]
     , [ h1 [] [ text "Feedback is all that matters." ] ]
@@ -260,9 +312,9 @@ slides =
                 , ins [] [ text "How do we measure \"good\" design?" ]
                 ]
             , p []
-                [ text "Acceptance tests?"
+                [ del [] [ text "Acceptance tests?" ]
                 , br [] []
-                , text "How can we be sure this is what we need?"
+                , ins [] [ text "How can we be sure this is what we need?" ]
                 ]
             , p []
                 [ del [] [ text "Test coverage?" ]
@@ -279,11 +331,13 @@ slides =
     , [ h1 [] [ text "Be a human." ]
       , p [] [ text "Teach your machine to do the mechanical parts." ]
       ]
-    , [ p [] [ text "And when you're ready to change the world, ", a [ href "https://prodo.ai/jobs" ] [ text "come join us" ], text "." ] ]
+    , [ blockquote [] [ text "\"Nous sommes nos choix.\"" ]
+      , blockquote [] [ text "\"We are our choices.\"" ]
+      ]
     , [ p [] [ a [ href "https://twitter.com/SamirTalwar" ] [ text "@SamirTalwar" ] ]
       , p [] [ a [ href "https://noodlesandwich.com/" ] [ text "noodlesandwich.com" ] ]
       , p [] [ a [ href "https://toybox.prodo.ai/" ] [ text "toybox.prodo.ai" ] ]
-      , p [] [ a [ href "https://prodo.ai/jobs" ] [ text "prodo.ai/jobs" ] ]
+      , p [] [ img [ src "https://assets.noodlesandwich.com/prodo.ai/logo/light.svg", alt "prodo.ai" ] [] ]
       ]
     ]
 
