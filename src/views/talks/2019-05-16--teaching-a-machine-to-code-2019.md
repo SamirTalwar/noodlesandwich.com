@@ -246,10 +246,11 @@ Alfie was just an experiment, but one that really showed us the value of immedia
 
 It turns out machines don't need to be smart to help you. Because machines excel at one thing: processing a lot of data very fast. Sometimes we don't need the machine to make a decision about that data—it just needs to present it to a human who can apply their intelligence to it.
 
-If you haven't read the [Agile manifesto][] (or it's been a while), I encourage you to take another look. Because when you boil down the principles, they all really say the same thing: **give us more feedback**.
+If you haven't read the [Agile manifesto][] (or it's been a while), I encourage you to take another look, especially at the [principles behind it][agile manifesto principles]. Because when you boil down the principles, they all really say the same thing: **give us more feedback**.
 
 [advent of code]: https://adventofcode.com/
 [agile manifesto]: https://agilemanifesto.org/
+[agile manifesto principles]: https://agilemanifesto.org/principles.html
 [alfie]: https://alfie.prodo.ai/
 [inventing on principle]: https://vimeo.com/36579366
 
