@@ -52,32 +52,24 @@ type alias SlideNo =
 subscriptions : model -> Sub Message
 subscriptions =
     always <|
-        Sub.batch
-            [ Keyboard.presses
-                (\n ->
-                    case n of
-                        -- right arrow
-                        39 ->
-                            Next
+        Keyboard.ups
+            (\n ->
+                case n of
+                    -- space
+                    32 ->
+                        Next
 
-                        -- left arrow
-                        37 ->
-                            Previous
+                    -- right arrow
+                    39 ->
+                        Next
 
-                        _ ->
-                            NoMessage
-                )
-            , Keyboard.ups
-                (\n ->
-                    case n of
-                        -- space
-                        32 ->
-                            Next
+                    -- left arrow
+                    37 ->
+                        Previous
 
-                        _ ->
-                            NoMessage
-                )
-            ]
+                    _ ->
+                        NoMessage
+            )
 
 
 parseLocation : Navigation.Location -> Message
