@@ -54,7 +54,7 @@ In short, we're nothing like machines.
 </table>
 
 
-In this talk, I'm going to show you three experiments and our new product. I'm not going to show you how all these tie together; they will, but not yet. This is a journey for us, and I'm going to take you on that journey with me.
+In this talk, I'm going to show you three experiments and a look into the future. I'm not going to show you how all these tie together; they will, but not yet. This is a journey for us, and I'm going to take you on that journey with me.
 
 ---
 
@@ -270,7 +270,7 @@ Alfie was just an experiment, but one that really showed us the value of immedia
 
 If you haven't read the [Agile manifesto][] (or it's been a while), I encourage you to take another look, especially at the [principles behind it][agile manifesto principles]. Because when you boil down the principles, they all really say the same thing: **give us more feedback**.
 
-Humans are very visual creatures. We're great at pattern recognition. Whereas a machine will need to understand the data in order to do anything useful for it, a human can spot a `null` or `NaN` among numbers very quickly.
+Humans are great at pattern recognition. Whereas a machine will need to understand the data in order to do anything useful for it, a human can spot a `null` or `NaN` among numbers very quickly.
 
 It turns out machines don't need to be smart to help you. Because machines excel at one thing: processing a lot of data very fast. When a machine presents data to a human who can make a decision, a beautiful symbiosis emerges. The pair becomes far more valuable than each individual working independently.
 
@@ -288,27 +288,31 @@ Enter our new project, codenamed "Snoopy". (We like dogs.)
 
 Snoopy is Alfie, for React components. It's the equivalent of your TDD workflow, except way more visual and a lot more subjective. Because with user interfaces, there isn't a "right answer" so much as "this feels right".
 
-Unlike the others, there's no online demo (yet). Instead, you'll need to run `npx @prodo-ai/snoopy-cli` inside a React project and configure it a little. (This'll change when we get to a proper release.)
-
-Just like Alfie, you can change code and watch the results update as you save. But you can do it from the comfort of your own editor, on a real project.
+Just like Alfie, you can change code and watch the results update as you save. But you can do it from the comfort of your own editor, on a real project. And while you can watch your website change as you tweak it, this isn't enough information–you need to see your components in different states, with different screen sizes, in different contexts.
 
 And unlike most conventional tools such as Storybook, Snoopy requires little to no configuration.
 
-Over the coming weeks, we plan on delivering more and more information directly into your eyeballs via Snoopy. Just like Alfie, the goal is to give you feedback faster than you could ever get it before.
+This is a sneak preview—we haven't officially launched yet. What I'm going to show you is just a small piece of the puzzle. You'll need to run `npx @prodo-ai/snoopy-cli` inside a React project and add a couple of annotations. (This'll change when we get to a proper release.)
 
-Sure, you can change some code and watch your page refresh, but that's not really good enough. It doesn't show you what it looks like on a mobile screen, or how that button looks everywhere it's used. Snoopy aims to empower you by giving you all the information you need to do a good job. And we're not done until you aren't clicking to get there. Over time, we're planning on adding snapshot testing, diffs (so you can see what changed), GitHub pull request integration, and much more. And just like you all, we're looking for feedback, so please try it out and tell me what you think.
+Try it out, and let me know what you think!
+
+And now you've seen the present, let me tell you a little about the future.
+
+In the future, you won't need to change your device constantly. You'll see everything at once.
+
+You won't have to write complex code to manage your state, both on the client and when synchronising with or updating a database. You'll just ask for what you need. You'll always have the complete history, and you'll never again tell yourself, "How on earth did this data get into this state?"
+
+You won't have to write tests for your UI. They'll be automatically generated as you explore it, and edge cases will be found for you. And just like the interface, your test failures and diffs will be visual.
+
+You won't have to wait weeks to find out if your work was successful. Instead, you'll share a live preview of what you're working on with a designer, a tester, or even your customer, allowing them to give you feedback instantly.
+
+And we ask one thing in return, for you to help us accomplish this. We ask that you write high-quality code. Because, you see, analysis on "good" code is _easier_. We can train models to understand immutable code much faster than code that mutates. Code that's less coupled is not just easier for a human to understand, but for a machine too. And event-sourced data is far richer and more discoverable than a SQL database where no one understands how you got there.
 
 You, the programmer, are important. You puzzle out what people mean. You transform vague ideas into pure logic, and in doing so, find the edge cases, the inconsistencies, and the outright failures of your business. I don't want you spending time puzzling out bugs in your infrastructure, I want you identifying bugs in the product.
-
-Snoopy doesn't contain any machine learning… yet. But there's so much room for it to grow. We can generate examples, find edge cases, alert when you're about to break everything… the possibilities are endless.
 
 ## Why Should You Care?
 
 I've now shown you some examples of areas in which you don't have to be satisfied with your current tools. We can break them down, ask pointed questions, capture a lot of data and then rebuild them to solve real-world problems.
-
-Machine learning is definitely here to stay. Even ignoring all the hype, it's making a remarkable difference to people's lives all the time, including yours. I can search for anything I want and find it quickly on the web, and unlock my phone with my face.
-
-You can start simply. The _Autofix_ model I showed you today started off as a weekend project for fun, based on [PyTorch's Character-Level RNN tutorial][pytorch: char rnn classification tutorial].
 
 One area we care about a lot is complexity. Right now, there are dozens of different code complexity metrics, the most famous of which is [cyclomatic complexity][cyclomatic complexity]. It's a popular one to measure—often people will have that terrifying warning from [SpotBugs][] (the spiritual successor to FindBugs) telling them that the method in which they added one line is now over the arbitrary threshold. It's a useful notification to refactor your code, but why a hard cut-off? And what's so special about a complexity score of 10, anyway?
 
@@ -317,6 +321,10 @@ Really, what we're trying to do is write "good" code, whatever that means. It's 
 Computers are smart, and they're getting smarter. I think we can teach one what "good" means for me and for you, and why they're different. And while we're at it, we can probably teach it the difference between something that needs fixing immediately and something we can worry about later.
 
 The same is true of structural analysis. We have lots of rules, like only allowing a maximum of 3 public methods per Java class, or 1 class per file. But why? Wouldn't it be better to figure out what "good structure" might be, and aim for that? Maybe you use the MVC pattern in your codebase. In that case, wouldn't it be better to measure the quality of the structure by how well it adheres to the established pattern, not how well it hits an arbitrary score?
+
+Machine learning is definitely here to stay. Even ignoring all the hype, it's making a remarkable difference to people's lives all the time, including yours. I can search for anything I want and find it quickly on the web, and unlock my phone with my face.
+
+You can start simply. The _Autofix_ model I showed you today started off as a weekend project for fun, based on [PyTorch's Character-Level RNN tutorial][pytorch: char rnn classification tutorial].
 
 If machine learning's not your bag, that's OK. There's a thousand ways to improve our work. We can make tools focused on the problems at hand, not whatever solution was suitable 30 or 40 years ago. And we can make tools that guide us, help us, and empower us, instead of punishing us for typos.
 
