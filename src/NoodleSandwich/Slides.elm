@@ -1,12 +1,11 @@
-module NoodleSandwich.Slides
-    exposing
-        ( program
-        , Data
-        , Message
-        , Model
-        , SlideNo
-        , Slides
-        )
+module NoodleSandwich.Slides exposing
+    ( Data
+    , Message
+    , Model
+    , SlideNo
+    , Slides
+    , program
+    )
 
 import Html exposing (..)
 import Html.Attributes exposing (alt, class, href, src, style)
@@ -97,28 +96,30 @@ update message model =
         (Model slides currentSlide) =
             model
     in
-        case message of
-            Next ->
-                if currentSlide < List.length slides - 1 then
-                    Model slides (currentSlide + 1)
-                        ! [ Navigation.newUrl ("#" ++ toString (currentSlide + 1))
-                          ]
-                else
-                    model ! []
+    case message of
+        Next ->
+            if currentSlide < List.length slides - 1 then
+                Model slides (currentSlide + 1)
+                    ! [ Navigation.newUrl ("#" ++ toString (currentSlide + 1))
+                      ]
 
-            Previous ->
-                if currentSlide > 0 then
-                    Model slides (currentSlide - 1)
-                        ! [ Navigation.newUrl ("#" ++ toString (currentSlide - 1))
-                          ]
-                else
-                    model ! []
-
-            GoTo slide ->
-                Model slides slide ! []
-
-            NoMessage ->
+            else
                 model ! []
+
+        Previous ->
+            if currentSlide > 0 then
+                Model slides (currentSlide - 1)
+                    ! [ Navigation.newUrl ("#" ++ toString (currentSlide - 1))
+                      ]
+
+            else
+                model ! []
+
+        GoTo slide ->
+            Model slides slide ! []
+
+        NoMessage ->
+            model ! []
 
 
 view : List (Html Message) -> Model -> Html Message
@@ -129,6 +130,7 @@ view extraHtml (Model slides currentSlide) =
                 div
                     (if currentSlide == slideIndex then
                         [ class "slide" ]
+
                      else
                         [ class "slide", style [ ( "display", "none" ) ] ]
                     )
