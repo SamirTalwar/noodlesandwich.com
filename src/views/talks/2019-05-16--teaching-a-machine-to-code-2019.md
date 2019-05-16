@@ -340,3 +340,16 @@ After all, <q>Nous sommes nos choix.</q>
 [cyclomatic complexity]: https://en.wikipedia.org/wiki/Cyclomatic_complexity
 [pytorch: char rnn classification tutorial]: https://pytorch.org/tutorials/intermediate/char_rnn_classification_tutorial.html
 [spotbugs]: https://spotbugs.github.io/
+
+---
+
+Links:
+
+- [@SamirTalwar][twitter: @SamirTalwar]
+- [github.com/prodo-ai/snoopy][github: prodo-ai/snoopy]
+- [npx @prodo-ai/snoopy][npm: @prodo-ai/snoopy]
+- [alfie.prodo.ai][alfie]
+- [toybox.prodo.ai][toybox]
+
+[twitter: @SamirTalwar]: https://twitter.com/SamirTalwar
+[toybox]: https://toybox.prodo.ai/
