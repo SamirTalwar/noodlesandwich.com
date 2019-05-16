@@ -383,13 +383,11 @@ slides =
              , p [] [ text "Teach your machine to do the mechanical parts." ]
              ]
            ]
-        ++ fromMaybe
-            (last
-                (citation "Jean-Paul Sartre"
-                    [ "\"Nous sommes nos choix.\""
-                    , "\"We are our choices.\""
-                    ]
-                )
+        ++ List.drop 1
+            (citation "Jean-Paul Sartre"
+                [ "\"Nous sommes nos choix.\""
+                , "\"We are our choices.\""
+                ]
             )
         ++ [ [ p [] [ a [ href "https://twitter.com/SamirTalwar" ] [ text "@SamirTalwar" ] ]
              , p [] [ a [ href "https://noodlesandwich.com/" ] [ text "noodlesandwich.com" ] ]
@@ -444,18 +442,3 @@ embedded url =
 lines : List String -> String
 lines =
     String.join "\n"
-
-
-last : List a -> Maybe a
-last list =
-    List.head <| List.drop (List.length list - 1) list
-
-
-fromMaybe : Maybe a -> List a
-fromMaybe maybe =
-    case maybe of
-        Nothing ->
-            []
-
-        Just x ->
-            [ x ]
