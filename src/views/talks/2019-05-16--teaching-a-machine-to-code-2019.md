@@ -284,7 +284,7 @@ It turns out machines don't need to be smart to help you. Because machines excel
 
 Alfie was "just" an experiment, but it was a highly successful one. So we decided to pursue it. One of the decisions we made in turning this into something more substantial was to focus on professional software developers, not people training for interviews or learning to program. While there's real value in fast, visual feedback for people in those spaces, we want to prove that developers with experience have a need for these kinds of tools too.
 
-Enter our new project, codenamed "Snoopy". (We like dogs.)
+[Enter our new project, codenamed "Snoopy".][github: prodo-ai/snoopy] (We like dogs.)
 
 Snoopy is Alfie, for React components. It's the equivalent of your TDD workflow, except way more visual and a lot more subjective. Because with user interfaces, there isn't a "right answer" so much as "this feels right".
 
@@ -292,7 +292,7 @@ Just like Alfie, you can change code and watch the results update as you save. B
 
 And unlike most conventional tools such as Storybook, Snoopy requires little to no configuration.
 
-This is a sneak preview—we haven't officially launched yet. What I'm going to show you is just a small piece of the puzzle. You'll need to run `npx @prodo-ai/snoopy-cli` inside a React project and add a couple of annotations. (This'll change when we get to a proper release.)
+This is a sneak preview—we haven't officially launched yet. What I'm going to show you is just a small piece of the puzzle. You'll need to run [`npx @prodo-ai/snoopy`][npm: @prodo-ai/snoopy] inside a React project and add a couple of annotations. (This'll change when we get to a proper release.)
 
 Try it out, and let me know what you think!
 
@@ -309,6 +309,9 @@ You won't have to wait weeks to find out if your work was successful. Instead, y
 And we ask one thing in return, for you to help us accomplish this. We ask that you write high-quality code. Because, you see, analysis on "good" code is _easier_. We can train models to understand immutable code much faster than code that mutates. Code that's less coupled is not just easier for a human to understand, but for a machine too. And event-sourced data is far richer and more discoverable than a SQL database where no one understands how you got there.
 
 You, the programmer, are important. You puzzle out what people mean. You transform vague ideas into pure logic, and in doing so, find the edge cases, the inconsistencies, and the outright failures of your business. I don't want you spending time puzzling out bugs in your infrastructure, I want you identifying bugs in the product.
+
+[github: prodo-ai/snoopy]: https://github.com/prodo-ai/snoopy
+[npm: @prodo-ai/snoopy]: https://www.npmjs.com/package/@prodo-ai/snoopy
 
 ## Why Should You Care?
 

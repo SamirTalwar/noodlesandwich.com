@@ -331,8 +331,10 @@ slides =
             )
         ++ [ [ p [] [ a [ href "https://twitter.com/SamirTalwar" ] [ text "@SamirTalwar" ] ]
              , p [] [ a [ href "https://noodlesandwich.com/" ] [ text "noodlesandwich.com" ] ]
+             , p [] [ a [ href "https://github.com/prodo-ai/snoopy" ] [ text "github.com/prodo-ai/snoopy" ] ]
+             , p [] [ a [ href "https://www.npmjs.com/package/@prodo-ai/snoopy" ] [ text "npx @prodo-ai/snoopy" ] ]
+             , p [] [ a [ href "https://alfie.prodo.ai/" ] [ text "alfie.prodo.ai" ] ]
              , p [] [ a [ href "https://toybox.prodo.ai/" ] [ text "toybox.prodo.ai" ] ]
-             , p [] [ img [ src "https://assets.noodlesandwich.com/prodo.ai/logo/light.svg", alt "prodo.ai" ] [] ]
              ]
            ]
 
