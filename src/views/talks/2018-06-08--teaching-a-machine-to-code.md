@@ -1,3 +1,9 @@
+_As this talk has been superseded, the Toybox used for this talk is now down. You can check out [a later version of this talk][teaching-a-machine-to-code-2019], with working examples._
+
+[teaching-a-machine-to-code-2019]: /talks/teaching-a-machine-to-code-2019
+
+---
+
 People are awful at programming.
 
 Let's take a simple piece of code as an example: the infamous [_left-pad.js_][left-pad]. This library pads strings to the left, so that, for example:
@@ -106,10 +112,7 @@ const numbers = [1, 2, 3;
 numbers.forEach(console.log);
 ```
 
-<figure class="embed">
-  <iframe src="https://2018.toybox.prodo.ai/widget/autofix"></iframe>
-  <figcaption><a href="https://2018.toybox.prodo.ai/widget/autofix">Prodo.AI Toybox: Autofix</a></figcaption>
-</figure>
+_The Toybox is now down._
 
 As you can see, "Autofix" just adds missing brackets where you need them. It doesn't do much more. And it's not very good—it's just a proof of concept that we _can_ solve these kinds of problems.
 
@@ -136,10 +139,7 @@ numbers.every(number => {
 });
 ```
 
-<figure class="embed">
-  <iframe src="https://2018.toybox.prodo.ai/widget/token-prediction"></iframe>
-  <figcaption><a href="https://2018.toybox.prodo.ai/widget/token-prediction">Prodo.AI Toybox: Anomaly Detection</a></figcaption>
-</figure>
+_The Toybox is now down._
 
 You might have spotted that `every` doesn't really get us very far here. The developer intended it to run through _every_ item in the array, but what it really does is return `true` if _every_ item in the array fulfils the predicate passed to it, or `false` otherwise. Because it's a clever function, it short-circuits: if any item fails the test, it returns `false` immediately.
 
@@ -217,10 +217,7 @@ const isSunday = weekday === 6;
 const name = isSunday ? 'Sunday' : 'No idea';
 ```
 
-<figure class="embed">
-  <iframe src="https://2018.toybox.prodo.ai/widget/type-inference"></iframe>
-  <figcaption><a href="https://2018.toybox.prodo.ai/widget/type-inference">Prodo.AI Toybox: Type Inference</a></figcaption>
-</figure>
+_The Toybox is now down._
 
 Notice how it recognises that `tomorrow` and `weekday` are numbers, even though it doesn't know the type of `day`.
 
@@ -240,10 +237,7 @@ My colleague [Chaiyong][chaiyong raghkitwetsagul], who is a PhD student focusing
 
 So, if you have any Java code with some duplication, give it a try. (If you don't have any Java files with duplication, [here's one][cachedstream.java].)
 
-<figure class="embed">
-  <iframe src="https://2018.toybox.prodo.ai/widget/clone-detection"></iframe>
-  <figcaption><a href="https://2018.toybox.prodo.ai/widget/clone-detection">Prodo.AI Toybox: Image-Based Clone Detection</a></figcaption>
-</figure>
+_The Toybox is now down._
 
 For the absence of doubt, this one doesn't use any machine learning techniques, just straight-up algorithms.
 
