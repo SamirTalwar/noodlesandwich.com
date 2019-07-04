@@ -15,7 +15,9 @@
     "url": "https://github.com/SamirTalwar/noodlesandwich.com/issues"
   },
   "scripts": {
-    "lint": "eslint src test"
+    "lint": "eslint src test",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
     "js-yaml": "^3.13.1",
@@ -25,7 +27,8 @@
     "normalize.css": "^8.0.0",
     "prismjs": "^1.14.0",
     "pug": "^2.0.3",
-    "reveal.js": "^3.6.0"
+    "reveal.js": "^3.6.0",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "elm": "^0.18.0",
@@ -41,5 +44,6 @@
     "merge-stream": "^1.0.1",
     "prettier": "^1.13.0",
     "through2": "^2.0.3"
-  }
+  },
+  "snyk": true
 }
