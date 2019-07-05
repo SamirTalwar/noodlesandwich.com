@@ -5,10 +5,11 @@ import Html.Attributes exposing (alt, class, href, src, style)
 import NoodleSandwich.Slides as Slides
 
 
-main : Program Never Slides.Model Slides.Message
+main : Program () Slides.Model Slides.Message
 main =
     Slides.program
-        { slides = slides
+        { title = "Teaching a Machine to Code"
+        , slides = slides
         , extraHtml = []
         }
 
@@ -20,7 +21,7 @@ slides =
             [ text "@SamirTalwar"
             , br [] []
             , text "prodo"
-            , span [ style [ ( "color", "#00e3a0" ) ] ] [ text ".ai" ]
+            , span [ style "color" "#00e3a0" ] [ text ".ai" ]
             ]
       , h3 []
             [ text "Newcrafts Paris 2019"
@@ -81,7 +82,7 @@ slides =
                     ]
                 ]
              ]
-           , [ pre [ style [ ( "font-size", "0.6em" ) ] ]
+           , [ pre [ style "font-size" "0.6em" ]
                 [ code [ class "language-javascript" ]
                     [ text <|
                         lines
@@ -136,7 +137,7 @@ slides =
                     [ href "https://github.com/stevemao/left-pad/commit/7aa20d4289b7c706787adfcff7056f7bc0349e62" ]
                     [ text "commit 7aa20d4" ]
                 ]
-             , pre [ style [ ( "font-size", "0.8em" ) ] ]
+             , pre [ style "font-size" "0.8em" ]
                 [ code [ class "language-diff" ]
                     [ text <|
                         lines
@@ -170,7 +171,7 @@ slides =
            , [ p [] [ text "I am not a machine." ]
              ]
            , [ div []
-                [ p [ style [ ( "height", "50%" ), ( "opacity", "0.25" ), ( "text-align", "center" ) ] ]
+                [ p [ style "height" "50%", style "opacity" "0.25", style "text-align" "center" ]
                     [ img [ src "https://assets.noodlesandwich.com/talks/teaching-a-machine-to-code/kitchener.png" ] []
                     ]
                 , h3 [] [ text "Ask not what you can do for your machine" ]
@@ -202,7 +203,7 @@ slides =
                     ]
                 ]
              ]
-           , [ pre [ style [ ( "font-size", "0.75em" ) ] ]
+           , [ pre [ style "font-size" "0.75em" ]
                 [ code [ class "language-javascript" ]
                     [ text <|
                         lines
@@ -411,36 +412,39 @@ citation author quotes =
         ns =
             List.range 1 (List.length quotes)
     in
-        ns
-            |> List.map
-                (\slideIndex ->
-                    List.map2
-                        (\quote quoteIndex ->
-                            (if quoteIndex <= slideIndex then
-                                identity
-                             else
-                                hidden
-                            )
-                            <|
-                                blockquote [] [ text quote ]
+    ns
+        |> List.map
+            (\slideIndex ->
+                List.map2
+                    (\quote quoteIndex ->
+                        (if quoteIndex <= slideIndex then
+                            identity
+
+                         else
+                            hidden
                         )
-                        quotes
-                        ns
-                        ++ [ p [] [ cite [] [ text ("— " ++ author) ] ]
-                           ]
-                )
+                        <|
+                            blockquote [] [ text quote ]
+                    )
+                    quotes
+                    ns
+                    ++ [ p [] [ cite [] [ text ("— " ++ author) ] ]
+                       ]
+            )
 
 
 hidden : Html a -> Html a
 hidden element =
-    div [ style [ ( "visibility", "hidden" ) ] ] [ element ]
+    div [ style "visibility" "hidden" ] [ element ]
 
 
 embedded : String -> Html a
 embedded url =
     iframe
         [ src url
-        , style [ ( "width", "100%" ), ( "height", "600px" ), ( "border", "0" ) ]
+        , style "width" "100%"
+        , style "height" "600px"
+        , style "border" "0"
         ]
         []
 

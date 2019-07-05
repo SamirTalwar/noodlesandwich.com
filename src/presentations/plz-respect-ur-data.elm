@@ -5,10 +5,11 @@ import Html.Attributes exposing (alt, class, href, src, style)
 import NoodleSandwich.Slides as Slides
 
 
-main : Program Never Slides.Model Slides.Message
+main : Program () Slides.Model Slides.Message
 main =
     Slides.program
-        { slides = slides
+        { title = "Plz, Respect Ur Data"
+        , slides = slides
         , extraHtml = []
         }
 
@@ -20,7 +21,7 @@ slides =
             [ text "@SamirTalwar"
             , br [] []
             , text "prodo"
-            , span [ style [ ( "color", "#00e3a0" ) ] ] [ text ".ai" ]
+            , span [ style "color" "#00e3a0" ] [ text ".ai" ]
             ]
       , h3 []
             [ text "RAPIDS"

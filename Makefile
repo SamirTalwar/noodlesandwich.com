@@ -12,8 +12,7 @@ PRESENTATION_INPUT_FILES = $(wildcard src/presentations/*.elm)
 PRESENTATION_NAMES = $(basename $(notdir $(PRESENTATION_INPUT_FILES)))
 PRESENTATION_OUTPUT_FILES = $(addprefix build/talks/, \
 								$(addsuffix /presentation.js, $(PRESENTATION_NAMES)))
-ELM_DEPENDENCIES = $(wildcard src/NoodleSandwich/*.elm) $(wildcard src/NoodleSandwich/**/*.elm) \
-				   elm-stuff/packages
+ELM_DEPENDENCIES = $(wildcard src/NoodleSandwich/*.elm) $(wildcard src/NoodleSandwich/**/*.elm)
 
 build: node_modules gulpfile.js $(wildcard src/**/*) $(PRESENTATION_OUTPUT_FILES)
 	gulp
@@ -21,7 +20,6 @@ build: node_modules gulpfile.js $(wildcard src/**/*) $(PRESENTATION_OUTPUT_FILES
 .PHONY: clean
 clean:
 	rm -rf build/*
-	rm -rf elm-stuff/build-artifacts/0.18.0/SamirTalwar
 
 .PHONY: check
 check: lint
@@ -51,13 +49,9 @@ assets:
 
 build/talks/%/presentation.js: src/presentations/%.elm $(ELM_DEPENDENCIES)
 	elm-format --yes $<
-	elm make --warn --output=$@ $<
+	elm make --output=$@ $<
 
 node_modules: package.json
 	yarn install --frozen-lockfile
 	npm rebuild
 	touch node_modules
-
-elm-stuff/packages: elm-package.json node_modules
-	elm package install -y
-	touch $@

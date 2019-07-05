@@ -6,10 +6,11 @@ import NoodleSandwich.Slides as Slides
 import String
 
 
-main : Program Never Slides.Model Slides.Message
+main : Program () Slides.Model Slides.Message
 main =
     Slides.program
-        { slides = slides
+        { title = "I've got 99 problems and asynchronous programming is 127 of them"
+        , slides = slides
         , extraHtml = [ node "script" [ src "https://assets.codepen.io/assets/embed/ei.js" ] [] ]
         }
 
@@ -21,7 +22,7 @@ slides =
             [ text "@SamirTalwar"
             , br [] []
             , text "prodo"
-            , span [ style [ ( "color", "#00e3a0" ) ] ] [ text ".ai" ]
+            , span [ style "color" "#00e3a0" ] [ text ".ai" ]
             ]
       , h3 []
             [ text "Codemotion Berlin"
@@ -129,7 +130,7 @@ slides =
     , [ h1 [] [ text "On to the meat." ]
       ]
     , [ h1 [] [ text "Thanks, node.js." ]
-      , pre [ style [ ( "font-size", "0.6em" ) ] ]
+      , pre [ style "font-size" "0.6em" ]
             [ code [ class "language-javascript" ]
                 [ text <|
                     lines
@@ -197,7 +198,7 @@ slides =
     , [ h1 [] [ text "Fin." ]
       , h2 [] [ text "talks.samirtalwar.com" ]
       , h2 [] [ text "@SamirTalwar" ]
-      , h2 [] [ text "prodo", span [ style [ ( "color", "#00e3a0" ) ] ] [ text ".ai" ] ]
+      , h2 [] [ text "prodo", span [ style "color" "#00e3a0" ] [ text ".ai" ] ]
       ]
     ]
 
@@ -215,7 +216,7 @@ data name =
 codepen : Int -> Int -> String -> String -> Html message
 codepen major minor name slug =
     div [ class "codepen-container" ]
-        [ p [] [ text (toString major ++ "." ++ toString minor) ]
+        [ p [] [ text (String.fromInt major ++ "." ++ String.fromInt minor) ]
         , p [ data "height" "400", data "theme-id" "0", data "slug-hash" slug, data "default-tab" "js,result", data "user" "SamirTalwar", data "embed-version" "2", class "codepen" ]
             [ text "See the Pen "
             , a [ href ("https://codepen.io/SamirTalwar/pen/" ++ slug ++ "/") ] [ text name ]

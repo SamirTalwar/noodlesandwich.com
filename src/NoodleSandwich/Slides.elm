@@ -7,31 +7,36 @@ module NoodleSandwich.Slides exposing
     , program
     )
 
+import Browser
+import Browser.Events
+import Browser.Navigation as Navigation
 import Html exposing (..)
-import Html.Attributes exposing (alt, class, href, src, style)
+import Html.Attributes exposing (alt, class, href, id, src, style)
 import Html.Events exposing (..)
-import Keyboard
-import Navigation
+import Json.Decode
 import String
 import Task
+import Url exposing (Url)
 
 
-program : Data -> Program Never Model Message
+program : Data -> Program () Model Message
 program data =
-    Navigation.program parseLocation
+    Browser.application
         { init = init data.slides
         , update = update
-        , view = view data.extraHtml
+        , view = view data.title data.extraHtml
         , subscriptions = subscriptions
+        , onUrlChange = onUrlChange
+        , onUrlRequest = onUrlRequest
         }
 
 
 type alias Data =
-    { slides : Slides, extraHtml : List (Html Message) }
+    { title : String, slides : Slides, extraHtml : List (Html Message) }
 
 
 type Model
-    = Model Slides SlideNo
+    = Model Navigation.Key Slides SlideNo
 
 
 type Message
@@ -52,83 +57,116 @@ type alias SlideNo =
 subscriptions : model -> Sub Message
 subscriptions =
     always <|
-        Keyboard.ups
-            (\n ->
-                case n of
-                    -- space
-                    32 ->
-                        Next
+        Browser.Events.onKeyUp <|
+            Json.Decode.map
+                (\key ->
+                    case key of
+                        -- space
+                        " " ->
+                            Next
 
-                    -- right arrow
-                    39 ->
-                        Next
+                        "ArrowRight" ->
+                            Next
 
-                    -- left arrow
-                    37 ->
-                        Previous
+                        "ArrowLeft" ->
+                            Previous
 
-                    _ ->
-                        NoMessage
-            )
-
-
-parseLocation : Navigation.Location -> Message
-parseLocation location =
-    GoTo <| Result.withDefault 0 <| String.toInt (String.dropLeft 1 location.hash)
+                        _ ->
+                            NoMessage
+                )
+            <|
+                Json.Decode.field "key" Json.Decode.string
 
 
-init : Slides -> Navigation.Location -> ( Model, Cmd Message )
-init slides location =
-    Model slides 0 ! [ Task.perform parseLocation (Task.succeed location) ]
+parseLocation : Url -> Message
+parseLocation url =
+    GoTo <| Maybe.withDefault 0 <| Maybe.andThen String.toInt <| url.fragment
+
+
+init : Slides -> () -> Url -> Navigation.Key -> ( Model, Cmd Message )
+init slides _ url key =
+    ( Model key slides 0
+    , Task.perform onUrlChange (Task.succeed url)
+    )
+
+
+onUrlChange : Url -> Message
+onUrlChange url =
+    GoTo <| Maybe.withDefault 0 <| Maybe.andThen String.toInt <| url.fragment
+
+
+onUrlRequest : Browser.UrlRequest -> Message
+onUrlRequest urlRequest =
+    case urlRequest of
+        Browser.Internal url ->
+            onUrlChange url
+
+        Browser.External _ ->
+            NoMessage
 
 
 update : Message -> Model -> ( Model, Cmd Message )
 update message model =
     let
-        (Model slides currentSlide) =
+        (Model key slides currentSlide) =
             model
     in
     case message of
         Next ->
             if currentSlide < List.length slides - 1 then
-                Model slides (currentSlide + 1)
-                    ! [ Navigation.newUrl ("#" ++ toString (currentSlide + 1))
-                      ]
+                ( Model key slides (currentSlide + 1)
+                , Navigation.pushUrl key ("#" ++ String.fromInt (currentSlide + 1))
+                )
 
             else
-                model ! []
+                ( model
+                , Cmd.none
+                )
 
         Previous ->
             if currentSlide > 0 then
-                Model slides (currentSlide - 1)
-                    ! [ Navigation.newUrl ("#" ++ toString (currentSlide - 1))
-                      ]
+                ( Model key slides (currentSlide - 1)
+                , Navigation.pushUrl key ("#" ++ String.fromInt (currentSlide - 1))
+                )
 
             else
-                model ! []
+                ( model
+                , Cmd.none
+                )
 
         GoTo slide ->
-            Model slides slide ! []
+            ( Model key slides slide
+            , Cmd.none
+            )
 
         NoMessage ->
-            model ! []
-
-
-view : List (Html Message) -> Model -> Html Message
-view extraHtml (Model slides currentSlide) =
-    div [ class "app", onClick Next ]
-        (List.map2
-            (\slideIndex slide ->
-                div
-                    (if currentSlide == slideIndex then
-                        [ class "slide" ]
-
-                     else
-                        [ class "slide", style [ ( "display", "none" ) ] ]
-                    )
-                    slide
+            ( model
+            , Cmd.none
             )
-            (List.range 0 (List.length slides))
-            slides
-            ++ extraHtml
-        )
+
+
+view : String -> List (Html Message) -> Model -> Browser.Document Message
+view title extraHtml model =
+    { title = title, body = [ body extraHtml model ] }
+
+
+body : List (Html Message) -> Model -> Html Message
+body extraHtml (Model _ slides currentSlide) =
+    div [ id "presentation", class "talk presentation elm" ]
+        [ div [ class "app", onClick Next ]
+            (List.map2
+                (\slideIndex slide ->
+                    div
+                        (if currentSlide == slideIndex then
+                            [ class "slide" ]
+
+                         else
+                            [ class "slide", style "display" "none" ]
+                        )
+                        slide
+                )
+                (List.range 0 (List.length slides))
+                slides
+                ++ extraHtml
+            )
+        ]
