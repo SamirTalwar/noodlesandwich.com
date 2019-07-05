@@ -53,5 +53,4 @@ build/talks/%/presentation.js: src/presentations/%.elm $(ELM_DEPENDENCIES)
 
 node_modules: package.json
 	yarn install --frozen-lockfile
-	npm rebuild
 	touch node_modules
