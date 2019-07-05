@@ -64,7 +64,7 @@ jobs:
 
       - run:
           name: Build
-          command: ~/libsysconfcpus/out/bin/sysconfcpus --num 1 -- make build
+          command: ~/libsysconfcpus/out/bin/sysconfcpus --num 1 -- make build PRODUCTION=true
 
       - persist_to_workspace:
           root: .

@@ -14,6 +14,12 @@ PRESENTATION_OUTPUT_FILES = $(addprefix build/talks/, \
 								$(addsuffix /presentation.js, $(PRESENTATION_NAMES)))
 ELM_DEPENDENCIES = $(wildcard src/NoodleSandwich/*.elm) $(wildcard src/NoodleSandwich/**/*.elm)
 
+ifdef PRODUCTION
+ELM_MAKE_FLAGS = --optimize
+else
+ELM_MAKE_FLAGS =
+endif
+
 build: node_modules gulpfile.js $(wildcard src/**/*) $(PRESENTATION_OUTPUT_FILES)
 	gulp
 
@@ -49,7 +55,7 @@ assets:
 
 build/talks/%/presentation.js: src/presentations/%.elm $(ELM_DEPENDENCIES)
 	elm-format --yes $<
-	elm make --output=$@ $<
+	elm make --output=$@ $(ELM_MAKE_FLAGS) $<
 
 node_modules: package.json
 	yarn install --frozen-lockfile
