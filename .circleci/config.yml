@@ -37,9 +37,18 @@ jobs:
           keys:
             - v1-dependencies-{{ checksum "yarn.lock" }}
 
+      - restore_cache:
+          name: Restore Elm dependencies from cache
+          keys:
+            - v1-dependencies-{{ checksum "elm.json" }}
+
       - run:
           name: Install node.js dependencies
           command: make node_modules
+
+      - run:
+          name: Build
+          command: ~/libsysconfcpus/out/bin/sysconfcpus --num 1 -- make build PRODUCTION=true
 
       - save_cache:
           name: Cache node.js dependencies
@@ -47,24 +56,11 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "yarn.lock" }}
 
-      - restore_cache:
-          name: Restore Elm dependencies from cache
-          keys:
-            - v1-dependencies-{{ checksum "elm-package.json" }}
-
-      - run:
-          name: Install Elm dependencies
-          command: ~/libsysconfcpus/out/bin/sysconfcpus --num 1 -- make elm-stuff/packages
-
       - save_cache:
           name: Cache Elm dependencies
           paths:
-            - elm-stuff/packages
-          key: v1-dependencies-{{ checksum "elm-package.json" }}
-
-      - run:
-          name: Build
-          command: ~/libsysconfcpus/out/bin/sysconfcpus --num 1 -- make build PRODUCTION=true
+            - ~/.elm
+          key: v1-dependencies-{{ checksum "elm.json" }}
 
       - persist_to_workspace:
           root: .
