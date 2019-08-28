@@ -9,7 +9,24 @@ block main
   .talk.essay
     header
       h1 #{title}
-      p #{formattedDate}
+      p #{formattedDate}, at #{event}
+
+    nav
+      ul
+        if presentation
+          if presentation.type == "external"
+            li
+              a(href=presentation.link) Browse the presentation
+          else
+            li
+              a(href="/talks/" + slug + "/presentation.html") Browse the presentation
+        if video
+          if video.type == "external"
+            li
+              a(href=video.link) Watch the video
+          else
+            li
+              a(href="/talks/" + slug + "/video.html") Watch the video
 
     | !{contents}
 
