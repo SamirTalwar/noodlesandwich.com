@@ -283,6 +283,13 @@ resource "cloudflare_record" "mx_4" {
   priority = 10
 }
 
+resource "cloudflare_record" "google_verification" {
+  domain = local.domain
+  name   = local.domain
+  type   = "TXT"
+  value  = "google-site-verification=EnW0UGO0RmT-UobIyFGwiyQoQnq_-dFGbVy4sS4W7AI"
+}
+
 resource "cloudflare_record" "keybase_site_verification" {
   domain = local.domain
   name   = local.domain
