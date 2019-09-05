@@ -53,7 +53,6 @@ In short, we're nothing like machines.
   </tbody>
 </table>
 
-
 In this talk, I'm going to show you three experiments and a look into the future. I'm not going to show you how all these tie together; they will, but not yet. This is a journey for us, and I'm going to take you on that journey with me.
 
 ---
@@ -345,11 +344,11 @@ After all, <q>Nous sommes nos choix.</q>
 
 Links:
 
-- [@SamirTalwar][twitter: @SamirTalwar]
+- [@SamirTalwar][twitter: @samirtalwar]
 - [github.com/prodo-ai/snoopy][github: prodo-ai/snoopy]
 - [npx @prodo-ai/snoopy][npm: @prodo-ai/snoopy]
 - [alfie.prodo.ai][alfie]
 - [toybox.prodo.ai][toybox]
 
-[twitter: @SamirTalwar]: https://twitter.com/SamirTalwar
+[twitter: @samirtalwar]: https://twitter.com/SamirTalwar
 [toybox]: https://toybox.prodo.ai/
