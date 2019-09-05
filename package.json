@@ -15,7 +15,10 @@
     "url": "https://github.com/SamirTalwar/noodlesandwich.com/issues"
   },
   "scripts": {
-    "lint": "eslint src test"
+    "lint": "eslint src test",
+    "format": "set -ex; yarn format:elm-format; yarn format:prettier",
+    "format:elm-format": "elm-format --yes src/**/*.elm",
+    "format:prettier": "prettier --write $(find src -name '*.js' -o -name '*.md' -o -name '*.scss')"
   },
   "dependencies": {
     "js-yaml": "^3.13.1",
