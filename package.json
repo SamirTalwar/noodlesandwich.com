@@ -22,27 +22,27 @@
   },
   "dependencies": {
     "js-yaml": "^3.13.1",
-    "markdown-it": "^8.4.1",
+    "markdown-it": "^9.1.0",
     "moment": "^2.22.1",
     "node-sass": "^4.9.1",
     "normalize.css": "^8.0.0",
-    "prismjs": "^1.14.0",
+    "prismjs": "^1.17.1",
     "pug": "^2.0.3",
     "reveal.js": "^3.6.0"
   },
   "devDependencies": {
     "elm": "^0.19.0",
-    "elm-format": "^0.8.1",
-    "eslint": "^4.19.1",
-    "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-import": "^2.12.0",
+    "elm-format": "^0.8.2",
+    "eslint": "^6.3.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-prettier": "^6.2.0",
+    "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsx-a11y": "^6.0.3",
-    "eslint-plugin-prettier": "^2.6.0",
+    "eslint-plugin-prettier": "^3.1.0",
     "gulp": "^4.0.2",
     "gulp-cli": "^2.2.0",
-    "merge-stream": "^1.0.1",
+    "merge-stream": "^2.0.0",
     "prettier": "^1.13.0",
-    "through2": "^2.0.3"
+    "through2": "^3.0.1"
   }
 }
