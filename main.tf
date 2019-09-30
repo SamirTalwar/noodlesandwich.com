@@ -16,8 +16,7 @@ provider "aws" {
   region = "eu-west-1"
 }
 
-provider "cloudflare" {
-}
+provider "cloudflare" {}
 
 resource "aws_s3_bucket" "site" {
   bucket = local.domain
@@ -126,8 +125,16 @@ resource "aws_cloudfront_distribution" "assets_distribution" {
   }
 }
 
+resource "cloudflare_zone" "site" {
+  zone = local.domain
+}
+
+resource "cloudflare_zone" "alternative_site" {
+  zone = local.alternative_domain
+}
+
 resource "cloudflare_record" "root" {
-  domain  = local.domain
+  zone_id = cloudflare_zone.site.id
   name    = "@"
   type    = "CNAME"
   value   = aws_cloudfront_distribution.site_distribution.domain_name
@@ -135,7 +142,7 @@ resource "cloudflare_record" "root" {
 }
 
 resource "cloudflare_record" "www" {
-  domain  = local.domain
+  zone_id = cloudflare_zone.site.id
   name    = "www"
   type    = "CNAME"
   value   = local.domain
@@ -143,7 +150,7 @@ resource "cloudflare_record" "www" {
 }
 
 resource "cloudflare_record" "assets" {
-  domain  = local.domain
+  zone_id = cloudflare_zone.site.id
   name    = "assets"
   type    = "CNAME"
   value   = aws_cloudfront_distribution.assets_distribution.domain_name
@@ -151,7 +158,7 @@ resource "cloudflare_record" "assets" {
 }
 
 resource "cloudflare_record" "alternative_root" {
-  domain  = local.alternative_domain
+  zone_id = cloudflare_zone.alternative_site.id
   name    = "@"
   type    = "CNAME"
   value   = local.domain
@@ -159,7 +166,7 @@ resource "cloudflare_record" "alternative_root" {
 }
 
 resource "cloudflare_record" "alternative_www" {
-  domain  = local.alternative_domain
+  zone_id = cloudflare_zone.alternative_site.id
   name    = "www"
   type    = "CNAME"
   value   = local.domain
@@ -167,7 +174,7 @@ resource "cloudflare_record" "alternative_www" {
 }
 
 resource "cloudflare_record" "alternative_talks" {
-  domain  = local.alternative_domain
+  zone_id = cloudflare_zone.alternative_site.id
   name    = "talks"
   type    = "CNAME"
   value   = local.domain
@@ -175,7 +182,7 @@ resource "cloudflare_record" "alternative_talks" {
 }
 
 resource "cloudflare_page_rule" "always_use_https" {
-  zone     = local.domain
+  zone_id  = cloudflare_zone.site.id
   target   = "http://*${local.domain}/*"
   priority = 1
 
@@ -185,7 +192,7 @@ resource "cloudflare_page_rule" "always_use_https" {
 }
 
 resource "cloudflare_page_rule" "redirect_www" {
-  zone     = local.domain
+  zone_id  = cloudflare_zone.site.id
   target   = "www.${local.domain}/*"
   priority = 2
 
@@ -198,7 +205,7 @@ resource "cloudflare_page_rule" "redirect_www" {
 }
 
 resource "cloudflare_page_rule" "redirect_alternative_root" {
-  zone     = local.alternative_domain
+  zone_id  = cloudflare_zone.alternative_site.id
   target   = "${local.alternative_domain}/*"
   priority = 1
 
@@ -211,7 +218,7 @@ resource "cloudflare_page_rule" "redirect_alternative_root" {
 }
 
 resource "cloudflare_page_rule" "redirect_alternative_www" {
-  zone     = local.alternative_domain
+  zone_id  = cloudflare_zone.alternative_site.id
   target   = "www.${local.alternative_domain}/*"
   priority = 2
 
@@ -224,7 +231,7 @@ resource "cloudflare_page_rule" "redirect_alternative_www" {
 }
 
 resource "cloudflare_page_rule" "redirect_alternative_talks" {
-  zone     = local.alternative_domain
+  zone_id  = cloudflare_zone.alternative_site.id
   target   = "talks.${local.alternative_domain}/*"
   priority = 3
 
@@ -237,14 +244,14 @@ resource "cloudflare_page_rule" "redirect_alternative_talks" {
 }
 
 resource "cloudflare_record" "mail" {
-  domain = local.domain
-  name   = "mail"
-  type   = "CNAME"
-  value  = "ghs.googlehosted.com"
+  zone_id = cloudflare_zone.site.id
+  name    = "mail"
+  type    = "CNAME"
+  value   = "ghs.googlehosted.com"
 }
 
 resource "cloudflare_record" "mx_0" {
-  domain   = local.domain
+  zone_id  = cloudflare_zone.site.id
   name     = local.domain
   type     = "MX"
   value    = "aspmx.l.google.com"
@@ -252,7 +259,7 @@ resource "cloudflare_record" "mx_0" {
 }
 
 resource "cloudflare_record" "mx_1" {
-  domain   = local.domain
+  zone_id  = cloudflare_zone.site.id
   name     = local.domain
   type     = "MX"
   value    = "alt1.aspmx.l.google.com"
@@ -260,7 +267,7 @@ resource "cloudflare_record" "mx_1" {
 }
 
 resource "cloudflare_record" "mx_2" {
-  domain   = local.domain
+  zone_id  = cloudflare_zone.site.id
   name     = local.domain
   type     = "MX"
   value    = "alt2.aspmx.l.google.com"
@@ -268,7 +275,7 @@ resource "cloudflare_record" "mx_2" {
 }
 
 resource "cloudflare_record" "mx_3" {
-  domain   = local.domain
+  zone_id  = cloudflare_zone.site.id
   name     = local.domain
   type     = "MX"
   value    = "alt3.aspmx.l.google.com"
@@ -276,7 +283,7 @@ resource "cloudflare_record" "mx_3" {
 }
 
 resource "cloudflare_record" "mx_4" {
-  domain   = local.domain
+  zone_id  = cloudflare_zone.site.id
   name     = local.domain
   type     = "MX"
   value    = "alt4.aspmx.l.google.com"
@@ -284,22 +291,22 @@ resource "cloudflare_record" "mx_4" {
 }
 
 resource "cloudflare_record" "google_verification" {
-  domain = local.domain
-  name   = local.domain
-  type   = "TXT"
-  value  = "google-site-verification=EnW0UGO0RmT-UobIyFGwiyQoQnq_-dFGbVy4sS4W7AI"
+  zone_id = cloudflare_zone.site.id
+  name    = local.domain
+  type    = "TXT"
+  value   = "google-site-verification=EnW0UGO0RmT-UobIyFGwiyQoQnq_-dFGbVy4sS4W7AI"
 }
 
 resource "cloudflare_record" "keybase_site_verification" {
-  domain = local.domain
-  name   = local.domain
-  type   = "TXT"
-  value  = "keybase-site-verification=YPF-r-na8c2rGHEe5DxOI0xzGC1sSqr8743dqV4iF2o"
+  zone_id = cloudflare_zone.site.id
+  name    = local.domain
+  type    = "TXT"
+  value   = "keybase-site-verification=YPF-r-na8c2rGHEe5DxOI0xzGC1sSqr8743dqV4iF2o"
 }
 
 resource "cloudflare_record" "alternative_keybase_site_verification" {
-  domain = local.alternative_domain
-  name   = local.alternative_domain
-  type   = "TXT"
-  value  = "keybase-site-verification=mekOQ5MzFzpNa9ql62LM0IfNgZhcbpW7VSsj5mGOCxk"
+  zone_id = cloudflare_zone.alternative_site.id
+  name    = local.alternative_domain
+  type    = "TXT"
+  value   = "keybase-site-verification=mekOQ5MzFzpNa9ql62LM0IfNgZhcbpW7VSsj5mGOCxk"
 }
