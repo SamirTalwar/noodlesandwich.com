@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "js-yaml": "^3.13.1",
-    "markdown-it": "^9.1.0",
+    "markdown-it": "^10.0.0",
     "moment": "^2.22.1",
     "node-sass": "^4.9.1",
     "normalize.css": "^8.0.0",
