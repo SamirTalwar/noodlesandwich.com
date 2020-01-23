@@ -24,7 +24,7 @@
     "js-yaml": "^3.13.1",
     "markdown-it": "^10.0.0",
     "moment": "^2.22.1",
-    "node-sass": "^4.9.1",
+    "node-sass": "^4.13.1",
     "normalize.css": "^8.0.0",
     "prismjs": "^1.17.1",
     "pug": "^2.0.3",
