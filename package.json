@@ -18,7 +18,9 @@
     "lint": "eslint src test",
     "format": "set -ex; yarn format:elm-format; yarn format:prettier",
     "format:elm-format": "elm-format --yes src/**/*.elm",
-    "format:prettier": "prettier --write $(find src -name '*.js' -o -name '*.md' -o -name '*.scss')"
+    "format:prettier": "prettier --write $(find src -name '*.js' -o -name '*.md' -o -name '*.scss')",
+    "snyk-protect": "snyk protect",
+    "prepare": "yarn run snyk-protect"
   },
   "dependencies": {
     "js-yaml": "^3.13.1",
@@ -28,7 +30,8 @@
     "normalize.css": "^8.0.0",
     "prismjs": "^1.17.1",
     "pug": "^2.0.3",
-    "reveal.js": "^3.6.0"
+    "reveal.js": "^3.6.0",
+    "snyk": "^1.319.1"
   },
   "devDependencies": {
     "elm": "^0.19.0",
@@ -44,5 +47,6 @@
     "merge-stream": "^2.0.0",
     "prettier": "^1.13.0",
     "through2": "^3.0.1"
-  }
+  },
+  "snyk": true
 }
