@@ -1,13 +1,6 @@
 SHELL := /usr/bin/env bash
 PATH := $(PWD)/node_modules/.bin:$(PATH)
 
-TAG = samirtalwar/noodlesandwich.com
-ifdef OFFLINE
-BUILD_ARGS =
-else
-BUILD_ARGS = --pull
-endif
-
 PRESENTATION_NAMES := 99-problems plz-respect-ur-data teaching-a-machine-to-code teaching-a-machine-to-code-2019
 PRESENTATION_OUTPUT_FILES = $(addprefix build/talks/, $(addsuffix /presentation.js, $(PRESENTATION_NAMES)))
 ELM_DEPENDENCIES = $(wildcard src/NoodleSandwich/*.elm)
