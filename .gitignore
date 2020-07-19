@@ -1,3 +1,4 @@
+.envrc.local
 .terraform
 assets
 build
