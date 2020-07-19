@@ -10,7 +10,6 @@ main =
     Slides.program
         { title = "Teaching a Machine to Code"
         , slides = slides
-        , extraHtml = []
         }
 
 

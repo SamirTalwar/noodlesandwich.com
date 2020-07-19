@@ -10,7 +10,6 @@ main =
     Slides.program
         { title = "Plz, Respect Ur Data"
         , slides = slides
-        , extraHtml = []
         }
 
 

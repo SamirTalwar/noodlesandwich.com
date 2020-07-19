@@ -11,7 +11,6 @@ main =
     Slides.program
         { title = "I've got 99 problems and asynchronous programming is 127 of them"
         , slides = slides
-        , extraHtml = [ node "script" [ src "https://assets.codepen.io/assets/embed/ei.js" ] [] ]
         }
 
 

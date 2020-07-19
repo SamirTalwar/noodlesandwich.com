@@ -24,7 +24,7 @@ program data =
     Browser.application
         { init = init data.slides
         , update = update
-        , view = view data.title data.extraHtml
+        , view = view data.title
         , subscriptions = subscriptions
         , onUrlChange = onUrlChange
         , onUrlRequest = onUrlRequest
@@ -32,7 +32,7 @@ program data =
 
 
 type alias Data =
-    { title : String, slides : Slides, extraHtml : List (Html Message) }
+    { title : String, slides : Slides }
 
 
 type Model
@@ -145,13 +145,13 @@ update message model =
             )
 
 
-view : String -> List (Html Message) -> Model -> Browser.Document Message
-view title extraHtml model =
-    { title = title, body = [ body extraHtml model ] }
+view : String -> Model -> Browser.Document Message
+view title model =
+    { title = title, body = [ body model ] }
 
 
-body : List (Html Message) -> Model -> Html Message
-body extraHtml (Model _ slides currentSlide) =
+body : Model -> Html Message
+body (Model _ slides currentSlide) =
     div [ id "presentation", class "talk presentation elm" ]
         [ div [ class "app", onClick Next ]
             (List.map2
@@ -167,6 +167,5 @@ body extraHtml (Model _ slides currentSlide) =
                 )
                 (List.range 0 (List.length slides))
                 slides
-                ++ extraHtml
             )
         ]
