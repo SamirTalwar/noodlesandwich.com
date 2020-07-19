@@ -47,7 +47,11 @@ type Message
 
 
 type alias Slides =
-    List (List (Html Message))
+    List Slide
+
+
+type alias Slide =
+    List (Html Message)
 
 
 type alias SlideNo =
@@ -108,14 +112,14 @@ onUrlRequest urlRequest =
 update : Message -> Model -> ( Model, Cmd Message )
 update message model =
     let
-        (Model key slides currentSlide) =
+        (Model key slides current) =
             model
     in
     case message of
         Next ->
-            if currentSlide < List.length slides - 1 then
-                ( Model key slides (currentSlide + 1)
-                , Navigation.pushUrl key ("#" ++ String.fromInt (currentSlide + 1))
+            if current < List.length slides - 1 then
+                ( Model key slides (current + 1)
+                , Navigation.pushUrl key ("#" ++ String.fromInt (current + 1))
                 )
 
             else
@@ -124,9 +128,9 @@ update message model =
                 )
 
         Previous ->
-            if currentSlide > 0 then
-                ( Model key slides (currentSlide - 1)
-                , Navigation.pushUrl key ("#" ++ String.fromInt (currentSlide - 1))
+            if current > 0 then
+                ( Model key slides (current - 1)
+                , Navigation.pushUrl key ("#" ++ String.fromInt (current - 1))
                 )
 
             else
@@ -134,8 +138,8 @@ update message model =
                 , Cmd.none
                 )
 
-        GoTo slide ->
-            ( Model key slides slide
+        GoTo destination ->
+            ( Model key slides destination
             , Cmd.none
             )
 
@@ -151,21 +155,18 @@ view title model =
 
 
 body : Model -> Html Message
-body (Model _ slides currentSlide) =
+body (Model _ slides currentSlideIndex) =
     div [ id "presentation", class "talk presentation elm" ]
-        [ div [ class "app", onClick Next ]
-            (List.map2
-                (\slideIndex slide ->
-                    div
-                        (if currentSlide == slideIndex then
-                            [ class "slide" ]
-
-                         else
-                            [ class "slide", style "display" "none" ]
-                        )
-                        slide
-                )
-                (List.range 0 (List.length slides))
-                slides
-            )
+        [ div
+            [ class "app", onClick Next ]
+            (List.map2 (slide currentSlideIndex) (List.range 0 (List.length slides)) slides)
         ]
+
+
+slide : SlideNo -> SlideNo -> Slide -> Html Message
+slide currentSlideIndex slideIndex =
+    if currentSlideIndex == slideIndex then
+        div [ class "slide" ]
+
+    else
+        div [ class "another slide" ]
