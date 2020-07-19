@@ -4,7 +4,7 @@ PATH := $(PWD)/node_modules/.bin:$(PATH)
 SOURCE_EXTENSIONS := elm js md pug scss
 SOURCE_FILES = $(foreach ext,$(SOURCE_EXTENSIONS),$(wildcard src/*.$(ext) src/**/*.$(ext)))
 
-ELM_PRESENTATION_NAMES := $(shell yq -r '.talks | .[] | select(.presentation.type == "elm") | .slug' database.yaml)
+ELM_PRESENTATION_NAMES := $(shell ./node_modules/.bin/js-yaml database.yaml | jq -r '.talks | .[] | select(.presentation.type == "elm") | .slug')
 ELM_PRESENTATION_OUTPUT_FILES = $(addprefix build/talks/, $(addsuffix /presentation.js, $(ELM_PRESENTATION_NAMES)))
 ELM_DEPENDENCIES = $(wildcard src/NoodleSandwich/*.elm)
 ELM_FILES = $(wildcard src/**/*.elm)
@@ -54,7 +54,7 @@ assets:
 	aws s3 sync s3://assets.noodlesandwich.com assets
 
 define ELM_PRESENTATION_TEMPLATE =
-build/talks/$(1)/presentation.js: $(shell yq -r --arg name $(1) '.talks | map(select(.slug == $$name)) | first | .presentation.module | gsub("\\."; "/") | ("src/" + . + ".elm")' database.yaml) $$(ELM_DEPENDENCIES)
+build/talks/$(1)/presentation.js: $(shell ./node_modules/.bin/js-yaml database.yaml | jq -r --arg name $(1) '.talks | map(select(.slug == $$name)) | first | .presentation.module | gsub("\\."; "/") | ("src/" + . + ".elm")') $$(ELM_DEPENDENCIES)
 	elm make --output=$$@ $$(ELM_MAKE_FLAGS) $$<
 endef
 

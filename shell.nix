@@ -9,9 +9,9 @@ mkShell {
 
     bash
     gnumake
+    jq
     nodejs
     terraform
     yarn
-    yq
   ];
 }
