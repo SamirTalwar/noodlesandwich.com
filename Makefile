@@ -8,11 +8,12 @@ else
 BUILD_ARGS = --pull
 endif
 
-PRESENTATION_INPUT_FILES = $(wildcard src/presentations/*.elm)
-PRESENTATION_NAMES = $(basename $(notdir $(PRESENTATION_INPUT_FILES)))
-PRESENTATION_OUTPUT_FILES = $(addprefix build/talks/, \
-								$(addsuffix /presentation.js, $(PRESENTATION_NAMES)))
-ELM_DEPENDENCIES = $(wildcard src/NoodleSandwich/*.elm) $(wildcard src/NoodleSandwich/**/*.elm)
+PRESENTATION_NAMES := 99-problems plz-respect-ur-data teaching-a-machine-to-code teaching-a-machine-to-code-2019
+PRESENTATION_OUTPUT_FILES = $(addprefix build/talks/, $(addsuffix /presentation.js, $(PRESENTATION_NAMES)))
+ELM_DEPENDENCIES = $(wildcard src/NoodleSandwich/*.elm)
+ELM_FILES = $(wildcard src/**/*.elm)
+SOURCE_EXTENSIONS := elm js pug scss
+SOURCE_FILES = $(foreach ext,$(SOURCE_EXTENSIONS),$(wildcard src/*.$(ext) src/**/*.$(ext)))
 
 ifdef PRODUCTION
 ELM_MAKE_FLAGS = --optimize
@@ -31,8 +32,13 @@ clean:
 check: lint
 
 .PHONY: lint
-lint: node_modules
+lint: node_modules $(SOURCE_FILES)
 	yarn run lint
+	elm-format --validate $(ELM_FILES)
+
+.PHONY: reformat
+reformat: node_modules $(SOURCE_FILES)
+	elm-format --yes $(ELM_FILES)
 
 .PHONY: deploy
 deploy: deploy-site deploy-assets
@@ -53,8 +59,16 @@ deploy-assets: hardware assets
 assets:
 	aws s3 sync s3://assets.noodlesandwich.com assets
 
-build/talks/%/presentation.js: src/presentations/%.elm $(ELM_DEPENDENCIES)
-	elm-format --yes $<
+build/talks/99-problems/presentation.js: src/presentations/NinetyNineProblems.elm $(ELM_DEPENDENCIES)
+	elm make --output=$@ $(ELM_MAKE_FLAGS) $<
+
+build/talks/plz-respect-ur-data/presentation.js: src/presentations/PlzRespectUrData.elm $(ELM_DEPENDENCIES)
+	elm make --output=$@ $(ELM_MAKE_FLAGS) $<
+
+build/talks/teaching-a-machine-to-code/presentation.js: src/presentations/TeachingAMachineToCode.elm $(ELM_DEPENDENCIES)
+	elm make --output=$@ $(ELM_MAKE_FLAGS) $<
+
+build/talks/teaching-a-machine-to-code-2019/presentation.js: src/presentations/TeachingAMachineToCode2019.elm $(ELM_DEPENDENCIES)
 	elm make --output=$@ $(ELM_MAKE_FLAGS) $<
 
 node_modules: package.json

@@ -26,6 +26,7 @@ talks:
     essay: true
     presentation:
       type: elm
+      module: Presentations.TeachingAMachineToCode2019
     code:
       language: javascript
 
@@ -37,6 +38,7 @@ talks:
     essay: true
     presentation:
       type: elm
+      module: Presentations.PlzRespectUrData
 
   - slug: teaching-a-machine-to-code
     title: Teaching a Machine to Code
@@ -47,6 +49,7 @@ talks:
     essay: true
     presentation:
       type: elm
+      module: Presentations.TeachingAMachineToCode
     video:
       type: external
       link: https://www.infoq.com/presentations/machine-coding-neural-networks
@@ -80,6 +83,7 @@ talks:
     essay: true
     presentation:
       type: elm
+      module: Presentations.NinetyNineProblems
     code:
       language: javascript
 

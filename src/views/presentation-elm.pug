@@ -11,6 +11,8 @@ html(lang='en')
     script(src='/vendor/prismjs/prism.js' async defer)
 
     script(src=`/talks/${slug}/presentation.js` defer)
+    script.
+      window.moduleName = "#{presentation.module}";
     script(src=`/talks/presentation.js` defer)
 
   body

@@ -62,7 +62,7 @@ exports.default = () => {
       .pipe(gulp.dest("build")),
 
     staticFile("pages/index.js", "src/pages/index.js"),
-    staticFile("talks/presentation.js", "src/presentations/load.js"),
+    staticFile("talks/presentation.js", "src/presentation.js"),
 
     staticFile(
       "vendor/prismjs/prism.css",

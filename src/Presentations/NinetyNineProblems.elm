@@ -1,4 +1,4 @@
-module Main exposing (main)
+module Presentations.NinetyNineProblems exposing (main)
 
 import Html exposing (..)
 import Html.Attributes exposing (alt, class, href, src, style)
