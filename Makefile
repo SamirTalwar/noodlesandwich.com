@@ -5,7 +5,7 @@ PRESENTATION_NAMES := 99-problems plz-respect-ur-data teaching-a-machine-to-code
 PRESENTATION_OUTPUT_FILES = $(addprefix build/talks/, $(addsuffix /presentation.js, $(PRESENTATION_NAMES)))
 ELM_DEPENDENCIES = $(wildcard src/NoodleSandwich/*.elm)
 ELM_FILES = $(wildcard src/**/*.elm)
-SOURCE_EXTENSIONS := elm js pug scss
+SOURCE_EXTENSIONS := elm js md pug scss
 SOURCE_FILES = $(foreach ext,$(SOURCE_EXTENSIONS),$(wildcard src/*.$(ext) src/**/*.$(ext)))
 
 ifdef PRODUCTION
@@ -27,11 +27,11 @@ check: lint
 .PHONY: lint
 lint: node_modules $(SOURCE_FILES)
 	yarn run lint
-	elm-format --validate $(ELM_FILES)
+	elm-format --validate src
 
-.PHONY: reformat
-reformat: node_modules $(SOURCE_FILES)
-	elm-format --yes $(ELM_FILES)
+.PHONY: format
+format: node_modules $(SOURCE_FILES)
+	yarn run format
 
 .PHONY: deploy
 deploy: deploy-site deploy-assets
