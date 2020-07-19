@@ -1,4 +1,4 @@
-SHELL := /bin/bash
+SHELL := /usr/bin/env bash
 PATH := $(PWD)/node_modules/.bin:$(PATH)
 
 TAG = samirtalwar/noodlesandwich.com
