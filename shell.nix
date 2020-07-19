@@ -12,5 +12,6 @@ mkShell {
     nodejs
     terraform
     yarn
+    yq
   ];
 }

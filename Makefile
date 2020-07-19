@@ -1,12 +1,13 @@
 SHELL := /usr/bin/env bash
 PATH := $(PWD)/node_modules/.bin:$(PATH)
 
-PRESENTATION_NAMES := 99-problems plz-respect-ur-data teaching-a-machine-to-code teaching-a-machine-to-code-2019
-PRESENTATION_OUTPUT_FILES = $(addprefix build/talks/, $(addsuffix /presentation.js, $(PRESENTATION_NAMES)))
-ELM_DEPENDENCIES = $(wildcard src/NoodleSandwich/*.elm)
-ELM_FILES = $(wildcard src/**/*.elm)
 SOURCE_EXTENSIONS := elm js md pug scss
 SOURCE_FILES = $(foreach ext,$(SOURCE_EXTENSIONS),$(wildcard src/*.$(ext) src/**/*.$(ext)))
+
+ELM_PRESENTATION_NAMES := $(shell yq -r '.talks | .[] | select(.presentation.type == "elm") | .slug' database.yaml)
+ELM_PRESENTATION_OUTPUT_FILES = $(addprefix build/talks/, $(addsuffix /presentation.js, $(ELM_PRESENTATION_NAMES)))
+ELM_DEPENDENCIES = $(wildcard src/NoodleSandwich/*.elm)
+ELM_FILES = $(wildcard src/**/*.elm)
 
 ifdef PRODUCTION
 ELM_MAKE_FLAGS = --optimize
@@ -14,7 +15,7 @@ else
 ELM_MAKE_FLAGS =
 endif
 
-build: node_modules gulpfile.js $(wildcard src/**/*) $(PRESENTATION_OUTPUT_FILES)
+build: node_modules gulpfile.js $(wildcard src/**/*) $(ELM_PRESENTATION_OUTPUT_FILES)
 	gulp
 
 .PHONY: clean
@@ -52,17 +53,12 @@ deploy-assets: hardware assets
 assets:
 	aws s3 sync s3://assets.noodlesandwich.com assets
 
-build/talks/99-problems/presentation.js: src/presentations/NinetyNineProblems.elm $(ELM_DEPENDENCIES)
-	elm make --output=$@ $(ELM_MAKE_FLAGS) $<
+define ELM_PRESENTATION_TEMPLATE =
+build/talks/$(1)/presentation.js: $(shell yq -r --arg name $(1) '.talks | map(select(.slug == $$name)) | first | .presentation.module | gsub("\\."; "/") | ("src/" + . + ".elm")' database.yaml) $$(ELM_DEPENDENCIES)
+	elm make --output=$$@ $$(ELM_MAKE_FLAGS) $$<
+endef
 
-build/talks/plz-respect-ur-data/presentation.js: src/presentations/PlzRespectUrData.elm $(ELM_DEPENDENCIES)
-	elm make --output=$@ $(ELM_MAKE_FLAGS) $<
-
-build/talks/teaching-a-machine-to-code/presentation.js: src/presentations/TeachingAMachineToCode.elm $(ELM_DEPENDENCIES)
-	elm make --output=$@ $(ELM_MAKE_FLAGS) $<
-
-build/talks/teaching-a-machine-to-code-2019/presentation.js: src/presentations/TeachingAMachineToCode2019.elm $(ELM_DEPENDENCIES)
-	elm make --output=$@ $(ELM_MAKE_FLAGS) $<
+$(foreach name, $(ELM_PRESENTATION_NAMES), $(eval $(call ELM_PRESENTATION_TEMPLATE,$(name))))
 
 node_modules: package.json
 	yarn install --frozen-lockfile
