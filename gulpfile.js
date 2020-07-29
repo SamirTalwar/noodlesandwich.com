@@ -2,6 +2,7 @@ const fs = require("fs");
 const gulp = require("gulp");
 const yaml = require("js-yaml");
 const markdownIt = require("markdown-it");
+const markdownItFootnote = require("markdown-it-footnote");
 const merge = require("merge-stream");
 const moment = require("moment");
 const sass = require("node-sass");
@@ -247,7 +248,7 @@ const markdownPage = (layoutFile, filename, defaultLanguage) =>
     const markdown = markdownIt({
       html: true,
       highlight: highlightCode(defaultLanguage),
-    });
+    }).use(markdownItFootnote);
     const contents = file.isBuffer()
       ? file.contents.toString(encoding)
       : file.contents;
