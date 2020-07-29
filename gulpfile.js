@@ -347,13 +347,10 @@ const parseDates = (events = []) => {
   });
 
   return events
-    .map(event =>
-      Object.assign({}, event, {timestamp: moment(event.timestamp)}),
-    )
-    .map(event =>
-      Object.assign({}, event, {
-        date: event.timestamp.format("YYYY-MM-DD"),
-        formattedDate: event.timestamp.format("dddd Do MMMM, YYYY"),
-      }),
-    );
+    .map(event => ({...event, timestamp: moment(event.timestamp)}))
+    .map(event => ({
+      ...event,
+      date: event.timestamp.format("YYYY-MM-DD"),
+      formattedDate: event.timestamp.format("dddd Do MMMM, YYYY"),
+    }));
 };
