@@ -7,6 +7,7 @@ mkShell {
     niv
     nixpkgs-fmt
 
+    awscli
     bash
     gnumake
     jq
