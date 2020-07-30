@@ -92,7 +92,7 @@ The [first version][first commit] used RSpec, but [I quickly reimplemented the t
 
 And so, I decided it was time to finally write Haskell in anger.
 
-Odd choice, you might think. Smoke is a program that runs other programs and does some string comparisons. It's got "Perl" written all over it. A purely functional language hardly seems like it's going to make working with this thing either.
+Odd choice, you might think. Smoke is a program that runs other programs and does some string comparisons. It's got "Perl" written all over it. A purely functional language hardly seems like it's going to make working with this thing easier.
 
 You'd be wrong. I was.
 
