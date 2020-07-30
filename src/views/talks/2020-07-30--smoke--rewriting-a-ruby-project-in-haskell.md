@@ -20,24 +20,24 @@ Now, that second one, that's probably the subject of a dozen PhD theses at this 
 So, I wrote some tests. They looked something like this:
 
 ```ruby
-describe "the difference between two dates, in days" do
-  it "should be 0 for the same date"
-    result = Submission.run "2011-07-22" "2011-07-22"
+describe 'the difference between two dates, in days' do
+  it 'should be 0 for the same date'
+    result = Submission.run '2011-07-22' '2011-07-22'
     result should be 0
   end
 
-  it "should be 1 for dates that are one day apart"
-    result = Submission.run "2012-02-19" "2012-02-20"
+  it 'should be 1 for dates that are one day apart'
+    result = Submission.run '2012-02-19' '2012-02-20'
     result should be 1
   end
 
-  it "should report the correct figure for dates in the same month"
-    result = Submission.run "2013-12-09" "2013-12-25"
+  it 'should report the correct figure for dates in the same month'
+    result = Submission.run '2013-12-09' '2013-12-25'
     result should be 16
   end
 
-  it "should correctly calculate across months"
-    result = Submission.run "2014-04-25" "2014-05-05"
+  it 'should correctly calculate across months'
+    result = Submission.run '2014-04-25' '2014-05-05'
     result should be 10
   end
 
@@ -123,12 +123,13 @@ On the other hand, in a dynamically-typed language, this is legit:
 
 ```ruby
 x = 3
+x = 'three'
 x = nil
 ```
 
-It's fine because `x` doesn't have a type at the time of reading, only at the time of interpretation. On line 1, its type is `Integer`. On line 2, its type is `NilClass`. It's down to the reader to infer the type of the variable at any given time.
+It's fine because `x` doesn't have a type at the time of reading, only at the time of interpretation. On line 1, its type is `Integer`. On line 2, its type is `String`. On line 3, it's `NilClass`. It's down to the reader to infer the type of the variable at any given time.
 
-Not surprisingly, this leads to surprises. Surprises which are mitigated by code like the following:
+Not surprisingly, this leads to surprises. Surprises in code like the following:
 
 ```ruby
 command =
@@ -348,10 +349,11 @@ I've recently been bitten by my choice of `zsh` as a scripting language for a sm
 
 ## The best tool for the job
 
-I have absolutely no doubt that Haskell was the right choice for v2.0 of Smoke, just like Ruby was the right choice for v1.0. While Ruby brought me a general-purpose, I/O-based test framework in 40 lines of code, Haskell allowed me to build it into a fully-featured, maintainable piece of software.
+I have absolutely no doubt that Haskell was the right choice for v2.0 of Smoke, just like Ruby was the right choice for v1.0. While Ruby brought me a general-purpose, I/O-based test framework in 40 lines of code, Haskell allowed me to build it into a fully-featured, maintainable piece of software ([which I highly recommend you use][smoke]).
 
 I've tried to touch on a few areas why Haskell suited the needs of the project (and some areas where it didn't without some serious mental gymnastics), but the truth is, the needs of the project were somewhat irrelevant. Haskell suited _my_ needs. I didn't just need a more robust language, I also needed a challenge, some education, and something _prettier_ than the code at my day job.
 
 I'm sure some of you work in an environment where Haskell is the best tool for the job. (And many of you will be working in an environment where [DAML][] fits the bill perfectly; I recommend checking that out.) But sometimes, the right choice is a lot more personal than that. Ask yourself and your team what would keep you around, happy to maintain something for years? Sometimes it's the money, sometimes it's the people, sometimes it's the free soda. And sometimes it's the language.
 
 [daml]: https://daml.com/
+[smoke]: https://github.com/SamirTalwar/smoke

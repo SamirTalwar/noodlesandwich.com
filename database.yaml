@@ -24,6 +24,9 @@ talks:
     timestamp: 2020-07-30T19:00:00+0200
     link: https://www.meetup.com/HaskellerZ/events/272048166/
     essay: true
+    presentation:
+      type: elm
+      module: Presentations.SmokeRewritingARubyProjectInHaskell
 
   - slug: teaching-a-machine-to-code-2019
     title: Teaching a Machine to Code
