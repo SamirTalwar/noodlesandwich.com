@@ -7,8 +7,9 @@ html(lang='en')
     link(rel='stylesheet' href='/talks.css')
     link(rel='stylesheet' href='/slides.css')
 
-    link(rel='stylesheet' href='/vendor/prismjs/prism-okaidia.css')
-    script(src='/vendor/prismjs/prism.js' async defer)
+    link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/themes/prism-okaidia.min.css')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/components/prism-core.min.js' defer)
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/plugins/autoloader/prism-autoloader.min.js' defer)
     script(src='https://assets.codepen.io/assets/embed/ei.js' async defer)
 
     script(src=`/talks/${slug}/presentation.js` defer)
