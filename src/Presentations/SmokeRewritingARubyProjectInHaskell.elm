@@ -88,6 +88,7 @@ slides =
             ]
       ]
     , [ h1 [] [ text "Introducing Smoke" ] ]
+    , [ p [] [ img [ src "https://assets.noodlesandwich.com/talks/smoke--rewriting-a-ruby-project-in-haskell/screenshot.png", alt "Screenshot of Smoke", style "max-width" "100%" ] [] ] ]
     , [ highlight Ruby
             [ "#!/usr/bin/env ruby"
             , ""
