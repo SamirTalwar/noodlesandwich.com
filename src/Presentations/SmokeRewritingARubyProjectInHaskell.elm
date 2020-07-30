@@ -1,7 +1,7 @@
 module Presentations.SmokeRewritingARubyProjectInHaskell exposing (main)
 
 import Html exposing (..)
-import Html.Attributes exposing (class, href, style)
+import Html.Attributes exposing (alt, class, href, src, style)
 import NoodleSandwich.Slides as Slides
 
 
@@ -23,11 +23,11 @@ main =
 slides : Slides.Slides
 slides =
     [ [ h1 [] [ small [] [ text "Smoke:" ], br [] [], text "Rewriting a Ruby project in Haskell for fun and type-safety" ]
+      , h2 [] [ text "@SamirTalwar" ]
       , h2 []
-            [ text "@SamirTalwar"
+            [ text "working on "
             , br [] []
-            , text "working on "
-            , a [ href "https://daml.com/" ] [ text "DAML" ]
+            , a [ href "https://daml.com/" ] [ img [ src "https://assets.noodlesandwich.com/digital-asset/daml.svg", alt "DAML", style "height" "2em" ] [] ]
             ]
       , h3 []
             [ text "HaskellerZ, Zürich"
@@ -325,7 +325,7 @@ slides =
     , [ p [] [ text "Questions welcome." ]
       , p [] [ a [ href "https://github.com/SamirTalwar/smoke" ] [ text "https://github.com/SamirTalwar/smoke" ] ]
       , p [] [ a [ href "https://noodlesandwich.com/" ] [ text "https://noodlesandwich.com/" ] ]
-      , p [] [ a [ href "https://daml.com/" ] [ text "https://daml.com/" ] ]
+      , p [] [ a [ href "https://daml.com/" ] [ text "https://", img [ src "https://assets.noodlesandwich.com/digital-asset/daml.svg", alt "daml", style "height" "1em" ] [], text ".com/" ] ]
       ]
     ]
 
