@@ -27,6 +27,9 @@ talks:
     presentation:
       type: elm
       module: Presentations.SmokeRewritingARubyProjectInHaskell
+    video:
+      type: youtube
+      youtubeId: UdBo9bpjuJ4
 
   - slug: teaching-a-machine-to-code-2019
     title: Teaching a Machine to Code
