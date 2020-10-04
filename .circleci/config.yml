@@ -111,7 +111,7 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - main
 
       - deploy-site:
           requires:
@@ -121,4 +121,4 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - main
