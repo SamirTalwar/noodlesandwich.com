@@ -222,7 +222,7 @@ slides =
       , p [] [ code [] [ text "[a]" ], text ", ", code [] [ text "Vector a" ], text ", ", code [] [ text "Sequence a" ], text "…" ]
       ]
     , [ h1 [] [ text "#3: Let's talk about burritos" ] ]
-    , [ h1 [] [ text "\u{1F32F}" ] ]
+    , [ h1 [] [ text "🌯" ] ]
     , [ p [] [ text "Exceptions are just monads." ] ]
     , [ highlight Haskell
             [ "executeTest"
