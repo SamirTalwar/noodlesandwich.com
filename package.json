@@ -22,11 +22,11 @@
   },
   "dependencies": {
     "moment": "^2.22.1",
-    "node-sass": "^4.9.1",
     "normalize.css": "^8.0.0",
     "prismjs": "^1.21.0",
     "pug": "^3.0.1",
-    "reveal.js": "^3.6.0"
+    "reveal.js": "^3.6.0",
+    "sass": "^1.35.1"
   },
   "devDependencies": {
     "elm": "^0.19.1",

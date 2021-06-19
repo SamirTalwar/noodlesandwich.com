@@ -5,10 +5,10 @@ const markdownIt = require("markdown-it");
 const markdownItFootnote = require("markdown-it-footnote");
 const merge = require("merge-stream");
 const moment = require("moment");
-const sass = require("node-sass");
 const path = require("path");
 const pug = require("pug");
 const prism = require("prismjs");
+const sass = require("sass");
 const through = require("through2");
 
 exports.default = () => {
