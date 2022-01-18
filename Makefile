@@ -9,14 +9,21 @@ ELM_PRESENTATION_OUTPUT_FILES = $(addprefix build/talks/, $(addsuffix /presentat
 ELM_DEPENDENCIES = $(wildcard src/NoodleSandwich/*.elm)
 ELM_FILES = $(wildcard src/**/*.elm)
 
+INPUTS = node_modules gulpfile.js $(wildcard src/**/*) $(ELM_PRESENTATION_OUTPUT_FILES)
+
 ifdef PRODUCTION
 ELM_MAKE_FLAGS = --optimize
 else
 ELM_MAKE_FLAGS =
 endif
 
-build: node_modules gulpfile.js $(wildcard src/**/*) $(ELM_PRESENTATION_OUTPUT_FILES)
+.PHONY: build
+build: $(INPUTS)
 	gulp
+
+.PHONY: watch
+watch: $(INPUTS)
+	gulp watch
 
 .PHONY: clean
 clean:

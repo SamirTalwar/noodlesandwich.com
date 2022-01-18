@@ -25,4 +25,4 @@ CONTAINER_ID=$(
     nginx
 )
 trap stop EXIT INT TERM
-gulp watch
+make watch
