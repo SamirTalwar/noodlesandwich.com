@@ -77,16 +77,16 @@ exports.default = () => {
     staticFile("vendor/prismjs/prism.js", "node_modules/prismjs/prism.js"),
 
     staticFile(
-      "vendor/reveal.js/css/reveal.css",
-      "node_modules/reveal.js/css/reveal.css",
+      "vendor/reveal.js/reveal.css",
+      "node_modules/reveal.js/dist/reveal.css",
     ),
     staticFile(
-      "vendor/reveal.js/css/theme/white.css",
-      "node_modules/reveal.js/css/theme/white.css",
+      "vendor/reveal.js/theme/white.css",
+      "node_modules/reveal.js/dist/theme/white.css",
     ),
     staticFile(
-      "vendor/reveal.js/js/reveal.js",
-      "node_modules/reveal.js/js/reveal.js",
+      "vendor/reveal.js/reveal.js",
+      "node_modules/reveal.js/dist/reveal.js",
     ),
   );
 };
