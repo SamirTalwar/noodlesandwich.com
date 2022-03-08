@@ -1,3 +1,4 @@
+const {Buffer} = require("buffer");
 const fs = require("fs");
 const gulp = require("gulp");
 const yaml = require("js-yaml");
@@ -273,15 +274,14 @@ const compileSass = () =>
     const contents = file.isBuffer()
       ? file.contents.toString(encoding)
       : file.contents;
-    sass.render({data: contents, includePaths: ["src"]}, (error, result) => {
-      if (error) {
-        callback(error);
-        return;
-      }
-      file.contents = result.css;
-      file.path = file.path.replace(/\.s[ac]ss$/, ".css");
-      callback(null, file);
-    });
+    sass
+      .compileStringAsync(contents, {loadPaths: ["src"]})
+      .then(result => {
+        file.contents = Buffer.from(result.css);
+        file.path = file.path.replace(/\.s[ac]ss$/, ".css");
+        callback(null, file);
+      })
+      .catch(error => callback(error));
   });
 
 const renameTo = filename =>
