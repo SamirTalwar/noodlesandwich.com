@@ -123,9 +123,6 @@ talks:
     location: Sopot, Poland
     timestamp: 2016-09-09T16:30:00+0200
     link: http://2016.reactive.geecon.org/
-    video:
-      type: external
-      link: https://vimeo.com/186385350
 
   - slug: use-your-type-system
     title: Use Your Type System; Write Less Code
