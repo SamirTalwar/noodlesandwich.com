@@ -9,6 +9,8 @@ mkShell {
 
     awscli
     bash
+    elmPackages.elm
+    elmPackages.elm-format
     gnumake
     jq
     nodejs

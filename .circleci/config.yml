@@ -3,7 +3,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:12
+      - image: circleci/node
 
     steps:
       - restore_cache:
@@ -43,6 +43,15 @@ jobs:
           name: Restore Elm dependencies from cache
           keys:
             - v1-dependencies-{{ checksum "elm.json" }}
+
+      - run:
+          name: Install Elm
+          command: |
+            sudo sh -c '
+              curl -fsSL https://github.com/elm/compiler/releases/download/0.19.1/binary-for-linux-64-bit.gz > /usr/bin/elm.gz
+              gunzip /usr/bin/elm.gz
+              chmod +x /usr/bin/elm
+            '
 
       - run:
           name: Install node.js dependencies

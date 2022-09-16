@@ -29,8 +29,6 @@
     "sass": "^1.35.1"
   },
   "devDependencies": {
-    "elm": "^0.19.1",
-    "elm-format": "^0.8.2",
     "eslint": "^6.3.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-config-prettier": "^6.2.0",
