@@ -12,7 +12,7 @@ mkShell {
     gnumake
     jq
     nodejs
-    terraform_0_14
+    terraform
     yarn
   ];
 }

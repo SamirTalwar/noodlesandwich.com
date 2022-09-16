@@ -20,15 +20,27 @@ provider "cloudflare" {}
 
 resource "aws_s3_bucket" "site" {
   bucket = local.domain
-  acl    = "public-read"
+}
 
-  website {
-    index_document = "index.html"
+resource "aws_s3_bucket_acl" "site" {
+  bucket = aws_s3_bucket.site.bucket
+  acl    = "public-read"
+}
+
+resource "aws_s3_bucket_website_configuration" "site" {
+  bucket = aws_s3_bucket.site.bucket
+
+  index_document {
+    suffix = "index.html"
   }
 }
 
 resource "aws_s3_bucket" "assets" {
   bucket = "assets.${local.domain}"
+}
+
+resource "aws_s3_bucket_cors_configuration" "assets" {
+  bucket = aws_s3_bucket.assets.bucket
 
   cors_rule {
     allowed_headers = ["*"]
@@ -46,7 +58,7 @@ resource "aws_cloudfront_distribution" "site_distribution" {
 
   origin {
     origin_id   = "S3-Website-${aws_s3_bucket.site.id}"
-    domain_name = aws_s3_bucket.site.website_endpoint
+    domain_name = aws_s3_bucket_website_configuration.site.website_endpoint
 
     custom_origin_config {
       http_port              = 80
