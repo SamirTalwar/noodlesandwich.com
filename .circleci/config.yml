@@ -17,7 +17,9 @@ jobs:
             set -ex
             if [[ ! -f ~/libsysconfcpus/out/bin/sysconfcpus ]]; then
               cd ~
-              git clone git://github.com/obmarg/libsysconfcpus.git
+              curl -fsSL -o libsysconfcpus.zip https://github.com/obmarg/libsysconfcpus/archive/8cb9da66020fa4058e550bfae1182a12ac1e4eab.zip
+              unzip libsysconfcpus.zip
+              mv libsysconfcpus-8cb9da66020fa4058e550bfae1182a12ac1e4eab libsysconfcpus
               cd libsysconfcpus
               ./configure --prefix=$PWD/out
               make
