@@ -57,6 +57,7 @@ deploy-site: hardware build
 deploy-assets: hardware assets
 	aws s3 sync assets s3://assets.noodlesandwich.com --acl=public-read --delete
 
+.PHONY: assets
 assets:
 	aws s3 sync s3://assets.noodlesandwich.com assets
 

@@ -138,18 +138,20 @@ resource "aws_cloudfront_distribution" "assets_distribution" {
 }
 
 resource "cloudflare_zone" "site" {
-  zone = local.domain
+  account_id = "ae62507f4e4dacef4f808638afcd364b"
+  zone       = local.domain
 }
 
 resource "cloudflare_zone" "alternative_site" {
-  zone = local.alternative_domain
+  account_id = "ae62507f4e4dacef4f808638afcd364b"
+  zone       = local.alternative_domain
 }
 
 resource "cloudflare_record" "root" {
   zone_id = cloudflare_zone.site.id
   name    = "@"
   type    = "CNAME"
-  value   = aws_cloudfront_distribution.site_distribution.domain_name
+  content = aws_cloudfront_distribution.site_distribution.domain_name
   proxied = true
 }
 
@@ -157,7 +159,7 @@ resource "cloudflare_record" "www" {
   zone_id = cloudflare_zone.site.id
   name    = "www"
   type    = "CNAME"
-  value   = local.domain
+  content = local.domain
   proxied = true
 }
 
@@ -165,7 +167,7 @@ resource "cloudflare_record" "assets" {
   zone_id = cloudflare_zone.site.id
   name    = "assets"
   type    = "CNAME"
-  value   = aws_cloudfront_distribution.assets_distribution.domain_name
+  content = aws_cloudfront_distribution.assets_distribution.domain_name
   proxied = true
 }
 
@@ -173,7 +175,7 @@ resource "cloudflare_record" "alternative_root" {
   zone_id = cloudflare_zone.alternative_site.id
   name    = "@"
   type    = "CNAME"
-  value   = local.domain
+  content = local.domain
   proxied = true
 }
 
@@ -181,7 +183,7 @@ resource "cloudflare_record" "alternative_www" {
   zone_id = cloudflare_zone.alternative_site.id
   name    = "www"
   type    = "CNAME"
-  value   = local.domain
+  content = local.domain
   proxied = true
 }
 
@@ -189,7 +191,7 @@ resource "cloudflare_record" "alternative_talks" {
   zone_id = cloudflare_zone.alternative_site.id
   name    = "talks"
   type    = "CNAME"
-  value   = local.domain
+  content = local.domain
   proxied = true
 }
 
@@ -259,14 +261,14 @@ resource "cloudflare_record" "mail" {
   zone_id = cloudflare_zone.site.id
   name    = "mail"
   type    = "CNAME"
-  value   = "ghs.googlehosted.com"
+  content = "ghs.googlehosted.com"
 }
 
 resource "cloudflare_record" "mx_0" {
   zone_id  = cloudflare_zone.site.id
   name     = local.domain
   type     = "MX"
-  value    = "aspmx.l.google.com"
+  content  = "aspmx.l.google.com"
   priority = 1
 }
 
@@ -274,7 +276,7 @@ resource "cloudflare_record" "mx_1" {
   zone_id  = cloudflare_zone.site.id
   name     = local.domain
   type     = "MX"
-  value    = "alt1.aspmx.l.google.com"
+  content  = "alt1.aspmx.l.google.com"
   priority = 5
 }
 
@@ -282,7 +284,7 @@ resource "cloudflare_record" "mx_2" {
   zone_id  = cloudflare_zone.site.id
   name     = local.domain
   type     = "MX"
-  value    = "alt2.aspmx.l.google.com"
+  content  = "alt2.aspmx.l.google.com"
   priority = 5
 }
 
@@ -290,7 +292,7 @@ resource "cloudflare_record" "mx_3" {
   zone_id  = cloudflare_zone.site.id
   name     = local.domain
   type     = "MX"
-  value    = "alt3.aspmx.l.google.com"
+  content  = "alt3.aspmx.l.google.com"
   priority = 10
 }
 
@@ -298,7 +300,7 @@ resource "cloudflare_record" "mx_4" {
   zone_id  = cloudflare_zone.site.id
   name     = local.domain
   type     = "MX"
-  value    = "alt4.aspmx.l.google.com"
+  content  = "alt4.aspmx.l.google.com"
   priority = 10
 }
 
@@ -306,19 +308,19 @@ resource "cloudflare_record" "google_verification" {
   zone_id = cloudflare_zone.site.id
   name    = local.domain
   type    = "TXT"
-  value   = "google-site-verification=EnW0UGO0RmT-UobIyFGwiyQoQnq_-dFGbVy4sS4W7AI"
+  content = "google-site-verification=EnW0UGO0RmT-UobIyFGwiyQoQnq_-dFGbVy4sS4W7AI"
 }
 
 resource "cloudflare_record" "keybase_site_verification" {
   zone_id = cloudflare_zone.site.id
   name    = local.domain
   type    = "TXT"
-  value   = "keybase-site-verification=YPF-r-na8c2rGHEe5DxOI0xzGC1sSqr8743dqV4iF2o"
+  content = "keybase-site-verification=YPF-r-na8c2rGHEe5DxOI0xzGC1sSqr8743dqV4iF2o"
 }
 
 resource "cloudflare_record" "alternative_keybase_site_verification" {
   zone_id = cloudflare_zone.alternative_site.id
   name    = local.alternative_domain
   type    = "TXT"
-  value   = "keybase-site-verification=mekOQ5MzFzpNa9ql62LM0IfNgZhcbpW7VSsj5mGOCxk"
+  content = "keybase-site-verification=mekOQ5MzFzpNa9ql62LM0IfNgZhcbpW7VSsj5mGOCxk"
 }
